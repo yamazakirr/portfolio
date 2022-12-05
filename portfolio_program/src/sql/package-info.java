@@ -1,0 +1,8 @@
+/**
+ * 
+ */
+/**
+ * @author yamazakirikuo
+ *
+ */
+package sql;
