@@ -44,7 +44,7 @@
 				<table>
 					<tr>
 					<td>
-						<s:form action="AccountAction" class="btn_pattern1">
+						<s:form action="RegistAccountAction" class="btn_pattern1">
 							<s:submit class="btn" value="アカウント登録はこちら"/>
 						</s:form>
 					</td>

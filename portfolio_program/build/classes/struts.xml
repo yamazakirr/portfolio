@@ -11,8 +11,13 @@
 	<package name="com.diwoksdev.account.action" extends="struts-default">
 
 <!-- アカウント登録画面の表示 -->
-	<action name="AccountAction" class="com.portfolio.action.AccountAction" method="execute">
-	<result name="success">account.jsp</result>
+	<action name="RegistAccountAction" class="com.portfolio.action.AccountAction" method="execute">
+	<result name="success">regist.jsp</result>
+	</action>
+
+	<action name="RegistAccountConfirmAction" class="com.portfolio.action.RegistConfirmAction" method="execute">
+	<result name="success">registAccountConfirm.jsp</result>
+	<result name="error">regist.jsp</result>
 	</action>
 
 
