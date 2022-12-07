@@ -1,5 +1,6 @@
 package com.portfolio.action;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,18 +12,32 @@ public class RegistAccountConfirmAction extends ActionSupport{
 	private String userName;
 	private String mail;
 	private String password;
-	private String passwordText = "";
+//	private String passwordText = "";
 
-	private String errorMessage = "";
+//	private String errorMessage = "";
 	private String userNameErrorMessage;
 	private String mailErrorMessage;
 	private String passwordErrorMessage;
 
 	public String execute(){
-
-
+		String result = "";
 
 		this.userNameErrorMessage = errorCheck(regexUserName, userName);
+		errorCheckLists.add(this.userNameErrorMessage);
+		this.mailErrorMessage = errorCheck(regexMail, mail);
+		errorCheckLists.add(this.mailErrorMessage);
+		this.passwordErrorMessage = errorCheck(regexPassword, password);
+		errorCheckLists.add(this.passwordErrorMessage);
+
+//		■全体のエラーチェック
+		int s = errorCheckAll();
+		if(s == 0){
+			result = SUCCESS;
+			System.out.println("result :"+result);
+		}else{
+			result = ERROR;
+			System.out.println("result :"+result);
+		}
 
 
 		return SUCCESS;
@@ -54,16 +69,47 @@ public class RegistAccountConfirmAction extends ActionSupport{
 			}else{
 				boolean checkResult = checkTextError(regex, checkText);
 				if(checkResult == true){
+
+//					データベースに登録済みか判定
+
 					checkTextErrorMessage = "";
 				}else{
 					checkTextErrorMessage = "正しい形式でご入力をお願いします。";
 				}
 			}
 			errorCheckTextNum += 1;
+		}if(errorCheckTextNum == 2){
+			if(checkText.equals("")){
+				checkTextErrorMessage = "パスワードが未入力です。";
+			}else{
+				boolean checkResult = checkTextError(regex, checkText);
+				if(checkResult == true){
+					checkTextErrorMessage = "";
+				}else{
+					checkTextErrorMessage = "半角英数字でご入力をお願いします。";
+				}
+			}
 		}
 
 
 		return checkTextErrorMessage;
+	}
+
+//	■項目全体のエラー判定処理
+//	errorCount = 0 : 項目全体でエラーなし
+	ArrayList<String> errorCheckLists = new ArrayList<>();
+	int successCount = 0;
+	int errorCount = 0;
+
+	public int errorCheckAll(){
+		for(String errorCheckList: errorCheckLists){
+			if(errorCheckList == ""){
+				successCount += 1;
+			}else{
+				errorCount += 1;
+			}
+		}
+		return errorCount;
 	}
 
 	//■入力判定処理

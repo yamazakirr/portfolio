@@ -20,7 +20,7 @@
 	<!-- ■メイン -->
 	<div id="main">
 		<div id="box">
-		<s:form action="RegistConfirmAction">
+		<s:form action="RegistAccountConfirmAction">
 			<div id="main_title">
 				<p>ログイン</p>
 			</div>
@@ -29,14 +29,24 @@
 					<tr>
 						<td>ニックネーム</td>
 						<td><input type="text" size="40" name="user_name"></td>
+						<s:if test="userNameErrorMessage != null">
+							<s:property value="userNameErrorMessage"/>
+						</s:if>
+
 					</tr>
 					<tr>
 						<td>メールアドレス</td>
 						<td><input type="text" size="40" name="mail"></td>
+						<s:if test="mailErrorMessage != null">
+							<s:property value="mailErrorMessage"/>
+						</s:if>
 					</tr>
 					<tr>
 						<td>パスワード</td>
 						<td><input type="text" size="40" name="password"></td>
+						<s:if test="passwordErrorMessage != null">
+							<s:property value="passwordErrorMessage"/>
+						</s:if>
 					</tr>
 				</table>
 			</div>

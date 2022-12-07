@@ -8,14 +8,14 @@
 <struts>
 	<!-- <constant name="struts.devMode" value="true"/> -->
 	<constant name="struts.ui.theme" value="simple"/>
-	<package name="com.diwoksdev.account.action" extends="struts-default">
+	<package name="com.portfolio.action" extends="struts-default">
 
 <!-- アカウント登録画面の表示 -->
-	<action name="RegistAccountAction" class="com.portfolio.action.AccountAction" method="execute">
-	<result name="success">regist.jsp</result>
+	<action name="RegistAccountAction" class="com.portfolio.action.RegistAccountAction" method="execute">
+	<result name="success">registAccount.jsp</result>
 	</action>
 
-	<action name="RegistAccountConfirmAction" class="com.portfolio.action.RegistConfirmAction" method="execute">
+	<action name="RegistAccountConfirmAction" class="com.portfolio.action.RegistAccountConfirmAction" method="execute">
 	<result name="success">registAccountConfirm.jsp</result>
 	<result name="error">regist.jsp</result>
 	</action>
