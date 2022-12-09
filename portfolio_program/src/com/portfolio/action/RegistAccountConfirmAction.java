@@ -1,10 +1,12 @@
 package com.portfolio.action;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.portfolio.dao.RegistAccountConfirmDAO;
 
 public class RegistAccountConfirmAction extends ActionSupport{
 
@@ -12,15 +14,26 @@ public class RegistAccountConfirmAction extends ActionSupport{
 	private String userName;
 	private String mail;
 	private String password;
-//	private String passwordText = "";
+	private String passwordText = "";
+	String result = "";
 
 //	private String errorMessage = "";
 	private String userNameErrorMessage;
 	private String mailErrorMessage;
 	private String passwordErrorMessage;
 
+	RegistAccountConfirmDAO registAccountConfirmDAO = new RegistAccountConfirmDAO();
+
 	public String execute(){
-		String result = "";
+
+//		パスワードの文字数分●を取得
+		for(int i = 0 ; i < password.length(); i++){
+			this.passwordText += "●";
+		}
+
+		System.out.println("userName "+userName);
+		System.out.println("mail "+mail);
+		System.out.println("password "+password);
 
 		this.userNameErrorMessage = errorCheck(regexUserName, userName);
 		errorCheckLists.add(this.userNameErrorMessage);
@@ -31,16 +44,21 @@ public class RegistAccountConfirmAction extends ActionSupport{
 
 //		■全体のエラーチェック
 		int s = errorCheckAll();
-		if(s == 0){
-			result = SUCCESS;
-			System.out.println("result :"+result);
+
+		if(result.equals("networkError")){
+			return result;
 		}else{
-			result = ERROR;
-			System.out.println("result :"+result);
+			if(s == 0){
+				result = SUCCESS;
+				System.out.println("result :"+result);
+			}else{
+				result = ERROR;
+				System.out.println("result :"+result);
+			}
 		}
 
 
-		return SUCCESS;
+		return result;
 	}
 
 //■エラーメッセージ判定処理
@@ -48,7 +66,7 @@ public class RegistAccountConfirmAction extends ActionSupport{
 	//■入力判定フィールド
 	public String regexUserName = "";
 	public String regexPassword = "^[a-zA-Z0-9]*$";
-	public String regexMail = "^[a-zA-Z0-9.@_-]*$";
+	public String regexMail = "^([a-zA-Z0-9])+(.[a-zA-Z0-9_-]+)*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-]+)+$";
 	int errorCheckTextNum = 0;
 
 	public String errorCheck(String regex, String checkText){
@@ -70,15 +88,29 @@ public class RegistAccountConfirmAction extends ActionSupport{
 				boolean checkResult = checkTextError(regex, checkText);
 				if(checkResult == true){
 
-//					データベースに登録済みか判定
+//					データベースに登録済み判定
+					try{
+						String checkMailResult = registAccountConfirmDAO.checkMailDatebase(checkText);
+						if(checkMailResult.equals("success")){
+							checkTextErrorMessage = "";
+						}else if(checkMailResult.equals("error")){
+							checkTextErrorMessage = "このメールアドレスは既に使用されています。";
+						}else if(checkMailResult.equals("networkError")){
+							result = "networkError";
+						}
+					}catch(SQLException e){
 
-					checkTextErrorMessage = "";
+						e.printStackTrace();
+					}
+
+
+
 				}else{
 					checkTextErrorMessage = "正しい形式でご入力をお願いします。";
 				}
 			}
 			errorCheckTextNum += 1;
-		}if(errorCheckTextNum == 2){
+		}else if(errorCheckTextNum == 2){
 			if(checkText.equals("")){
 				checkTextErrorMessage = "パスワードが未入力です。";
 			}else{
@@ -142,6 +174,12 @@ public class RegistAccountConfirmAction extends ActionSupport{
 	}
 	public void setPassword(String password){
 		this.password = password;
+	}
+	public String getPasswordText(){
+		return passwordText;
+	}
+	public void setPasswordText(String passwordText){
+		this.passwordText = passwordText;
 	}
 
 

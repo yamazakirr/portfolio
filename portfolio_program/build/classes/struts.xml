@@ -17,7 +17,13 @@
 
 	<action name="RegistAccountConfirmAction" class="com.portfolio.action.RegistAccountConfirmAction" method="execute">
 	<result name="success">registAccountConfirm.jsp</result>
-	<result name="error">regist.jsp</result>
+	<result name="error">registAccount.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	</action>
+
+	<action name="RegistAccountCompleteAction" class="com.portfolio.action.RegistAccountCompleteAction" method="execute">
+	<result name="success">registAccountComplete.jsp</result>
+	<result name="networkError">networkError.jsp</result>
 	</action>
 
 
