@@ -35,10 +35,10 @@
 			</div>
 			<div id="input">
 				<p>メールアドレス</p>
-				<input type="text" size="40">
+				<input type="text" size="40" name="mailCopy" id="mailInput">
 
 				<p>パスワード</p>
-				<input type="text" size="40">
+				<input type="text" size="40" name="passwordCopy" id="passwordInput">
 			</div>
 			<div id="btn">
 				<table>
@@ -51,6 +51,28 @@
 					<td>
 						<s:form action="LoginAction" class="btn_pattern1">
 							<s:submit class="btn" value="ログイン"/>
+							<input type="hidden" name="mail" id="mailOutput"/>
+							<input type="hidden" name="password" id="passwordOutput"/>
+
+							<script>
+								window.onload = function(){
+									document.getElementById('mailInput').onkeyup = function(){
+										copyMailValue();
+									};
+									document.getElementById('passwordInput').onkeyup = function(){
+										copyPasswordValue();
+									}
+								}
+								function copyMailValue(){
+									let mailInput = document.getElementById('mailInput').value;
+									document.getElementById('mailOutput').value = mailInput;
+								}
+								function copyPasswordValue(){
+									let passwordInput = document.getElementById('passwordInput').value;
+									document.getElementById('passwordOutput').value = passwordInput;
+								}
+
+							</script>
 						</s:form>
 					</td>
 					</tr>

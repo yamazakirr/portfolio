@@ -10,7 +10,7 @@
 	<constant name="struts.ui.theme" value="simple"/>
 	<package name="com.portfolio.action" extends="struts-default">
 
-<!-- アカウント登録画面の表示 -->
+<!-- アカウント登録登録操作 -->
 	<action name="RegistAccountAction" class="com.portfolio.action.RegistAccountAction" method="execute">
 	<result name="success">registAccount.jsp</result>
 	</action>
@@ -24,6 +24,12 @@
 	<action name="RegistAccountCompleteAction" class="com.portfolio.action.RegistAccountCompleteAction" method="execute">
 	<result name="success">registAccountComplete.jsp</result>
 	<result name="networkError">networkError.jsp</result>
+	</action>
+
+<!-- ログイン操作 -->
+	<action name="LoginAction" class="com.portfolio.action.LoginAction" method="execute">
+	<result name="success">calendar.jsp</result>
+	<result name="error">login.jsp</result>
 	</action>
 
 

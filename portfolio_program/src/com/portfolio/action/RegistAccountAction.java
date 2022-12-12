@@ -4,7 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class RegistAccountAction extends ActionSupport{
 
-	//■フィールド一覧
+//■フィールド一覧
 	private String userName;
 	private String mail;
 	private String password;

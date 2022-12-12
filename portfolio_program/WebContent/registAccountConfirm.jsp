@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="./css/registAccountConfirm.css"/>
 <title>アカウント登録確認画面</title>
 </head>
 <body>
@@ -53,16 +54,6 @@
 				<table>
 					<tr>
 					<td>
-						<s:form action="RegistAccountCompleteAction">
-							<div class="btn_pattern1">
-								<s:submit class="btn" value="登録する"/>
-								<input type="hidden" name="userName" value="<s:property value='userName'/>"/>
-								<input type="hidden" name="mail" value="<s:property value='mail'/>"/>
-								<input type="hidden" name="password" value="<s:property value='password'/>"/>
-							</div>
-						</s:form>
-					</td>
-					<td>
 
 						<s:form action="RegistAccountAction" class="btn_pattern1">
 							<s:submit class="btn" value="前に戻る"/>
@@ -71,6 +62,30 @@
 							<input type="hidden" name="password" value="<s:property value='password'/>"/>
 						</s:form>
 					</td>
+					<td>
+						<s:form action="RegistAccountCompleteAction">
+							<div class="btn_pattern1" id="regist_btn">
+								<s:submit class="btn" value="登録する"/>
+								<input type="hidden" name="userName" value="<s:property value='userName'/>"/>
+								<input type="hidden" name="mail" value="<s:property value='mail'/>"/>
+								<input type="hidden" name="password" value="<s:property value='password'/>"/>
+
+								<script>
+									let regist_btn = document.getElementById('regist_btn');
+									regist_btn.addEventListener('click', function(){
+										regist_btn.disabled = true;
+
+										window.setTimeout(function(){
+											regist_btn.disabled = false;
+										},1500);
+									});
+
+								</script>
+
+							</div>
+						</s:form>
+					</td>
+
 					</tr>
 
 				</table>
