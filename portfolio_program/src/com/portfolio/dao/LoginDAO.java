@@ -5,26 +5,66 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import com.portfolio.util.DBConnector;
 
 public class LoginDAO {
 
 	private String loginErrorMessage = "";
+	private String userId = "";
+	private String userName = "";
+
 	private DBConnector dbConnector = new DBConnector();
 	private Connection connection = dbConnector.getConnection();
-	private String sql = "SELECT mail, password"
+	private String sql = "SELECT user_id,user_name, mail, password"
 						+ " FROM login_user_transaction"
 						+ " WHERE mail=? AND password=?";
 
+	RegistAccountCompleteDAO registAccountCompleteDAO = new RegistAccountCompleteDAO();
+
 	public String getLoginResult(String mail, String password)throws SQLException{
-		String result = "error";
+		String result = "";
+
+//		■パスワードのハッシュ化
+		password = registAccountCompleteDAO.passwordHash(password);
 
 
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.setString(1, mail);
+		preparedStatement.setString(2, password);
 
+		ResultSet resultSet = preparedStatement.executeQuery();
+
+//		■ログイン可否判定
+		if(resultSet.next()){
+			result = "success";
+			this.userId = resultSet.getString("user_id");
+			this.userName = resultSet.getString("user_name");
+		}else{
+			this.loginErrorMessage = "メールアドレスまたはパスワードが違います。";
+			result = "error";
+		}
 		return result;
+	}
+
+//	■getterとsetter
+	public String getUserId(){
+		return userId;
+	}
+	public void setUserId(String userId){
+		this.userId = userId;
+	}
+	public String getUserName(){
+		return userName;
+	}
+	public void setUserName(String userName){
+		this.userName = userName;
+	}
+
+	public String getLoginErrorMessage(){
+		return loginErrorMessage;
+	}
+	public void setLoginErrorMessage(String loginErrorMessage){
+		this.loginErrorMessage = loginErrorMessage;
 	}
 
 }

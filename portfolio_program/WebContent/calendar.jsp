@@ -6,6 +6,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylsheet" type="text/css" href="./css/calendar.css">
+
+
 <title>カレンダー画面</title>
 </head>
 <body>
@@ -31,10 +34,13 @@
 
 	</div>
 
-カレンダー画面
+カレンダー画面<br>
 
-<s:property value="mail"/>
-<s:property value="password"/>
+メール：<s:property value="mail"/><br>
+パスワード：<s:property value="password"/><br>
+
+ユーザーID：<s:property value="#session.userId"/><br>
+ユーザーネーム：<s:property value="#session.userName"/><br>
 
 
 

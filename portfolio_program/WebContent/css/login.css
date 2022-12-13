@@ -18,19 +18,6 @@ body{
   float:left;
   margin-left:20px;
 }
-#select{
-  float:right;
-  margin-right:20px;
-}
-#select ul{
-  margin-top:0;
-}
-
-#select li{
-  float:left;
-  list-style:none;
-  margin-right:20px;
-}
 
 /* メイン */
 #box{

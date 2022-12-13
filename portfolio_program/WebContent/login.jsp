@@ -18,13 +18,6 @@
 		<div id="page_title">
 			マイカレンダー
 		</div>
-		<div id="select">
-			<ul>
-				<li>アカウント情報</li>
-				<li>カレンダー</li>
-				<li>ログアウト</li>
-			</ul>
-		</div>
 	</div>
 
 <!-- ■メイン -->
@@ -38,8 +31,13 @@
 				<input type="text" size="40" name="mailCopy" id="mailInput">
 
 				<p>パスワード</p>
-				<input type="text" size="40" name="passwordCopy" id="passwordInput">
+				<input type="password" size="40" name="passwordCopy" id="passwordInput">
 			</div>
+
+			<s:if test="loginErrorMessage != null">
+				<s:property value="loginErrorMessage"/>
+			</s:if>
+
 			<div id="btn">
 				<table>
 					<tr>
