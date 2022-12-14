@@ -21,8 +21,7 @@
 		<div id="select">
 			<ul>
 				<li>アカウント情報</li>
-				<li>カレンダー</li>
-				<li>ログアウト</li>
+				<li><a href='<s:url action="LogoutAction"/>'>ログアウト</a></li>
 			</ul>
 		</div>
 	</div>
