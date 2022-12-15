@@ -39,7 +39,7 @@ public class RegistAccountCompleteDAO {
 			preparedStatement.setString(1, userName);
 			preparedStatement.setString(2, mail);
 			preparedStatement.setString(3, password);
-			preparedStatement.setString(4, "1");
+			preparedStatement.setString(4, "0");
 			preparedStatement.setString(5, nowDate);
 			preparedStatement.setString(6, nowDate);
 

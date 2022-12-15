@@ -65,4 +65,9 @@ table{
 	margin:0;
 }
 
+/* エラーメッセージ */
+.errorMessage{
+	color:red;
+}
+
 

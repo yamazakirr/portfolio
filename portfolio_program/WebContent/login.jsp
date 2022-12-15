@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<link rel="stylesheet" type="text/css" href="./css/login.css">
+<link rel="stylesheet" type="text/css" href="./css/login.css"/>
 
 <title>ログイン画面</title>
 </head>
@@ -28,15 +28,18 @@
 			</div>
 			<div id="input">
 				<p>メールアドレス</p>
-				<input type="text" size="40" name="mailCopy" id="mailInput">
+				<input type="text" size="40" name="mailCopy" id="mailInput" value='<s:property value="mailCopy"/>'>
 
 				<p>パスワード</p>
 				<input type="password" size="40" name="passwordCopy" id="passwordInput">
+
+				<div class="errorMessage">
+					<s:if test="loginErrorMessage != null">
+						<s:property value="loginErrorMessage"/>
+					</s:if>
+				</div>
 			</div>
 
-			<s:if test="loginErrorMessage != null">
-				<s:property value="loginErrorMessage"/>
-			</s:if>
 
 			<div id="btn">
 				<table>

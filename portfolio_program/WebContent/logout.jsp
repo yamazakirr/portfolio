@@ -6,15 +6,32 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="./css/logout.css">
+
 <title>ログアウト画面</title>
 </head>
 <body>
 
-ログアウトが完了しました。
+<!-- ■ヘッダー -->
+	<div id="header">
+		<div id="page_title">
+			マイカレンダー
+		</div>
+	</div>
 
-<s:form action="login.jsp">
-	<s:property value="ログイン画面に戻る"/>
-</s:form>
+<!-- ■メイン -->
+	<div id="main">
+		<div id="box">
+			<div id="input">
+				<p>ログアウトが完了しました。</p>
+			</div>
+			<div id="btn">
+				<s:form action="login.jsp">
+					<s:submit class="btn" value="ログイン画面に戻る"/>
+				</s:form>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

@@ -38,6 +38,12 @@
 	<result name="success">logout.jsp</result>
 	</action>
 
+<!-- アカウント画面の表示操作 -->
+	<action name="AccountAction" class="com.portfolio.action.AccountAction" method="execute">
+	<result name="success">account.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
 
 	</package>
 </struts>

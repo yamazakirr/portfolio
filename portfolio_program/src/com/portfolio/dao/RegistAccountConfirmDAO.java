@@ -18,18 +18,19 @@ public class RegistAccountConfirmDAO {
 
 		String sql = "SELECT mail"
 				+ " FROM login_user_transaction"
-				+ " WHERE mail=?";
+				+ " WHERE mail=? AND delete_flg=?";
 
 		try{
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, mail);
+			preparedStatement.setString(2, "0");
 			ResultSet resutlSet = preparedStatement.executeQuery();
 
 			if(resutlSet.next()){
 //				tureなら同じメールアドレスが登録済み
 				return result;
 			}else{
-//				falseならメールアドレスは未登録
+//				それ以外ならメールアドレスは未登録
 				result = "success";
 				return result;
 			}

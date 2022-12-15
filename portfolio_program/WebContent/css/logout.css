@@ -27,23 +27,12 @@ body{
   margin:0 auto;
   margin-top:40px;
 }
-#box #main_title{
-  border-bottom:solid 1px orange;
-  font-size:40px;
-  color:white;
-  background-color: orange;
-}
-#box #main_title p{
-  font-weight:bold;
-  padding:30px auto;
-  margin:0 auto;
-}
 #box #input{
   width:80%;
   margin:150px auto;
 }
 #box #input p{
-	font-size:50px;
+	font-size:40px;
 	font-weight:bold;
 }
 #box #btn{

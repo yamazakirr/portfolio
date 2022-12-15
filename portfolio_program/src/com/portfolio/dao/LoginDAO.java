@@ -17,7 +17,7 @@ public class LoginDAO {
 	private Connection connection = dbConnector.getConnection();
 	private String sql = "SELECT user_id,user_name, mail, password"
 						+ " FROM login_user_transaction"
-						+ " WHERE mail=? AND password=?";
+						+ " WHERE mail=? AND password=? AND delete_flg=?";
 
 	RegistAccountCompleteDAO registAccountCompleteDAO = new RegistAccountCompleteDAO();
 
@@ -31,6 +31,7 @@ public class LoginDAO {
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setString(1, mail);
 		preparedStatement.setString(2, password);
+		preparedStatement.setString(3, "0");
 
 		ResultSet resultSet = preparedStatement.executeQuery();
 
