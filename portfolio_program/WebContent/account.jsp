@@ -27,6 +27,38 @@
 <!-- ■メイン -->
 	<div id="main">
 		<div id="box">
+			<div id="main_title">
+				<p>アカウント画面</p>
+			</div>
+			<div id="input">
+				<table>
+					<tr>
+						<td>ニックネーム</td>
+						<td><s:property value="userName"/></td>
+						<td>
+							<s:form action="ChangeUserNameAction">
+								<s:submit value="ニックネーム変更"/>
+							</s:form>
+						</td>
+					</tr>
+					<tr>
+						<td>メールアドレス</td>
+						<td><s:property value="mail"/></td>
+						<td>
+							<s:form action="ChangeMailAction">
+								<s:submit value="メールアドレス変更"/>
+							</s:form>
+						</td>
+					</tr>
+					<tr>
+						<td>パスワード</td>
+						<td>
+							<s:form action="ChangePasswordAction">
+								<s:submit value="パスワード変更"/>
+							</s:form>
+						</td>
+					</tr>
+				</table>
 		</div>
 
 	</div>

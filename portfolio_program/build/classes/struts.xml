@@ -44,6 +44,24 @@
 	<result name="accountError">login.jsp</result>
 	</action>
 
+<!-- ニックネーム変更操作 -->
+	<action name="ChangeUserNameAction" class="com.portfolio.action.ChangeUserNameAction" method="execute">
+	<result name="success">changeUserName.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+<!-- メールアドレス変更操作 -->
+	<action name="ChangeMailAction" class="com.portfolio.action.ChangeMailAction" method="execute">
+	<result name="success">changeMail.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+<!-- パスワード変更操作 -->
+	<action name="ChangePasswordAction" class="com.portfolio.action.ChangePasswordAction" method="execute">
+	<result name="success">changePassword.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
 
 	</package>
 </struts>
