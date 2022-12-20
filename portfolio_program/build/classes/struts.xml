@@ -44,6 +44,17 @@
 	<result name="accountError">login.jsp</result>
 	</action>
 
+<!-- アカウント削除操作 -->
+	<action name="DeleteAccountAction" class="com.portfolio.action.DeleteAccountAction" method="execute">
+	<result name="success">deleteAccount.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+	<action name="DeleteAccountCompleteAction" class="com.portfolio.action.DeleteAccountCompleteAction" method="execute">
+	<result name="success">deleteAccontComplete.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	</action>
+
 <!-- ニックネーム変更操作 -->
 	<action name="ChangeUserNameAction" class="com.portfolio.action.ChangeUserNameAction" method="execute">
 	<result name="success">changeUserName.jsp</result>
@@ -59,6 +70,12 @@
 <!-- パスワード変更操作 -->
 	<action name="ChangePasswordAction" class="com.portfolio.action.ChangePasswordAction" method="execute">
 	<result name="success">changePassword.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+<!-- カレンダー操作 -->
+	<action name="CalendarAction" class="com.portfolio.action.CalendarAction" method="execute">
+	<result name="success">calendar.jsp</result>
 	<result name="accountError">login.jsp</result>
 	</action>
 

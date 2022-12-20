@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="./css/account.css">
+
 <title>アカウント画面</title>
 </head>
 <body>
@@ -18,7 +20,7 @@
 		</div>
 		<div id="select">
 			<ul>
-				<li>カレンダー</li>
+				<li><a href='<s:url action="CalendarAction"/>'>カレンダー</a></li>
 				<li><a href='<s:url action="LogoutAction"/>'>ログアウト</a></li>
 			</ul>
 		</div>
@@ -52,6 +54,7 @@
 					</tr>
 					<tr>
 						<td>パスワード</td>
+						<td>設定済み</td>
 						<td>
 							<s:form action="ChangePasswordAction">
 								<s:submit value="パスワード変更"/>
@@ -59,6 +62,26 @@
 						</td>
 					</tr>
 				</table>
+			</div>
+
+			<div id="btn">
+				<table>
+					<tr>
+						<td>
+							<s:form action="calendar.jsp">
+								<s:submit value="カレンダー画面に戻る"/>
+							</s:form>
+						</td>
+						<td>
+							<s:form action="DeleteAccountAction">
+								<s:submit value="アカウントの削除"/>
+							</s:form>
+						</td>
+					</tr>
+				</table>
+
+			</div>
+
 		</div>
 
 	</div>
