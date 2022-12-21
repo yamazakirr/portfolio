@@ -8,10 +8,13 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class DeleteAccountAction extends ActionSupport implements SessionAware{
 
-	private Map<String, Object> session;
+	public Map<String, Object> session;
 	private String result;
 
 	public String execute(){
+
+		System.out.println("userId "+session.get("userId"));
+		System.out.println("userName "+session.get("userName"));
 
 //		■ログイン済み判定
 		if(session.containsKey("userId") && session.containsKey("userName")){

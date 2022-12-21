@@ -12,6 +12,7 @@ public class DeleteAccountCompleteDAO {
 	private Connection connection = dbConnector.getConnection();
 
 	public String deleteUserInfo(String userId, String userName)throws SQLException{
+
 		String result = "";
 
 		String sql = "UPDATE login_user_transaction "

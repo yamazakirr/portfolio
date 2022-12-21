@@ -51,8 +51,9 @@
 	</action>
 
 	<action name="DeleteAccountCompleteAction" class="com.portfolio.action.DeleteAccountCompleteAction" method="execute">
-	<result name="success">deleteAccontComplete.jsp</result>
+	<result name="success">deleteAccountComplete.jsp</result>
 	<result name="networkError">networkError.jsp</result>
+	<result name="accountError">login.jsp</result>
 	</action>
 
 <!-- ニックネーム変更操作 -->
