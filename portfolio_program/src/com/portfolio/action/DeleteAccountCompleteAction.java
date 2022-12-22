@@ -19,26 +19,23 @@ public class DeleteAccountCompleteAction extends ActionSupport implements Sessio
 
 	public String execute(){
 
-		userId = session.get("userId").toString();
-		userName = session.get("userName").toString();
-
-//		■ログイン済み判定
-		if(session.containsKey("userId") && session.containsKey("userName")){
-			try{
-//				■アカウント削除処理
-				result = dao.deleteUserInfo(userId, userName);
-//				■ログアウト処理
-//				session.clear();
-			}catch(SQLException e){
-				result = "networkError";
-				e.printStackTrace();
-			}
-
-		}else{
+		try{
+			userId = session.get("userId").toString();
+			userName = session.get("userName").toString();
+				try{
+	//				■アカウント削除処理
+					result = dao.deleteUserInfo(userId, userName);
+	//				■ログアウト処理
+					session.clear();
+				}catch(SQLException e){
+					result = "networkError";
+					e.printStackTrace();
+				}
+		}catch(NullPointerException e){
+//			■sessionにてNULLがある場合は未ログイン状態と判定
 			result = "accountError";
+			e.printStackTrace();
 		}
-		System.out.println("result "+result);
-
 		return result;
 	}
 
