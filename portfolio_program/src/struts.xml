@@ -62,6 +62,12 @@
 	<result name="accountError">login.jsp</result>
 	</action>
 
+	<action name="ChangeUserNameCompleteAction" class="com.portfolio.action.ChangeUserNameCompleteAction" method="execute">
+	<result name="success">changeUserNameComplete.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
 <!-- メールアドレス変更操作 -->
 	<action name="ChangeMailAction" class="com.portfolio.action.ChangeMailAction" method="execute">
 	<result name="success">changeMail.jsp</result>
