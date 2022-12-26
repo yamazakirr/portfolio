@@ -64,6 +64,7 @@
 
 	<action name="ChangeUserNameCompleteAction" class="com.portfolio.action.ChangeUserNameCompleteAction" method="execute">
 	<result name="success">changeUserNameComplete.jsp</result>
+	<result name="error">changeUserName.jsp</result>
 	<result name="networkError">networkError.jsp</result>
 	<result name="accountError">login.jsp</result>
 	</action>

@@ -34,10 +34,12 @@
 			</div>
 			<div id="input">
 				<p>新しいニックネーム</p>
-				<input type="text" size="40" name="userName" class="input_box"><br>
+				<input type="text" size="40" class="input_box" id="userNameInput" value="<s:property value='changeUserName'/>"><br>
+				<s:property value="userNameErrorMessage"/>
 
 				<p>パスワード</p>
-				<input type="password" size="40" name="password" class="input_box">
+				<input type="password" size="40" class="input_box" id="passwordInput" value="<s:property value='password'/>"><br>
+				<s:property value="passwordErrorMessage"/>
 			</div>
 			<div id="btn">
 				<table>
@@ -50,6 +52,29 @@
 						<td>
 							<s:form action= "ChangeUserNameCompleteAction">
 								<s:submit class="btn" value="保存"/>
+								<input type="hidden" name="changeUserName" id="userNameOutput">
+								<input type="hidden" name="password" id="passwordOutput">
+
+								<script>
+									window.onload  = function(){
+										document.getElementById('userNameInput').onkeyup = function(){
+											copyUserName();
+										};
+										document.getElementById('passwordInput').onkeyup = function(){
+											copyPassword();
+										}
+									}
+										function copyUserName(){
+											let userNameInput = document.getElementById('userNameInput').value;
+											document.getElementById('userNameOutput').value = userNameInput;
+										}
+										function copyPassword(){
+											let passwordInput = document.getElementById('passwordInput').value;
+											document.getElementById('passwordOutput').value = passwordInput;
+										}
+
+								</script>
+
 							</s:form>
 						</td>
 					</tr>

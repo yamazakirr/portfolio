@@ -35,11 +35,11 @@ public class RegistAccountConfirmAction extends ActionSupport{
 		System.out.println("mail "+mail);
 		System.out.println("password "+password);
 
-		this.userNameErrorMessage = errorCheck(regexUserName, userName);
+		this.userNameErrorMessage = errorCheckUserName(userName);
 		errorCheckLists.add(this.userNameErrorMessage);
-		this.mailErrorMessage = errorCheck(regexMail, mail);
+		this.mailErrorMessage = errorCheckMail(regexMail, mail);
 		errorCheckLists.add(this.mailErrorMessage);
-		this.passwordErrorMessage = errorCheck(regexPassword, password);
+		this.passwordErrorMessage = errorCheckPassword(regexPassword, password);
 		errorCheckLists.add(this.passwordErrorMessage);
 
 //		■全体のエラーチェック
@@ -67,65 +67,68 @@ public class RegistAccountConfirmAction extends ActionSupport{
 	public String regexUserName = "";
 	public String regexPassword = "^[a-zA-Z0-9]*$";
 	public String regexMail = "^([a-zA-Z0-9])+(.[a-zA-Z0-9_-]+)*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-]+)+$";
-	int errorCheckTextNum = 0;
+	public int errorCheckTextNum = 0;
 
-	public String errorCheck(String regex, String checkText){
-		System.out.println("regex "+ regex);
-		System.out.println("checkText "+ checkText);
-		String checkTextErrorMessage = "";
-
-		if(errorCheckTextNum == 0){
-			if(checkText.equals("")){
-				checkTextErrorMessage = "ニックネームが未入力です。";
-			}else{
-				checkTextErrorMessage = "";
-			}
-			errorCheckTextNum += 1;
-		}else if(errorCheckTextNum == 1){
-			if(checkText.equals("")){
-				checkTextErrorMessage = "メールアドレスが未入力です。";
-			}else{
-				boolean checkResult = checkTextError(regex, checkText);
-				if(checkResult == true){
-
-//					データベースに登録済み判定
-					try{
-						String checkMailResult = registAccountConfirmDAO.checkMailDatebase(checkText);
-						if(checkMailResult.equals("success")){
-							checkTextErrorMessage = "";
-						}else if(checkMailResult.equals("error")){
-							checkTextErrorMessage = "このメールアドレスは既に使用されています。";
-						}else if(checkMailResult.equals("networkError")){
-							result = "networkError";
-						}
-					}catch(SQLException e){
-
-						e.printStackTrace();
-					}
-
-
-
-				}else{
-					checkTextErrorMessage = "正しい形式でご入力をお願いします。";
-				}
-			}
-			errorCheckTextNum += 1;
-		}else if(errorCheckTextNum == 2){
-			if(checkText.equals("")){
-				checkTextErrorMessage = "パスワードが未入力です。";
-			}else{
-				boolean checkResult = checkTextError(regex, checkText);
-				if(checkResult == true){
-					checkTextErrorMessage = "";
-				}else{
-					checkTextErrorMessage = "半角英数字でご入力をお願いします。";
-				}
-			}
+//	■ニックネームエラーチェック
+	public String errorCheckUserName(String checkText){
+		String checkTextErrorMessage;
+		if(checkText.equals("")){
+			checkTextErrorMessage = "ニックネームが未入力です。";
+		}else{
+			checkTextErrorMessage = "";
 		}
-
-
 		return checkTextErrorMessage;
 	}
+
+//	■メールアドレスエラーチェック
+	public String errorCheckMail(String regex, String checkText){
+		String checkTextErrorMessage = "";
+
+		if(checkText.equals("")){
+			checkTextErrorMessage = "メールアドレスが未入力です。";
+		}else{
+			boolean checkResult = checkTextError(regex, checkText);
+			if(checkResult == true){
+
+//				■データベースに登録済み判定
+				try{
+					String checkMailResult = registAccountConfirmDAO.checkMailDatebase(checkText);
+					if(checkMailResult.equals("success")){
+						checkTextErrorMessage = "";
+					}else if(checkMailResult.equals("error")){
+						checkTextErrorMessage = "このメールアドレスは既に使用されています。";
+					}else if(checkMailResult.equals("networkError")){
+						result = "networkError";
+					}
+				}catch(SQLException e){
+
+					e.printStackTrace();
+				}
+			}else{
+				checkTextErrorMessage = "正しい形式でご入力をお願いします。";
+			}
+		}
+		return checkTextErrorMessage;
+	}
+
+//	■パスワードエラーチェック
+	public String errorCheckPassword(String regex, String checkText){
+		String checkTextErrorMessage = "";
+		if(checkText.equals("")){
+			checkTextErrorMessage = "パスワードが未入力です。";
+		}else{
+			boolean checkResult = checkTextError(regex, checkText);
+			if(checkResult == true){
+				checkTextErrorMessage = "";
+			}else{
+				checkTextErrorMessage = "半角英数字でご入力をお願いします。";
+			}
+		}
+		return checkTextErrorMessage;
+	}
+
+//	==========================================================================
+
 
 //	■項目全体のエラー判定処理
 //	errorCount = 0 : 項目全体でエラーなし
@@ -152,8 +155,6 @@ public class RegistAccountConfirmAction extends ActionSupport{
 
 		return result;
 	}
-
-
 
 
 //■getterとsetter
