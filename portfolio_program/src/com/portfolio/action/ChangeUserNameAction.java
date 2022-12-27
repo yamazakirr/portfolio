@@ -17,6 +17,8 @@ public class ChangeUserNameAction extends ActionSupport implements SessionAware{
 //		■ログイン済み判定処理
 		if(session.containsKey("userName") && session.containsKey("userId")){
 			result = "success";
+		}else{
+			result = "accountError";
 		}
 		return result;
 	}

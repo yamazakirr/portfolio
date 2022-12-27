@@ -69,6 +69,7 @@
 							<input type="password" id="input_pass" size="40" name="password" value="<s:property value='password'/>">
 							<button id="btn_passview">表示</button>
 
+							<!-- パスワードの表示・非表示切り替え処理 -->
 							<script>
 								window.addEventListener('DOMContentLoaded', function(){
 									let btn_passview = document.getElementById("btn_passview");

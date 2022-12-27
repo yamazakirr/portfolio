@@ -81,6 +81,13 @@
 	<result name="accountError">login.jsp</result>
 	</action>
 
+	<action name="ChangePasswordCompleteAction" class="com.portfolio.action.ChangePasswordCompleteAction" method="execute">
+	<result name="success">changePasswordComplete.jsp</result>
+	<result name="error">changePassword.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
 <!-- カレンダー操作 -->
 	<action name="CalendarAction" class="com.portfolio.action.CalendarAction" method="execute">
 	<result name="success">calendar.jsp</result>

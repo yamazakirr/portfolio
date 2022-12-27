@@ -46,10 +46,13 @@ public class ChangeUserNameCompleteAction extends ActionSupport implements Sessi
 //					■ユーザー名更新処理
 					result = dao.changeUserNameInfo(userId, userName, password, changeUserName);
 					if(result.equals("error")){
-						this.passwordErrorMessage = "パスワードが違います。";
+						this.passwordErrorMessage = "パスワードが一致しません。";
 						result = "error";
 					}else if(result.equals("success")){
 						result = "success";
+
+//						sessionの更新
+						session.put("userName", changeUserName);
 					}else if(result.equals("networkError")){
 						result = "networkError";
 					}
