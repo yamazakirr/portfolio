@@ -38,10 +38,6 @@ public class ChangeUserNameCompleteAction extends ActionSupport implements Sessi
 				userId = session.get("userId").toString();
 				userName = session.get("userName").toString();
 
-				System.out.println("userName "+userName);
-				System.out.println("changeUserName "+changeUserName);
-				System.out.println("password "+password);
-
 				try{
 //					■ユーザー名更新処理
 					result = dao.changeUserNameInfo(userId, userName, password, changeUserName);

@@ -114,6 +114,8 @@ public class RegistAccountConfirmAction extends ActionSupport{
 //	■パスワードエラーチェック
 	public String errorCheckPassword(String regex, String checkText){
 		String checkTextErrorMessage = "";
+
+		System.out.println("checkText "+ checkText);
 		if(checkText.equals("")){
 			checkTextErrorMessage = "パスワードが未入力です。";
 		}else{

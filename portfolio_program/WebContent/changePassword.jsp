@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="./css/changePassword.css">
+
 <title>パスワード変更画面</title>
 </head>
 <body>
@@ -33,8 +35,8 @@
 			<div id="input">
 				<p>新しいパスワード</p>
 				<input type="password" size="40" class="input_box" id="changePasswordInput" value="<s:property value='changePassword'/>">
-				<button id="btn_passview">表示</button><br>
-				<s:property value="changePasswordErrorMessage"/>
+				<button id="btn_passview">表示</button>
+				<p><s:property value="changePasswordErrorMessage" class="errorMessage"/></p>
 
 				<!-- パスワードの表示・非表示切り替え処理 -->
 				<script>
@@ -58,7 +60,7 @@
 
 				<p>現在のパスワード</p>
 				<input type="password" size="40" class="input_box" id="passwordInput" value="<s:property value='password'/>"><br>
-				<s:property value="passwordErrorMessage"/>
+				<s:property value="passwordErrorMessage" class="errorMessage"/>
 			</div>
 			<div id="btn">
 				<table>

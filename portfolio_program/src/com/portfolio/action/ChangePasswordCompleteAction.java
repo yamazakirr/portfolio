@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.portfolio.dao.ChangePasswordCompleteDAO;
 
 public class ChangePasswordCompleteAction extends ActionSupport implements SessionAware{
 
@@ -13,21 +14,51 @@ public class ChangePasswordCompleteAction extends ActionSupport implements Sessi
 	private String result;
 	private String userId;
 	private String userName;
-	private String password;
-	private String changePassword;
+	private String password = "";
+	private String changePassword = "";
 
-	private String changePasswordErrorMessage;
 	private String passwordErrorMessage;
+	private String changePasswordErrorMessage;
+
+	ChangePasswordCompleteDAO dao = new ChangePasswordCompleteDAO();
+	RegistAccountConfirmAction registAccountConfirmAction = new RegistAccountConfirmAction();
 
 	public String execute(){
 //		■ログイン済み判定処理
 		if(session.containsKey("userName") && session.containsKey("userId")){
 
-//			■パスワード更新処理
+		this.userId = session.get("userId").toString();
+		this.userName = session.get("userName").toString();
 
+//				■入力値エラー判定処理
+			this.passwordErrorMessage = registAccountConfirmAction.errorCheckPassword(registAccountConfirmAction.regexPassword,password);
+			System.out.println("1");
+			this.changePasswordErrorMessage = registAccountConfirmAction.errorCheckPassword(registAccountConfirmAction.regexPassword,changePassword);
+			System.out.println("2");
 
+			if(passwordErrorMessage.equals("") && changePasswordErrorMessage.equals("")){
 
-			result = "success";
+//					■パスワード更新処理
+				try{
+					result = dao.changePasswordInfo(userId, userName, password, changePassword);
+					if(result.equals("error")){
+						this.passwordErrorMessage = "パスワードが一致しません。";
+						result = "error";
+					}else if(result.equals("success")){
+						result = "success";
+	//						session情報の削除
+						session.clear();
+					}else if(result.equals("networkError")){
+						result = "networkError";
+					}
+				}catch(Exception e){
+					result = "networkError";
+					e.printStackTrace();
+				}
+			}else{
+//				password,changePasswordのどちらかが未入力、入力形式の相違の際に処理
+				result = "error";
+			}
 		}else{
 			result = "accountError";
 		}
