@@ -41,7 +41,26 @@
 ユーザーID：<s:property value="#session.userId"/><br>
 ユーザーネーム：<s:property value="#session.userName"/><br>
 
+今日の日付
+year :<s:property value="year"/><br>
+month:<s:property value="month"/><br>
+date :<s:property value="date"/><br>
+dayOfWeek:<s:property value="dayOfWeek"/><br>
+lastDate:<s:property value="lastDate"/><br>
+startDate:<s:property value="startDate"/><br>
 
+<table>
+	<tr>
+		<th>日</th>
+		<th>月</th>
+		<th>火</th>
+		<th>水</th>
+		<th>木</th>
+		<th>金</th>
+		<th>土</th>
+	</tr>
+
+</table>
 
 </body>
 </html>

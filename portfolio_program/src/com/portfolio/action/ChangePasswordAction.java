@@ -15,7 +15,7 @@ public class ChangePasswordAction extends ActionSupport implements SessionAware{
 	public String execute(){
 
 //		■ログイン済み判定処理
-		if(session.containsKey("userName") && session.containsKey("userId")){
+		if(session.containsKey("userId") && session.containsKey("userName")){
 			result = "success";
 		}else{
 			result = "accountError";

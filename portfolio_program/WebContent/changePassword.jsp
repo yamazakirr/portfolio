@@ -36,7 +36,7 @@
 				<p>新しいパスワード</p>
 				<input type="password" size="40" class="input_box" id="changePasswordInput" value="<s:property value='changePassword'/>">
 				<button id="btn_passview">表示</button>
-				<p><s:property value="changePasswordErrorMessage" class="errorMessage"/></p>
+				<p><s:property value="changePasswordErrorMessage"/></p>
 
 				<!-- パスワードの表示・非表示切り替え処理 -->
 				<script>
@@ -60,7 +60,7 @@
 
 				<p>現在のパスワード</p>
 				<input type="password" size="40" class="input_box" id="passwordInput" value="<s:property value='password'/>"><br>
-				<s:property value="passwordErrorMessage" class="errorMessage"/>
+				<s:property value="passwordErrorMessage"/>
 			</div>
 			<div id="btn">
 				<table>
@@ -73,8 +73,8 @@
 						<td>
 							<s:form action= "ChangePasswordCompleteAction">
 								<s:submit class="btn" value="保存"/>
-								<input type="hidden" name="changePassword" id="changePasswordOutput">
-								<input type="hidden" name="password" id="passwordOutput">
+								<input type="hidden" name="changePassword" id="changePasswordOutput" value="<s:property value='changePassword'/>">
+								<input type="hidden" name="password" id="passwordOutput" value="<s:property value='password'/>">
 
 								<script>
 									window.onload  = function(){

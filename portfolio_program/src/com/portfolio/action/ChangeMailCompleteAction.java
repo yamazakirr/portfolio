@@ -5,61 +5,58 @@ import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.portfolio.dao.ChangePasswordCompleteDAO;
+import com.portfolio.dao.ChangeMailCompleteDAO;
 
-public class ChangePasswordCompleteAction extends ActionSupport implements SessionAware{
+public class ChangeMailCompleteAction extends ActionSupport implements SessionAware{
 
 //	■フィールド
 	public Map<String, Object> session;
 	private String result;
 	private String userId;
 	private String userName;
-	private String password = "";
-	private String changePassword = "";
+	private String changeMail;
+	private String password;
 
+	private String changeMailErrorMessage;
 	private String passwordErrorMessage;
-	private String changePasswordErrorMessage;
 
-	ChangePasswordCompleteDAO dao = new ChangePasswordCompleteDAO();
+	ChangeMailCompleteDAO dao = new ChangeMailCompleteDAO();
 	RegistAccountConfirmAction registAccountConfirmAction = new RegistAccountConfirmAction();
 
 	public String execute(){
 //		■ログイン済み判定処理
-		if(session.containsKey("userName") && session.containsKey("userId")){
-
+		if(session.containsKey("userId") && session.containsKey("userName")){
 			this.userId = session.get("userId").toString();
 			this.userName = session.get("userName").toString();
 
 //			■入力値エラー判定処理
+			this.changeMailErrorMessage = registAccountConfirmAction.errorCheckMail(registAccountConfirmAction.regexMail, changeMail);
 			this.passwordErrorMessage = registAccountConfirmAction.errorCheckPassword(registAccountConfirmAction.regexPassword,password);
-			this.changePasswordErrorMessage = registAccountConfirmAction.errorCheckPassword(registAccountConfirmAction.regexPassword,changePassword);
 
-			if(passwordErrorMessage.equals("") && changePasswordErrorMessage.equals("")){
+			if(changeMailErrorMessage.equals("") && passwordErrorMessage.equals("")){
 
-//				■パスワード更新処理
+//				■メアド変更処理
 				try{
-					result = dao.changePasswordInfo(userId, userName, password, changePassword);
+					result = dao.changeMailInfo(userId, userName, changeMail, password);
 					if(result.equals("error")){
 						this.passwordErrorMessage = "パスワードが一致しません。";
-						result = "error";
 					}else if(result.equals("success")){
-						result = "success";
-	//						session情報の削除
 						session.clear();
 					}else if(result.equals("networkError")){
-						result = "networkError";
+						;
 					}
+
 				}catch(Exception e){
 					result = "networkError";
 					e.printStackTrace();
 				}
 			}else{
-//				password,changePasswordのどちらかが未入力、入力形式の相違の際に処理
 				result = "error";
 			}
 		}else{
 			result = "accountError";
 		}
+
 		return result;
 	}
 
@@ -82,11 +79,11 @@ public class ChangePasswordCompleteAction extends ActionSupport implements Sessi
 	public void setPassword(String password){
 		this.password = password;
 	}
-	public String getChangePassword(){
-		return changePassword;
+	public String getChangeMail(){
+		return changeMail;
 	}
-	public void setChangePassword(String changePassword){
-		this.changePassword = changePassword;
+	public void setChangeMail(String changeMail){
+		this.changeMail = changeMail;
 	}
 	public String getPasswordErrorMessage(){
 		return passwordErrorMessage;
@@ -94,11 +91,11 @@ public class ChangePasswordCompleteAction extends ActionSupport implements Sessi
 	public void setPasswordErrorMessage(String passwordErrorMessage){
 		this.passwordErrorMessage = passwordErrorMessage;
 	}
-	public String getChangePasswordErrorMessage(){
-		return changePasswordErrorMessage;
+	public String getChangeMailErrorMessage(){
+		return changeMailErrorMessage;
 	}
-	public void setChangePasswordErrorMessage(String changePasswordErrorMessage){
-		this.changePasswordErrorMessage = changePasswordErrorMessage;
+	public void setChangeMailErrorMessage(String changeMailErrorMessage){
+		this.changeMailErrorMessage = changeMailErrorMessage;
 	}
 
 //	@Override

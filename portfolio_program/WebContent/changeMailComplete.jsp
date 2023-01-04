@@ -6,9 +6,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="./css/changePasswordComplete.css">
+<link rel="stylesheet" type="text/css" href="./css/changeMailComplete.css">
 
-<title>パスワード変更完了画面</title>
+<title>メールアドレス変更完了画面</title>
 </head>
 <body>
 
@@ -28,7 +28,7 @@
 	<div id="main">
 		<div id="box">
 			<div id="main_title">
-				<p>パスワード変更完了画面</p>
+				<p>メールアドレス変更完了画面</p>
 			</div>
 			<div id="input">
 				<p>変更が完了しました</p>

@@ -28,10 +28,10 @@
 			</div>
 			<div id="input">
 				<p>メールアドレス</p>
-				<input type="text" size="40" name="mailCopy" id="mailInput" value='<s:property value="mailCopy"/>'>
+				<input type="text" size="40" name="mailCopy" id="mailInput" value='<s:property value="mail"/>'>
 
 				<p>パスワード</p>
-				<input type="password" size="40" name="passwordCopy" id="passwordInput">
+				<input type="password" size="40" name="passwordCopy" id="passwordInput" value='<s:property value="password"/>'>
 
 				<div class="errorMessage">
 					<s:if test="loginErrorMessage != null">
@@ -52,8 +52,8 @@
 					<td>
 						<s:form action="LoginAction" class="btn_pattern1">
 							<s:submit class="btn" value="ログイン"/>
-							<input type="hidden" name="mail" id="mailOutput"/>
-							<input type="hidden" name="password" id="passwordOutput"/>
+							<input type="hidden" name="mail" id="mailOutput" value='<s:property value="mail"/>'>
+							<input type="hidden" name="password" id="passwordOutput" value='<s:property value="password"/>'>
 
 							<script>
 								window.onload = function(){

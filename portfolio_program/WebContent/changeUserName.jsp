@@ -52,8 +52,8 @@
 						<td>
 							<s:form action= "ChangeUserNameCompleteAction">
 								<s:submit class="btn" value="保存"/>
-								<input type="hidden" name="changeUserName" id="userNameOutput">
-								<input type="hidden" name="password" id="passwordOutput">
+								<input type="hidden" name="changeUserName" id="userNameOutput" value="<s:property value='changeUserName'/>">
+								<input type="hidden" name="password" id="passwordOutput" value="<s:property value='password'/>">
 
 								<script>
 									window.onload  = function(){
