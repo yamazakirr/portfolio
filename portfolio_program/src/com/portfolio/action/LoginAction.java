@@ -26,12 +26,18 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private int lastDate;
 	private int startDate;
 
+	private int firstDate;
+
 	LoginDAO loginDAO = new LoginDAO();
 
 
 //	■コンストラクタ
 	public LoginAction(){
 		Calendar today = Calendar.getInstance();
+		Calendar firstDay = Calendar.getInstance();
+		firstDay.set(Calendar.DATE, 1);
+		this.firstDate = firstDay.get(Calendar.DAY_OF_WEEK);
+
 		this.year = today.get(Calendar.YEAR);
 		this.month = today.get(Calendar.MONTH)+1;
 		this.date = today.get(Calendar.DATE);
@@ -41,11 +47,52 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	}
 
 
+
 	public String execute(){
 		String result = "";
 
-		System.out.println("mail "+ mail);
-		System.out.println("password "+password);
+//		■カレンダーの作成
+		int row = 0;
+		int column = firstDate -1;
+		int i = 1;
+		int weeks;
+
+//		■対象月が何週間か取得
+		double d = 0.0;
+		d = (lastDate + firstDate-1)/7.0;
+		System.out.println();
+
+		System.out.println("lastDate "+lastDate);
+		System.out.println("firstDate "+firstDate);
+		System.out.println("d "+d);
+		System.out.println("row "+row);
+
+		System.out.println();
+		weeks = (int)Math.ceil(d);
+
+		int[][] dates = new int[weeks][6];
+
+
+		System.out.println("column "+column);
+		System.out.println("weeks "+weeks);
+
+
+		System.out.println("①");
+		loop:for(; row < weeks; row++){
+			System.out.println("②");
+			for(; column%6 != 0; column++){
+
+				dates[row][column] = i;
+				i++;
+
+				System.out.println(dates[0][1]);
+				System.out.println("["+row+"]"+"["+column+"]"+ dates[row][column]);
+				if(i == lastDate){
+					break loop;
+				}
+			}
+		}
+
 
 		try{
 			result = loginDAO.getLoginResult(mail, password);
