@@ -53,9 +53,9 @@ public class LoginAction extends ActionSupport implements SessionAware{
 
 //		■カレンダーの作成
 		int row = 0;
-		int column = firstDate -1;
 		int i = 1;
 		int weeks;
+		String flg = "true";
 
 //		■対象月が何週間か取得
 		double d = 0.0;
@@ -70,28 +70,42 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		System.out.println();
 		weeks = (int)Math.ceil(d);
 
-		int[][] dates = new int[weeks][6];
+		int[][] dates = new int[weeks][7];
 
-
-		System.out.println("column "+column);
 		System.out.println("weeks "+weeks);
 
 
 		System.out.println("①");
+
+
 		loop:for(; row < weeks; row++){
-			System.out.println("②");
-			for(; column%6 != 0; column++){
 
-				dates[row][column] = i;
-				i++;
-
-				System.out.println(dates[0][1]);
-				System.out.println("["+row+"]"+"["+column+"]"+ dates[row][column]);
-				if(i == lastDate){
-					break loop;
+			if(flg.equals("true")){
+				System.out.println("②");
+				for(int column = firstDate; column%7 != 0; column++){
+					dates[row][column-1] = i;
+					System.out.println("["+row+"]"+"["+(column-1)+"]"+ dates[row][column-1]);
+					i++;
 				}
+				flg = "false";
+			}else if(flg.equals("false")){
+				System.out.println("③");
+				for(int column = 1; column<=7 ; column++){
+					System.out.println();
+					System.out.println("i  "+i);
+
+					if(i == lastDate){
+						break loop;
+					}
+					dates[row][column-1] = i;
+
+					System.out.println("["+row+"]"+"["+(column-1)+"]"+ dates[row][column-1]);
+					i++;
+				}
+
 			}
 		}
+		System.out.println("[4][6] "+dates[4][6]);
 
 
 		try{

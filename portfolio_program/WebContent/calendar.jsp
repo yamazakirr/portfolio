@@ -49,6 +49,10 @@ dayOfWeek:<s:property value="dayOfWeek"/><br>
 lastDate:<s:property value="lastDate"/><br>
 startDate:<s:property value="startDate"/><br>
 
+<input type="text" value="${dates[0][0] }"/>
+<input type="text" value="${dates[1][6] }"/>
+<input type="text" value="${dates[4][3] }"/>
+
 <table>
 	<tr>
 		<th>日</th>
