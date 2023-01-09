@@ -35,6 +35,27 @@
 
 カレンダー画面<br>
 
+<br>
+
+<form action="/portfolio_program/Servlet" method="get">
+<input type="submit" value="送信1">
+</form>
+<form action="/portfolio_program/src/com.portfolio.logic/Servlet" method="get">
+<input type="submit" value="送信2">
+</form>
+<form action="/portfolio_program/com.portfolio.logic/Servlet" method="get">
+<input type="submit" value="送信3">
+</form>
+<form action="/portfolio_program/java リソース/com.portfolio.logic/Servlet" method="get">
+<input type="submit" value="送信4">
+</form>
+
+<a href="/portfolio_program/Servlet">aa</a>
+<a href="/portfolio_program/com.portfolio.logic/Servlet">bb</a>
+
+
+<br>
+
 メール：<s:property value="mail"/><br>
 パスワード：<s:property value="password"/><br>
 
@@ -52,6 +73,8 @@ startDate:<s:property value="startDate"/><br>
 <input type="text" value="${dates[0][0] }"/>
 <input type="text" value="${dates[1][6] }"/>
 <input type="text" value="${dates[4][3] }"/>
+
+
 
 <table>
 	<tr>
