@@ -8,7 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="./css/calendar.css">
 
-
 <title>カレンダー画面</title>
 </head>
 <body>
@@ -28,15 +27,22 @@
 
 <!-- ■メイン -->
 	<div id="main">
-		<div id="box">
+		<div id="year">
+			<button id="lastYear">︎︎︎︎︎︎︎︎◀︎︎◀</button>
+				<h2 id="year"></h2>
+			<button id="nextYear">▶▶︎︎</button>
 		</div>
+		<div id="month">
+			<button id="lastMonth">◀︎</button>
+				<h2 id="month"></h2>
+			<button id="nextMonth">▶︎</button>
+
+		</div>
+			<div id="calendar"></div>
 
 	</div>
 
 カレンダー画面<br>
-
-<br>
-
 
 <br>
 
@@ -60,6 +66,8 @@ startDate:<s:property value="startDate"/><br>
 
 
 
+
+
 <table>
 	<tr>
 		<th>日</th>
@@ -73,5 +81,7 @@ startDate:<s:property value="startDate"/><br>
 
 </table>
 
+
+<script type="text/javascript" src="./javaScript/calendar.js"></script>
 </body>
 </html>

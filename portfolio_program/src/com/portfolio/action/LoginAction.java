@@ -9,11 +9,12 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.portfolio.dao.LoginDAO;
 
+
 public class LoginAction extends ActionSupport implements SessionAware{
 
 //	■フィールド一覧
 	public Map<String, Object> session;
-	private String userId;
+	public String userId;
 	private String userName;
 	private String mail;
 	private String password;
@@ -28,7 +29,9 @@ public class LoginAction extends ActionSupport implements SessionAware{
 
 	private int firstDate;
 
+
 	LoginDAO loginDAO = new LoginDAO();
+
 
 
 //	■コンストラクタ
@@ -46,9 +49,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		this.startDate = today.getActualMinimum(Calendar.DATE);
 	}
 
-
-
 	public String execute(){
+
 		String result = "";
 
 //		■カレンダーの作成
@@ -133,8 +135,10 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			e.printStackTrace();
 		}
 
+
 		return result;
 	}
+
 
 //■getterとsetter
 	public String getUserId(){
