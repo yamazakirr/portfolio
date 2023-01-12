@@ -15,9 +15,15 @@ public class AccountAction extends ActionSupport implements SessionAware{
 	private String userName;
 	private String mail;
 
+	private String name;
+
 	AccountDAO dao = new AccountDAO();
 
 	public String execute(){
+
+		System.out.println();
+		System.out.println("name "+name);
+
 		String result = "";
 
 //		■ログイン済み判定
@@ -67,6 +73,15 @@ public class AccountAction extends ActionSupport implements SessionAware{
 	}
 	public void setSession(Map<String, Object> session){
 		this.session = session;
+	}
+
+
+
+	public String getName(){
+		return name;
+	}
+	public void setName(String name){
+		this.name = name;
 	}
 
 }

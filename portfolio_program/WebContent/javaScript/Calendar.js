@@ -49,7 +49,21 @@ function showProcess(date){
 }
 
 //カレンダー作成
+function createProcess(year, month){
+//	曜日取得
+	var calendar = "<table><tr class='dayOfWeek'>";
+	for(var i = 0; i < week.length; i++){
+		calendar += "<th>" + week[i] + "<th>";
+	}
+	calendar += "</th>";
 
+	var count = 0;
+	var startDayOfWeek = new Date(year, month, 1).getDay();
+	var endDate = new Date(year, month, 1, 0);
+	var lastMonthEndDate = new Date(year, month, 0).getDate();
+	var row = Math.ceil((startDayOfWeek + endDate) / week.length);
+
+}
 
 
 

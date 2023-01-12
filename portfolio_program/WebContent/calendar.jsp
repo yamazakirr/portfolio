@@ -44,6 +44,18 @@
 
 カレンダー画面<br>
 
+<s:form action="AccountAction">
+	<input type="text" id="test" value="ssss">
+	<s:submit value="アカウント情報"/>
+
+</s:form>
+
+
+<script>
+	let test = document.getElementById("test");
+	test.setAttribute("name", "name");
+</script>
+
 <br>
 
 メール：<s:property value="mail"/><br>
