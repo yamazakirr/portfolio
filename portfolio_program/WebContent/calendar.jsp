@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,15 +29,39 @@
 <!-- ■メイン -->
 	<div id="main">
 		<div id="year">
-			<button id="lastYear">︎︎︎︎︎︎︎︎◀︎︎◀</button>
-				<h2 id="year"></h2>
-			<button id="nextYear">▶▶︎︎</button>
-		</div>
-		<div id="month">
-			<button id="lastMonth">◀︎</button>
-				<h2 id="month"></h2>
-			<button id="nextMonth">▶︎</button>
+			<s:form action="CalendarAction" width="100">︎︎︎︎︎︎︎︎
+				<s:submit value="◀︎︎◀"/>
+				<input type="hidden" name="year" value="<s:property value='year'/>">
+				<input type="hidden" name="month" value="<s:property value='month'/>">
+				<input type="hidden" name="changeCalendarDate" value="lastYear"/>
+			</s:form>
 
+			<s:property value="year"/>
+
+			<s:form action="CalendarAction">︎︎︎︎︎︎︎︎
+				<s:submit value="▶▶︎"/>
+				<input type="hidden" name="year" value="<s:property value='year'/>">
+				<input type="hidden" name="month" value="<s:property value='month'/>">
+				<input type="hidden" name="changeCalendarDate" value="nextYear"/>
+			</s:form>
+		</div>
+
+		<div id="month">
+			<s:form action="CalendarAction">︎︎︎︎︎︎︎︎
+				<s:submit value="◀︎︎"/>
+				<input type="hidden" name="year" value="<s:property value='year'/>">
+				<input type="hidden" name="month" value="<s:property value='month'/>">
+				<input type="hidden" name="changeCalendarDate" value="lastMonth"/>
+			</s:form>
+
+			<s:property value="month"/>
+
+			<s:form action="CalendarAction">︎︎︎︎︎︎︎︎
+				<s:submit value="▶︎"/>
+				<input type="hidden" name="year" value="<s:property value='year'/>">
+				<input type="hidden" name="month" value="<s:property value='month'/>">
+				<input type="hidden" name="changeCalendarDate" value="nextMonth"/>
+			</s:form>
 		</div>
 			<div id="calendar"></div>
 
@@ -44,17 +69,43 @@
 
 カレンダー画面<br>
 
-<s:form action="AccountAction">
-	<input type="text" id="test" value="ssss">
-	<s:submit value="アカウント情報"/>
+<!-- カレンダーの表示 -->
+<table border="1" id="calendar">
+	<tr>
+		<th>日</th>
+		<th>月</th>
+		<th>火</th>
+		<th>水</th>
+		<th>木</th>
+		<th>金</th>
+		<th>土</th>
+	</tr>
+	<tr>
+		<s:iterator value="%{calendarLists}" var="item" status="key">
+			<td>
+				<!-- Action名はまだ未定 dateScheduleAction -->
+				<a href='<s:url action="AccountAction"/>' id="">
+					<s:property/>
+				</a>
+			</td>
+			<s:if test="#key.count % 7 == 0">
+				<tr></tr>
+			</s:if>
+		</s:iterator>
+	</tr>
+</table>
 
-</s:form>
 
 
-<script>
-	let test = document.getElementById("test");
-	test.setAttribute("name", "name");
-</script>
+
+
+<s:property value="{dates[0][0] }"/><br>
+<s:property value="%{dates[0][1] }"/><br>
+<s:property value="%{dates[0][2] }"/><br>
+<s:property value="%{dates[0][3] }"/><br>
+<s:property value="{dates[0][4] }"/><br>
+
+
 
 <br>
 

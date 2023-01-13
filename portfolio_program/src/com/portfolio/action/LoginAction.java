@@ -1,6 +1,7 @@
 package com.portfolio.action;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 
@@ -20,26 +21,40 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private String password;
 	private String loginErrorMessage = "";
 
+	private Calendar selectDate;
+	private int lastDate;
+	private int firstDate;
+	private int firstDayOfWeek;
+
+
+	private Calendar today;
+
 	private int year;
 	private int month;
 	private int date;
 	private int dayOfWeek;
-	private int lastDate;
 	private int startDate;
 
-	private int firstDate;
+
 
 
 	LoginDAO loginDAO = new LoginDAO();
+
+	ArrayList<Object> calendarLists = new ArrayList<Object>();
 
 
 
 //	■コンストラクタ
 	public LoginAction(){
-		Calendar today = Calendar.getInstance();
+		this.today = Calendar.getInstance();
 		Calendar firstDay = Calendar.getInstance();
+
+//		月初の曜日取得
 		firstDay.set(Calendar.DATE, 1);
 		this.firstDate = firstDay.get(Calendar.DAY_OF_WEEK);
+		System.out.println("firstDate : 月初の曜日 :"+firstDate);
+
+		System.out.println("今日の曜日 :"+today.get(Calendar.DAY_OF_WEEK));
 
 		this.year = today.get(Calendar.YEAR);
 		this.month = today.get(Calendar.MONTH)+1;
@@ -47,68 +62,32 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		this.dayOfWeek = today.get(Calendar.DAY_OF_WEEK);
 		this.lastDate = today.getActualMaximum(Calendar.DATE);
 		this.startDate = today.getActualMinimum(Calendar.DATE);
+
+
+//		月初の曜日取得
+		int firstDayOfWeek = firstDay.get(Calendar.DAY_OF_WEEK);
+		System.out.println("firstDayOfWeek :"+firstDayOfWeek);
 	}
 
 	public String execute(){
-
 		String result = "";
 
-//		■カレンダーの作成
-		int row = 0;
-		int i = 1;
-		int weeks;
-		String flg = "true";
+		if(year == 0 && month ==0){
 
-//		■対象月が何週間か取得
-		double d = 0.0;
-		d = (lastDate + firstDate-1)/7.0;
-		System.out.println();
-
-		System.out.println("lastDate "+lastDate);
-		System.out.println("firstDate "+firstDate);
-		System.out.println("d "+d);
-		System.out.println("row "+row);
-
-		System.out.println();
-		weeks = (int)Math.ceil(d);
-
-		int[][] dates = new int[weeks][7];
-
-		System.out.println("weeks "+weeks);
-
-
-		System.out.println("①");
-
-
-		loop:for(; row < weeks; row++){
-
-			if(flg.equals("true")){
-				System.out.println("②");
-				for(int column = firstDate; column%7 != 0; column++){
-					dates[row][column-1] = i;
-					System.out.println("["+row+"]"+"["+(column-1)+"]"+ dates[row][column-1]);
-					i++;
-				}
-				flg = "false";
-			}else if(flg.equals("false")){
-				System.out.println("③");
-				for(int column = 1; column<=7 ; column++){
-					System.out.println();
-					System.out.println("i  "+i);
-
-					if(i == lastDate){
-						break loop;
-					}
-					dates[row][column-1] = i;
-
-					System.out.println("["+row+"]"+"["+(column-1)+"]"+ dates[row][column-1]);
-					i++;
-				}
-
-			}
+		}else{
+			calendarLists = getCalendar(year, month);
 		}
-		System.out.println("[4][6] "+dates[4][6]);
 
+//	■修正版======================
+
+//	■カレンダーの作成
+	for(int sample=0; sample < 4; sample++){
+		calendarLists.add("");
+	}
+	for(int sample2=1; sample2 != lastDate+1; sample2++){
+		calendarLists.add(sample2);
+	}
+//==============================
 
 		try{
 			result = loginDAO.getLoginResult(mail, password);
@@ -116,12 +95,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			if(result.equals("success")){
 				this.userId = loginDAO.getUserId();
 				this.userName = loginDAO.getUserName();
-
-				System.out.println("result "+ result);
-				System.out.println("userId "+ userId);
-				System.out.println("userName "+ userName);
-				System.out.println("mail "+ mail);
-				System.out.println("password "+ password);
 
 				session.put("userName", userName);
 				session.put("userId", userId);
@@ -134,9 +107,26 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			result = "networkError";
 			e.printStackTrace();
 		}
-
-
 		return result;
+	}
+
+	public ArrayList<Object> getCalendar(int year, int month){
+		selectDate = Calendar.getInstance();
+		selectDate.set(Calendar.YEAR, year);
+		selectDate.set(Calendar.MONTH, month);
+
+		lastDate = selectDate.getActualMaximum(Calendar.DATE);
+		firstDate = selectDate.getActualMinimum(Calendar.DATE);
+		firstDayOfWeek = selectDate.get(Calendar.DAY_OF_WEEK);
+
+//		※「sample < 4」は動作確認後「sample < firstDayOfWeek - 1」に変更する ※
+		for(int sample=0; sample < 4; sample++){
+			calendarLists.add("");
+		}
+		for(int sample2=1; sample2 != lastDate+1; sample2++){
+			calendarLists.add(sample2);
+		}
+		return calendarLists;
 	}
 
 
@@ -207,6 +197,19 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	public void setStartDate(int startDate){
 		this.startDate = startDate;
 	}
+	public int getFirstDayOfWeek(){
+		return firstDayOfWeek;
+	}
+	public void setFirstDayOfWeek(int firstDayOfWeek){
+		this.firstDayOfWeek = firstDayOfWeek;
+	}
+	public ArrayList<Object> getCalendarLists(){
+		return calendarLists;
+	}
+	public void setCalendarLists(ArrayList<Object> calendarLists){
+		this.calendarLists = calendarLists;
+	}
+
 
 
 
