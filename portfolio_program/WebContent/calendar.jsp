@@ -101,45 +101,9 @@
 	<tr>
 		<s:iterator value="%{calendarLists}" var="item" status="key">
 			<td>
-
-				<a href='<s:url action="AccountAction"/>' id="calendar">
+				<a href='<s:url action="AccountAction"/>?year=<s:property value="year"/>&month=<s:property value="month"/>&date=<s:property/>' id="calendar">
 					<s:property/>
 				</a>
-
-				<s:form action="AccountAction">
-
-					<s:submit name="date" value="<s:property/>"/><br>
-					<input type="hidden" name="year" value="<s:property value='year'/>">
-					<input type="hidden" name="month" value="<s:property value='month'/>">
-<!--
-					<s:submit name="date" value="%{calendarLists}"/><br>
--->
-				</s:form>
-
-
-<!--
-				<s:url id="url" action="AccountAction">
-					<s:param name="year">1</s:param>
-				</s:url>
--->
-<!--  					<s:param name="date" value="1"></s:param>
-					<s:textfield name="date" value="%{calendarLists}"/>
--->
-
-
-
-
-
-<%--
-				<s:form action="AccountAction">
-
-					<s:submit value="<s:property/>"/>
-					<input type="hidden" name="year" value="<s:property value='year'/>">
-					<input type="hidden" name="month" value="<s:property value='month'/>">
-
-				</s:form>
- --%>
-
 
 			</td>
 			<s:if test="#key.count % 7 == 0">

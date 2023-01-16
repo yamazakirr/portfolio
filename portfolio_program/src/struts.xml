@@ -102,6 +102,11 @@
 	<result name="networkError">networkError.jsp</result>
 	</action>
 
+<!-- カレンダーの表示操作 -->
+	<action name="ScheduleGetAction" class="com.portfolio.action.ScheduleGetAction" method="execute">
+	<result name="success">calendar.jsp</result>
+	</action>
+
 
 
 
