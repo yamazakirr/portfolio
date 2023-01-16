@@ -1,6 +1,7 @@
 package com.portfolio.action;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
@@ -22,73 +23,35 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private String loginErrorMessage = "";
 
 	private Calendar selectDate;
+	private Calendar today;
+	private int year;
+	private int month;
+	private int date;
 	private int lastDate;
 	private int firstDate;
 	private int firstDayOfWeek;
 
 
-	private Calendar today;
-
-	private int year;
-	private int month;
-	private int date;
-	private int dayOfWeek;
-	private int startDate;
-
-
-
-
 	LoginDAO loginDAO = new LoginDAO();
-
 	ArrayList<Object> calendarLists = new ArrayList<Object>();
-
-
-
-//	■コンストラクタ
-	public LoginAction(){
-		this.today = Calendar.getInstance();
-		Calendar firstDay = Calendar.getInstance();
-
-//		月初の曜日取得
-		firstDay.set(Calendar.DATE, 1);
-		this.firstDate = firstDay.get(Calendar.DAY_OF_WEEK);
-		System.out.println("firstDate : 月初の曜日 :"+firstDate);
-
-		System.out.println("今日の曜日 :"+today.get(Calendar.DAY_OF_WEEK));
-
-		this.year = today.get(Calendar.YEAR);
-		this.month = today.get(Calendar.MONTH)+1;
-		this.date = today.get(Calendar.DATE);
-		this.dayOfWeek = today.get(Calendar.DAY_OF_WEEK);
-		this.lastDate = today.getActualMaximum(Calendar.DATE);
-		this.startDate = today.getActualMinimum(Calendar.DATE);
-
-
-//		月初の曜日取得
-		int firstDayOfWeek = firstDay.get(Calendar.DAY_OF_WEEK);
-		System.out.println("firstDayOfWeek :"+firstDayOfWeek);
-	}
 
 	public String execute(){
 		String result = "";
 
-		if(year == 0 && month ==0){
+//		■sessionにyear,monthを格納
+		session.put("year", year);
+		session.put("month", month);
 
+//		■カレンダー作成処理
+		if(session.get("year").equals(0) && session.get("month").equals(0)){
+//			■カレンダー初期表示
+			calendarLists = getCalendar();
 		}else{
+//			■日付変更後のカレンダー表示
 			calendarLists = getCalendar(year, month);
 		}
 
-//	■修正版======================
-
-//	■カレンダーの作成
-	for(int sample=0; sample < 4; sample++){
-		calendarLists.add("");
-	}
-	for(int sample2=1; sample2 != lastDate+1; sample2++){
-		calendarLists.add(sample2);
-	}
-//==============================
-
+//		■ログイン処理
 		try{
 			result = loginDAO.getLoginResult(mail, password);
 
@@ -110,17 +73,59 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		return result;
 	}
 
+//	■初期表示のカレンダー作成
+	public ArrayList<Object> getCalendar(){
+		today = Calendar.getInstance();
+
+		year = today.get(Calendar.YEAR);
+		month = today.get(Calendar.MONTH) + 1;
+		date = today.get(Calendar.DATE);
+
+		lastDate = today.getActualMaximum(Calendar.DATE);
+		firstDate = today.getActualMinimum(Calendar.DATE);
+
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		System.out.println("今日の日付"+ sdf.format(today.getTime()));
+		today.set(Calendar.DATE, firstDate);
+
+		firstDayOfWeek = today.get(Calendar.DAY_OF_WEEK);
+
+//		※「sample < 4」は動作確認後「sample < firstDayOfWeek - 1」に変更する ※
+
+		System.out.println("firstDayOfWeek :" + firstDayOfWeek);
+
+		for(int sample=0; sample < firstDayOfWeek - 1; sample++){
+			System.out.println("中の処理firstDayOfWeek :" + firstDayOfWeek);
+			calendarLists.add("");
+		}
+		for(int sample2=1; sample2 != lastDate+1; sample2++){
+			calendarLists.add(sample2);
+		}
+		return calendarLists;
+	}
+
+//	■日付指定がある場合のカレンダー作成
 	public ArrayList<Object> getCalendar(int year, int month){
 		selectDate = Calendar.getInstance();
 		selectDate.set(Calendar.YEAR, year);
 		selectDate.set(Calendar.MONTH, month);
+		selectDate.set(Calendar.DATE, 1);
+
+		System.out.println("year :"+ year);
+		System.out.println("month :"+ month);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		System.out.println("LoginAction.java指定なしの日付"+ sdf.format(selectDate.getTime()));
 
 		lastDate = selectDate.getActualMaximum(Calendar.DATE);
 		firstDate = selectDate.getActualMinimum(Calendar.DATE);
 		firstDayOfWeek = selectDate.get(Calendar.DAY_OF_WEEK);
 
+		System.out.println("曜日 :"+ firstDayOfWeek);
+
 //		※「sample < 4」は動作確認後「sample < firstDayOfWeek - 1」に変更する ※
-		for(int sample=0; sample < 4; sample++){
+		for(int sample=0; sample < firstDayOfWeek - 1 ; sample++){
 			calendarLists.add("");
 		}
 		for(int sample2=1; sample2 != lastDate+1; sample2++){
@@ -130,7 +135,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	}
 
 
-//■getterとsetter
+//	■getterとsetter
 	public String getUserId(){
 		return userId;
 	}
@@ -179,23 +184,17 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	public void setDate(int date){
 		this.date = date;
 	}
-	public int getDayOfWeek(){
-		return dayOfWeek;
-	}
-	public void setDayOfWeek(int dayOfWeek){
-		this.dayOfWeek = dayOfWeek;
-	}
 	public int getLastDate(){
 		return lastDate;
 	}
 	public void setLastDate(int lastDate){
 		this.lastDate = lastDate;
 	}
-	public int getStartDate(){
-		return startDate;
+	public int getFirstDate(){
+		return firstDate;
 	}
-	public void setStartDate(int startDate){
-		this.startDate = startDate;
+	public void setFirstDate(int firstDate){
+		this.firstDate = firstDate;
 	}
 	public int getFirstDayOfWeek(){
 		return firstDayOfWeek;
@@ -210,8 +209,12 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		this.calendarLists = calendarLists;
 	}
 
-
-
+	public Calendar getSelectDate(){
+		return selectDate;
+	}
+	public void setSelectDate(Calendar selectDate){
+		this.selectDate = selectDate;
+	}
 
 
 //	@Override
