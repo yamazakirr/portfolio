@@ -25,6 +25,7 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 
 	public String execute(){
 
+
 //		■ログイン済み判定
 		if(session.containsKey("userId") && session.containsKey("userName")){
 //			■yearとmonthの判定

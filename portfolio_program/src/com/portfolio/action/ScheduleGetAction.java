@@ -14,6 +14,7 @@ public class ScheduleGetAction extends ActionSupport{
 	private int year;
 	private int month;
 	private int date;
+	private int userId;
 
 
 	ScheduleGetDAO scheduleGetDAO = new ScheduleGetDAO();
@@ -21,9 +22,17 @@ public class ScheduleGetAction extends ActionSupport{
 
 	public String execute(){
 
+		System.out.println("year :"+year);
+		System.out.println("month :"+month);
+		System.out.println("date :"+date);
+		System.out.println("userId :" +userId);
 
+		try{
+			scheduleList = scheduleGetDAO.getScheduleList(year, month, date, userId);
 
-
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 
 		result = "success";
 		return result;
@@ -47,6 +56,19 @@ public class ScheduleGetAction extends ActionSupport{
 	}
 	public void setDate(int date){
 		this.date = date;
+	}
+	public int getUserId(){
+		return userId;
+	}
+	public void setUserId(int userId){
+		this.userId = userId;
+	}
+
+	public ArrayList<ScheduleGetDTO> getScheduleList(){
+		return scheduleList;
+	}
+	public void setScheduleList(ArrayList<ScheduleGetDTO> scheduleList){
+		this.scheduleList = scheduleList;
 	}
 
 

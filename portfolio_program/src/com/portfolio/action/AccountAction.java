@@ -15,22 +15,10 @@ public class AccountAction extends ActionSupport implements SessionAware{
 	private String userName;
 	private String mail;
 
-
-	private String year;
-	private int month;
-	private int date;
-
 	AccountDAO dao = new AccountDAO();
 
 	public String execute(){
 
-//		test
-		System.out.println("sessionのyear :" +session.get("year"));
-		System.out.println("year :" +year);
-		System.out.println("sessionのmonth :" +session.get("month"));
-		System.out.println("month :" +month);
-		System.out.println("sessionのdate :" +session.get("date"));
-		System.out.println("date :" +date);
 
 		String result = "";
 
@@ -75,25 +63,6 @@ public class AccountAction extends ActionSupport implements SessionAware{
 		this.mail = mail;
 	}
 
-
-	public String getYear(){
-		return year;
-	}
-	public void setYear(String year){
-		this.year = year;
-	}
-	public int getMonth(){
-		return month;
-	}
-	public void setMonth(int month){
-		this.month = month;
-	}
-	public int getDate(){
-		return month;
-	}
-	public void setDate(int date){
-		this.date = date;
-	}
 
 //	@Override
 	public Map<String, Object> getSession(){

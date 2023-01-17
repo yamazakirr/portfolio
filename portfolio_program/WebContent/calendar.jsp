@@ -101,9 +101,21 @@
 	<tr>
 		<s:iterator value="%{calendarLists}" var="item" status="key">
 			<td>
-				<a href='<s:url action="AccountAction"/>?year=<s:property value="year"/>&month=<s:property value="month"/>&date=<s:property/>' id="calendar">
+
+				<!-- セキュリティの観点からform actionで送る方法を考える -->
+				<a href='<s:url action="ScheduleGetAction"/>?year=<s:property value="year"/>&month=<s:property value="month"/>&date=<s:property/>&userId=<s:property value="#session.userId"/>' id="calendar" >
 					<s:property/>
 				</a>
+
+				<s:form action="ScheduleGetAction" >
+					<input type="submit" value="<s:property/>" name="date">
+					<input type="hidden" value="<s:property value='year'/>" name="year">
+					<input type="hidden" value="<s:property value='month'/>" name="month">
+					<input type="hidden" value="<s:property value='month'/>" name="month">
+					<input type="hidden" value="<s:property value='"#session.userId"'/>" name="userId">
+				</s:form>
+
+
 
 			</td>
 			<s:if test="#key.count % 7 == 0">
