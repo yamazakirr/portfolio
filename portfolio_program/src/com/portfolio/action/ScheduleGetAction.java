@@ -18,7 +18,7 @@ public class ScheduleGetAction extends ActionSupport{
 
 
 	ScheduleGetDAO scheduleGetDAO = new ScheduleGetDAO();
-	private ArrayList<ScheduleGetDTO> scheduleList = new ArrayList<ScheduleGetDTO>();
+	private ArrayList<ScheduleGetDTO> scheduleListDTO = new ArrayList<ScheduleGetDTO>();
 
 	public String execute(){
 
@@ -28,7 +28,7 @@ public class ScheduleGetAction extends ActionSupport{
 		System.out.println("userId :" +userId);
 
 		try{
-			scheduleList = scheduleGetDAO.getScheduleList(year, month, date, userId);
+			scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
 
 		}catch(Exception e){
 			e.printStackTrace();
@@ -64,11 +64,11 @@ public class ScheduleGetAction extends ActionSupport{
 		this.userId = userId;
 	}
 
-	public ArrayList<ScheduleGetDTO> getScheduleList(){
-		return scheduleList;
+	public ArrayList<ScheduleGetDTO> getScheduleListDTO(){
+		return scheduleListDTO;
 	}
-	public void setScheduleList(ArrayList<ScheduleGetDTO> scheduleList){
-		this.scheduleList = scheduleList;
+	public void setScheduleListDTO(ArrayList<ScheduleGetDTO> scheduleListDTO){
+		this.scheduleListDTO = scheduleListDTO;
 	}
 
 
