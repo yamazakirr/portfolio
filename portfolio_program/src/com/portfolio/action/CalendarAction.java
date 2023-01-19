@@ -52,6 +52,7 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 				session.put("year", year);
 				session.put("month", month);
 
+
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 				System.out.println("year :"+ year);
 				System.out.println("month :"+ month);
@@ -60,6 +61,9 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 
 
 				calendarLists = loginAction.getCalendar(year, month -1);
+				session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
+
+				System.out.println("sessionのfirstDayOfWeek"+ loginAction.getFirstDayOfWeek());
 				System.out.println("CalendarAction.javaの日付"+ sdf.format(loginAction.getSelectDate().getTime()));
 
 				result = "success";

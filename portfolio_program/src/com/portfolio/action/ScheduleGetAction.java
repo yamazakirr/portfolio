@@ -16,9 +16,8 @@ public class ScheduleGetAction extends ActionSupport{
 	private int date;
 	private int userId;
 
-
 	ScheduleGetDAO scheduleGetDAO = new ScheduleGetDAO();
-	private ArrayList<ScheduleGetDTO> scheduleListDTO = new ArrayList<ScheduleGetDTO>();
+	ArrayList<ScheduleGetDTO> scheduleListDTO = new ArrayList<ScheduleGetDTO>();
 
 	public String execute(){
 
@@ -35,7 +34,8 @@ public class ScheduleGetAction extends ActionSupport{
 		}
 
 		result = "success";
-		return result;
+		System.out.println("result :"+result);
+		return SUCCESS;
 	}
 
 //	■getterとsetter

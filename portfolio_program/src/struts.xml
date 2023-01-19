@@ -6,7 +6,9 @@
 
 
 <struts>
-	<constant name="struts.devMode" value="true"/>
+<!--
+ <constant name="struts.devMode" value="true"/>
+ -->
 	<constant name="struts.ui.theme" value="simple"/>
 	<package name="com.portfolio.action" extends="struts-default">
 
@@ -102,10 +104,11 @@
 	<result name="networkError">networkError.jsp</result>
 	</action>
 
-<!-- カレンダーの表示操作 -->
+<!-- カレンダー、予定の表示操作 -->
 	<action name="ScheduleGetAction" class="com.portfolio.action.ScheduleGetAction" method="execute">
 	<result name="success">calendar.jsp</result>
 	</action>
+
 
 
 

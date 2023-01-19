@@ -42,6 +42,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		session.put("year", year);
 		session.put("month", month);
 
+
 //		■カレンダー作成処理
 		if(session.get("year").equals(0) && session.get("month").equals(0)){
 //			■カレンダー初期表示
@@ -90,6 +91,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		today.set(Calendar.DATE, firstDate);
 
 		firstDayOfWeek = today.get(Calendar.DAY_OF_WEEK);
+		session.put("firstDayOfWeek", firstDayOfWeek);
 
 //		※「sample < 4」は動作確認後「sample < firstDayOfWeek - 1」に変更する ※
 

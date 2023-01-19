@@ -59,7 +59,7 @@ public class ScheduleGetDAO {
 				if((selectDate.compareTo(startDate) != -1) && (selectDate.compareTo(endDate) != 1)){
 					ScheduleGetDTO dto = new ScheduleGetDTO();
 					dto.setId(resultSet.getInt("id"));
-					dto.setUserId(resultSet.getInt("user_if"));
+					dto.setUserId(resultSet.getInt("user_id"));
 					dto.setSchedule(resultSet.getString("schedule"));
 					dto.setMemo(resultSet.getString("memo"));
 					dto.setStartDate(resultSet.getDate("start_date"));
