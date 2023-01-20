@@ -17,7 +17,9 @@ public class ScheduleGetAction extends ActionSupport{
 	private int userId;
 
 	ScheduleGetDAO scheduleGetDAO = new ScheduleGetDAO();
+	LoginAction loginAction = new LoginAction();
 	ArrayList<ScheduleGetDTO> scheduleListDTO = new ArrayList<ScheduleGetDTO>();
+	ArrayList<Object> calendarLists = new ArrayList<Object>();
 
 	public String execute(){
 
@@ -28,7 +30,9 @@ public class ScheduleGetAction extends ActionSupport{
 
 		try{
 			scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
+			calendarLists = loginAction.getCalendar(year, month);
 
+			session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -69,6 +73,12 @@ public class ScheduleGetAction extends ActionSupport{
 	}
 	public void setScheduleListDTO(ArrayList<ScheduleGetDTO> scheduleListDTO){
 		this.scheduleListDTO = scheduleListDTO;
+	}
+	public ArrayList<Object> getCalendarLists(){
+		return calendarLists;
+	}
+	public void setCalendarLists(ArrayList<Object> calendarLists){
+		this.calendarLists = calendarLists;
 	}
 
 

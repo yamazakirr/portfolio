@@ -116,7 +116,9 @@
 	</tr>
 </table>
 
-<br>
+<br><br>
+
+<s:property value="year"/>年 <s:property value="month"/>月 <s:property value="date"/>日
 
 <table>
 	<tr>

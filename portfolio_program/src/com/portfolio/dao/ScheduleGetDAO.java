@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,10 +26,16 @@ public class ScheduleGetDAO {
 	public ArrayList<ScheduleGetDTO> getScheduleList(int year, int month, int date, int userId)throws SQLException{
 
 		selectCalendar = Calendar.getInstance();
+		selectDate = new Date();
 		selectCalendar.set(Calendar.YEAR, year);
 		selectCalendar.set(Calendar.MONTH, month -1);
 		selectCalendar.set(Calendar.DATE, date);
+
+
+//		selectDateのフォーマットを変更する
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		selectDate = selectCalendar.getTime();
+		sdf.format(selectDate);
 
 		System.out.println("selectDate :"+selectDate);
 
@@ -54,6 +61,8 @@ public class ScheduleGetDAO {
 
 				System.out.println("startDate :"+ startDate);
 				System.out.println("endDate :"+ endDate);
+				System.out.println("selectDate :" + selectDate);
+				System.out.println();
 
 //				Listに格納する条件：start_date <= selectDate <= end_date
 				if((selectDate.compareTo(startDate) != -1) && (selectDate.compareTo(endDate) != 1)){
