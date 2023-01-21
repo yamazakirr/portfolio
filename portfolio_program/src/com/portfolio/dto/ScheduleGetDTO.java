@@ -1,7 +1,7 @@
 package com.portfolio.dto;
 
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;;
 
 public class ScheduleGetDTO {
 
@@ -9,11 +9,11 @@ public class ScheduleGetDTO {
 	private int userId;
 	private String schedule;
 	private String memo;
-	private Date startDate;
-	private Date endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private int allDayFlg;
-	private Time startTime;
-	private Time endTime;
+	private LocalTime startTime;
+	private LocalTime endTime;
 	private int calendarDeleteFlg;
 
 	private int year;
@@ -47,16 +47,16 @@ public class ScheduleGetDTO {
 	public void setMemo(String memo){
 		this.memo = memo;
 	}
-	public Date getStartDate(){
+	public LocalDate getStartDate(){
 		return startDate;
 	}
-	public void setStartDate(Date startDate){
+	public void setStartDate(LocalDate startDate){
 		this.startDate = startDate;
 	}
-	public Date getEndDate(){
+	public LocalDate getEndDate(){
 		return endDate;
 	}
-	public void setEndDate(Date endDate){
+	public void setEndDate(LocalDate endDate){
 		this.endDate = endDate;
 	}
 	public int getAllDayFlg(){
@@ -65,16 +65,16 @@ public class ScheduleGetDTO {
 	public void setAllDayFlg(int allDayFlg){
 		this.allDayFlg = allDayFlg;
 	}
-	public Time getStartTime(){
+	public LocalTime getStartTime(){
 		return startTime;
 	}
-	public void setStartTime(Time startTime){
+	public void setStartTime(LocalTime startTime){
 		this.startTime = startTime;
 	}
-	public Time getEndTime(){
+	public LocalTime getEndTime(){
 		return endTime;
 	}
-	public void setEndTime(Time endTime){
+	public void setEndTime(LocalTime endTime){
 		this.endTime = endTime;
 	}
 	public int getCalendarDeleteFlg(){

@@ -49,6 +49,11 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 						this.month = month + 1;
 					}
 				}
+
+//				dateの指定がない場合は「1」を代入
+				if(date == 0){
+					date = 1;
+				}
 				session.put("year", year);
 				session.put("month", month);
 
@@ -58,10 +63,9 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 				System.out.println("month :"+ month);
 				System.out.println("lastDate :"+ loginAction.getLastDate());
 
-
-
 				calendarLists = loginAction.getCalendar(year, month -1);
 				session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
+				session.put("date", loginAction.getDate());
 
 				System.out.println("sessionのfirstDayOfWeek"+ loginAction.getFirstDayOfWeek());
 				System.out.println("CalendarAction.javaの日付"+ sdf.format(loginAction.getSelectDate().getTime()));

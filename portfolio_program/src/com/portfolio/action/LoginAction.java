@@ -117,7 +117,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		System.out.println("year :"+ year);
 		System.out.println("month :"+ month);
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		System.out.println("LoginAction.java指定なしの日付"+ sdf.format(selectDate.getTime()));
 
 		lastDate = selectDate.getActualMaximum(Calendar.DATE);

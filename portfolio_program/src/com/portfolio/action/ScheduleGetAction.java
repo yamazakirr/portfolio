@@ -23,16 +23,21 @@ public class ScheduleGetAction extends ActionSupport{
 
 	public String execute(){
 
+		System.out.println("ScheduleGetAction処理");
 		System.out.println("year :"+year);
 		System.out.println("month :"+month);
 		System.out.println("date :"+date);
 		System.out.println("userId :" +userId);
+		System.out.println();
 
 		try{
+
 			scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
-			calendarLists = loginAction.getCalendar(year, month);
+			calendarLists = loginAction.getCalendar(year, month -1);
 
 			session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
+
+			System.out.println("firstDayOfWeek :"+loginAction.getFirstDayOfWeek());
 		}catch(Exception e){
 			e.printStackTrace();
 		}

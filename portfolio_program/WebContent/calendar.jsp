@@ -37,6 +37,7 @@
 								<s:submit value="◀︎︎◀"/>
 								<input type="hidden" name="year" value="<s:property value='year'/>">
 								<input type="hidden" name="month" value="<s:property value='month'/>">
+								<input type="hidden" name="date" value="<s:property value='date'/>">
 								<input type="hidden" name="changeCalendarDate" value="lastYear"/>
 						</s:form>
 					</td>
@@ -48,6 +49,7 @@
 							<s:submit value="▶▶︎"/>
 							<input type="hidden" name="year" value="<s:property value='year'/>">
 							<input type="hidden" name="month" value="<s:property value='month'/>">
+							<input type="hidden" name="date" value="<s:property value='date'/>">
 							<input type="hidden" name="changeCalendarDate" value="nextYear"/>
 						</s:form>
 					</td>
@@ -63,6 +65,7 @@
 							<s:submit value="◀︎︎"/>
 							<input type="hidden" name="year" value="<s:property value='year'/>">
 							<input type="hidden" name="month" value="<s:property value='month'/>">
+							<input type="hidden" name="date" value="<s:property value='date'/>">
 							<input type="hidden" name="changeCalendarDate" value="lastMonth"/>
 						</s:form>
 					</td>
@@ -74,6 +77,7 @@
 							<s:submit value="▶︎"/>
 							<input type="hidden" name="year" value="<s:property value='year'/>">
 							<input type="hidden" name="month" value="<s:property value='month'/>">
+							<input type="hidden" name="date" value="<s:property value='date'/>">
 							<input type="hidden" name="changeCalendarDate" value="nextMonth"/>
 						</s:form>
 					</td>
@@ -84,6 +88,7 @@
 
 	</div>
 
+値の合計 :<s:property value="date + #session.firstDayOfWeek -1"/>
 
 <!-- カレンダーの表示 -->
 <table border="1" id="calendar">
@@ -99,16 +104,47 @@
 	</tr>
 	<tr>
 		<s:iterator value="%{calendarLists}" var="item" status="key">
-			<td>
-				<s:if test="#key.count >= #session.firstDayOfWeek ">
-					<s:form action="ScheduleGetAction" >
-						<input type="hidden" value="<s:property value='year'/>" name="year">
-						<input type="hidden" value="<s:property value='month'/>" name="month">
-						<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
-						<input type="submit" value="<s:property/>" name="date">
-					</s:form>
-				</s:if>
-			</td>
+
+			<!-- 現在選択されている日付 -->
+			<s:if test="#key.count == date + #session.firstDayOfWeek -1">
+				<td id="selectDate">
+					<s:if test="#key.count >= #session.firstDayOfWeek ">
+						<s:form action="ScheduleGetAction" >
+							<input type="hidden" value="<s:property value='year'/>" name="year">
+							<input type="hidden" value="<s:property value='month'/>" name="month">
+
+							<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
+							<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
+
+							<input type="submit" value="<s:property/>" name="date">
+						</s:form>
+					</s:if>
+				</td>
+
+				<script>
+					let selectDate = document.getElementById("selectDate");
+					selectDate.style.backgroundColor = "red";
+				</script>
+			</s:if>
+
+			<!-- 現在選択されている以外の日付 -->
+			<s:if test="#key.count != date + #session.firstDayOfWeek -1">
+				<td>
+					<s:if test="#key.count >= #session.firstDayOfWeek ">
+						<s:form action="ScheduleGetAction" >
+							<input type="hidden" value="<s:property value='year'/>" name="year">
+							<input type="hidden" value="<s:property value='month'/>" name="month">
+
+							<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
+							<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
+
+							<input type="submit" value="<s:property/>" name="date">
+						</s:form>
+					</s:if>
+				</td>
+			</s:if>
+
+
 			<s:if test="#key.count % 7 == 0">
 				<tr></tr>
 			</s:if>
@@ -118,49 +154,71 @@
 
 <br><br>
 
-<s:property value="year"/>年 <s:property value="month"/>月 <s:property value="date"/>日
+<s:property value="year"/>年 <s:property value="month"/>月 <s:property value="date" />日
 
 <table>
-	<tr>
-		<s:iterator value="scheduleListDTO">
-		<td>
-			<s:property value="startTime"/>
-			-
-			<s:property value="endTime"/>
-		</td>
-		<td>
-			<s:property value="schedule"/>
-		</td>
-		<td>
-			<s:form action="ScheduleConfirmAction">
-				<input type="hidden" name="userId" value="<s:property value='#session.userId'/>">
-				<input type="hidden" name="id" value="<s:property value='id'/>">
-				<input type="hidden" name="schedule" value="<s:property value='schedule'/>">
-				<input type="hidden" name="memo" value="<s:property value='memo'/>">
-				<input type="hidden" name="startDate" value="<s:property value='startDate'/>">
-				<input type="hidden" name="endDate" value="<s:property value='endDate'/>">
-				<input type="hidden" name="allDayFlg" value="<s:property value='allDayFlg'/>">
-				<input type="hidden" name="startTime" value="<s:property value='startTime'/>">
-				<input type="hidden" name="endTime" value="<s:property value='endTime'/>">
-			</s:form>
+	<s:iterator value="scheduleListDTO">
+		<tr>
+			<td>
+				<s:if test="allDayFlg == 0">
+					<s:property value="startTime"/>
+					-
+					<s:property value="endTime"/>
+				</s:if>
+				<s:elseif test="allDayFlg == 1">
+					終日
+				</s:elseif>
+			</td>
+			<td>
+				<s:property value="schedule"/>
+			</td>
+			<td>
+				<s:form action="ScheduleConfirmAction">
+					<input type="hidden" name="userId" value="<s:property value='#session.userId'/>">
+					<input type="hidden" name="id" value="<s:property value='id'/>">
+					<input type="hidden" name="schedule" value="<s:property value='schedule'/>">
+					<input type="hidden" name="memo" value="<s:property value='memo'/>">
+					<input type="hidden" name="startDate" value="<s:property value='startDate'/>">
+					<input type="hidden" name="endDate" value="<s:property value='endDate'/>">
+					<input type="hidden" name="allDayFlg" value="<s:property value='allDayFlg'/>">
+					<input type="hidden" name="startTime" value="<s:property value='startTime'/>">
+					<input type="hidden" name="endTime" value="<s:property value='endTime'/>">
 
-		</td>
-		<td>
-			<s:form action="ScheduleDeleteAction">
-				<input type="hidden" name="userId" value="<s:property value='#session.userId'/>">
-				<input type="hidden" name="id" value="<s:property value='id'/>">
-				<input type="hidden" name="schedule" value="<s:property value='schedule'/>">
-				<input type="hidden" name="memo" value="<s:property value='memo'/>">
-				<input type="hidden" name="startDate" value="<s:property value='startDate'/>">
-				<input type="hidden" name="endDate" value="<s:property value='endDate'/>">
-				<input type="hidden" name="allDayFlg" value="<s:property value='allDayFlg'/>">
-				<input type="hidden" name="startTime" value="<s:property value='startTime'/>">
-				<input type="hidden" name="endTime" value="<s:property value='endTime'/>">
-			</s:form>
-		</td>
+					<input type="hidden" name="year" value="<s:property value='year'/>">
+					<input type="hidden" name="month" value="<s:property value='month'/>">
+					<input type="hidden" name="date" value="<s:property value='date'/>">
 
-		</s:iterator>
-	</tr>
+					<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
+					<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
+
+					<input type="submit" value="確認"/>
+				</s:form>
+
+			</td>
+			<td>
+				<s:form action="ScheduleDeleteAction">
+					<input type="hidden" name="userId" value="<s:property value='#session.userId'/>">
+					<input type="hidden" name="id" value="<s:property value='id'/>">
+					<input type="hidden" name="schedule" value="<s:property value='schedule'/>">
+					<input type="hidden" name="memo" value="<s:property value='memo'/>">
+					<input type="hidden" name="startDate" value="<s:property value='startDate'/>">
+					<input type="hidden" name="endDate" value="<s:property value='endDate'/>">
+					<input type="hidden" name="allDayFlg" value="<s:property value='allDayFlg'/>">
+					<input type="hidden" name="startTime" value="<s:property value='startTime'/>">
+					<input type="hidden" name="endTime" value="<s:property value='endTime'/>">
+
+					<input type="hidden" name="year" value="<s:property value='year'/>">
+					<input type="hidden" name="month" value="<s:property value='month'/>">
+					<input type="hidden" name="date" value="<s:property value='date'/>">
+
+					<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
+					<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
+
+					<input type="submit" value="削除"/>
+				</s:form>
+			</td>
+		</tr>
+	</s:iterator>
 
 </table>
 
