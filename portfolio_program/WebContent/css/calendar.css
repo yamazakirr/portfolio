@@ -33,3 +33,11 @@ body{
 }
 
 /* メイン */
+#main{
+	width:90%;
+	text-align:center;
+	margin: 0 auto;
+}
+#table_year tr{
+	;
+}

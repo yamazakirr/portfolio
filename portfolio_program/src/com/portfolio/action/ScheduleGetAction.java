@@ -31,7 +31,6 @@ public class ScheduleGetAction extends ActionSupport{
 		System.out.println();
 
 		try{
-
 			scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
 			calendarLists = loginAction.getCalendar(year, month -1);
 

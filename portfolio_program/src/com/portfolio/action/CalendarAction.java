@@ -65,7 +65,7 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 
 				calendarLists = loginAction.getCalendar(year, month -1);
 				session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
-				session.put("date", loginAction.getDate());
+
 
 				System.out.println("sessionのfirstDayOfWeek"+ loginAction.getFirstDayOfWeek());
 				System.out.println("CalendarAction.javaの日付"+ sdf.format(loginAction.getSelectDate().getTime()));
