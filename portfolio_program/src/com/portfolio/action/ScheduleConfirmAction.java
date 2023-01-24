@@ -1,9 +1,13 @@
-package com.portfolio.dto;
+package com.portfolio.action;
 
 import java.time.LocalDate;
-import java.time.LocalTime;;
+import java.time.LocalTime;
 
-public class ScheduleGetDTO {
+import com.opensymphony.xwork2.ActionSupport;
+
+public class ScheduleConfirmAction extends ActionSupport{
+
+	private String result;
 
 	private int id;
 	private int userId;
@@ -21,6 +25,12 @@ public class ScheduleGetDTO {
 	private int date;
 
 
+	public String execute(){
+
+
+		result = "success";
+		return result;
+	}
 
 //	■getterとsetter
 	public int getId(){
@@ -83,7 +93,6 @@ public class ScheduleGetDTO {
 	public void setCalendarDeleteFlg(int calendarDeleteFlg){
 		this.calendarDeleteFlg = calendarDeleteFlg;
 	}
-
 
 	public int getYear(){
 		return year;

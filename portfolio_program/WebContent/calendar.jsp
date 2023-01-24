@@ -41,7 +41,9 @@
 						</s:form>
 					</td>
 					<td>
-						<s:property value="year"/>
+						<div class="dateText">
+							<s:property value="year"/>
+						</div>
 					</td>
 					<td>
 						<s:form action="CalendarAction">︎︎︎︎︎︎︎︎
@@ -69,7 +71,9 @@
 						</s:form>
 					</td>
 					<td>
-						<s:property value="month"/>
+						<div class="dateText">
+							<s:property value="month" />
+						</div>
 					</td>
 					<td>
 						<s:form action="CalendarAction">︎︎︎︎︎︎︎︎
@@ -84,6 +88,7 @@
 			</table>
 		</div>
 
+		<!-- 予定の追加ボタン -->
 		<div id="main_scheduleAdd"  align="right">
 			<s:form action="ScheduleAddAction">
 				<input type="hidden" value="<s:property value='year'/>" name="year">
@@ -93,7 +98,7 @@
 				<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
 				<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
 
-				<input type="submit" value="予定の追加">
+				<input type="submit" value="予定の追加" class="scheduleAddButton">
 			</s:form>
 		</div>
 
@@ -126,7 +131,7 @@
 										<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
 										<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
 
-										<input type="submit" value="<s:property/>" name="date">
+										<input type="submit" value="<s:property/>" name="date" class="CalendarDate">
 									</s:form>
 								</s:if>
 							</td>
@@ -148,7 +153,7 @@
 										<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
 										<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
 
-										<input type="submit" value="<s:property/>" name="date">
+										<input type="submit" value="<s:property/>" name="date" class="CalendarDate">
 									</s:form>
 								</s:if>
 							</td>
@@ -166,9 +171,11 @@
 		<br>
 
 		<div id="main_schedule">
-			<s:property value="year"/>年 <s:property value="month"/>月 <s:property value="date" />日
+			<div id="date">
+				<s:property value="year"/>年 <s:property value="month"/>月 <s:property value="date" />日
+			</div>
 
-			<table>
+			<table id="table_schedule">
 				<s:iterator value="scheduleListDTO">
 					<tr>
 						<td>
@@ -203,7 +210,7 @@
 								<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
 								<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
 
-								<input type="submit" value="確認"/>
+								<input type="submit" value="確認" class="scheduleButton"/>
 							</s:form>
 
 						</td>
@@ -226,7 +233,7 @@
 								<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
 								<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
 
-								<input type="submit" value="削除"/>
+								<input type="submit" value="削除"  class="scheduleButton"/>
 							</s:form>
 						</td>
 					</tr>
@@ -239,28 +246,6 @@
 
 
 <br>
-
-====動作確認用====<br>
-値の合計 :<s:property value="date + #session.firstDayOfWeek -1"/><br>
-日付 :<s:property value="date"/><br>
-月初の曜日 : <s:property value="#session.firstDayOfWeek"/><br>
-===============<br>
-
-
-メール：<s:property value="mail"/><br>
-パスワード：<s:property value="password"/><br>
-
-ユーザーID：<s:property value="#session.userId"/><br>
-ユーザーネーム：<s:property value="#session.userName"/><br>
-
-今日の日付
-year :<s:property value="year"/><br>
-month:<s:property value="month"/><br>
-date :<s:property value="date"/><br>
-dayOfWeek:<s:property value="dayOfWeek"/><br>
-lastDate:<s:property value="lastDate"/><br>
-startDate:<s:property value="startDate"/><br>
-
 
 <script type="text/javascript" src="./javaScript/calendar.js"></script>
 </body>

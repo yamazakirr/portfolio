@@ -1,5 +1,6 @@
 package com.portfolio.action;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
@@ -7,6 +8,8 @@ import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.portfolio.dao.ScheduleGetDAO;
+import com.portfolio.dto.ScheduleGetDTO;
 
 public class CalendarAction extends ActionSupport implements SessionAware{
 
@@ -20,8 +23,13 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 	private int firstDate;
 	private int firstDayOfWeek;
 
+	private int userId;
+	private String userName;
+
 	ArrayList<Object> calendarLists = new ArrayList<Object>();
 	LoginAction loginAction = new LoginAction();
+	ScheduleGetDAO scheduleGetDAO = new ScheduleGetDAO();
+	ArrayList<ScheduleGetDTO> scheduleListDTO = new ArrayList<ScheduleGetDTO>();
 
 	public String execute(){
 
@@ -57,7 +65,7 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 				session.put("year", year);
 				session.put("month", month);
 
-
+//				■カレンダー作成処理
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 				System.out.println("year :"+ year);
 				System.out.println("month :"+ month);
@@ -66,9 +74,27 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 				calendarLists = loginAction.getCalendar(year, month -1);
 				session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
 
-
 				System.out.println("sessionのfirstDayOfWeek"+ loginAction.getFirstDayOfWeek());
 				System.out.println("CalendarAction.javaの日付"+ sdf.format(loginAction.getSelectDate().getTime()));
+
+//				■選択した日付のスケジュール取得処理
+
+
+				try{
+					scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
+
+				}catch(NullPointerException e){
+					System.out.println("値が取得出来ていません。");
+					System.out.println("year :"+year);
+					System.out.println("month :"+month);
+					System.out.println("date :"+date);
+					System.out.println("userId :"+userId);
+					System.out.println();
+
+					e.printStackTrace();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
 
 				result = "success";
 			}else{
@@ -85,6 +111,19 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 
 
 //	■getterとsetter
+	public int getUserId(){
+		return userId;
+	}
+	public void setUserId(int userId){
+		this.userId = userId;
+	}
+	public String getUserName(){
+		return userName;
+	}
+	public void setUserName(String userName){
+		this.userName = userName;
+	}
+
 	public int getYear(){
 		return year;
 	}
@@ -132,6 +171,12 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 	}
 	public void setChangeCalendarDate(String changeCalendarDate){
 		this.changeCalendarDate = changeCalendarDate;
+	}
+	public ArrayList<ScheduleGetDTO> getScheduleListDTO(){
+		return scheduleListDTO;
+	}
+	public void setScheduleListDTO(ArrayList<ScheduleGetDTO> scheduleListDTO){
+		this.scheduleListDTO = scheduleListDTO;
 	}
 
 

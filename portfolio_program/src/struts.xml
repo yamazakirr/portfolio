@@ -116,6 +116,20 @@
 	<result name="networkError">networkError.jsp</result>
 	</action>
 
+<!-- 予定確認操作 -->
+	<action name="ScheduleConfirmAction" class="com.portfolio.action.ScheduleConfirmAction" method="execute">
+	<result name="success">scheduleConfirm.jsp</result>
+	<result name="accountError">login.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	</action>
+
+<!-- 予定削除操作 -->
+	<action name="ScheduleDeleteAction" class="com.portfolio.action.ScheduleDeleteAction" method="execute">
+	<result name="success">scheduleDelete.jsp</result>
+	<result name="accountError">login.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	</action>
+
 
 
 
