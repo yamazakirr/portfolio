@@ -193,7 +193,6 @@
 						</td>
 						<td>
 							<s:form action="ScheduleConfirmAction">
-								<input type="hidden" name="userId" value="<s:property value='#session.userId'/>">
 								<input type="hidden" name="id" value="<s:property value='id'/>">
 								<input type="hidden" name="schedule" value="<s:property value='schedule'/>">
 								<input type="hidden" name="memo" value="<s:property value='memo'/>">
@@ -211,6 +210,13 @@
 								<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
 
 								<input type="submit" value="確認" class="scheduleButton"/>
+
+								年：<s:property value="year"/><br>
+								月：<s:property value="month"/><br>
+								日：<s:property value="date"/><br>
+								開始日：<s:property value="startDate"/><br>
+								終了日：<s:property value="endDate"/><br>
+
 							</s:form>
 
 						</td>
@@ -243,9 +249,15 @@
 		</div>
 	</div>
 
-
-
 <br>
+
+	年：<s:property value="year"/><br>
+	月：<s:property value="month"/><br>
+	日：<s:property value="date"/><br>
+	開始日：<s:property value="startDate"/><br>
+	終了日：<s:property value="endDate"/><br>
+
+
 
 <script type="text/javascript" src="./javaScript/calendar.js"></script>
 </body>

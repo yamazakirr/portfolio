@@ -107,7 +107,9 @@ table#table_schedule td:nth-of-type(2){
 }
 table#table_schedule td:nth-of-type(3),
 table#table_schedule td:nth-of-type(4){
-	width:60px;
+
+	/* 後ほど60pxに戻す */
+	width:150px;
 	border: none;
 }
 .scheduleButton{

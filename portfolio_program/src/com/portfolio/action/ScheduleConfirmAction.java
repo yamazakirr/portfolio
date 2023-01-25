@@ -1,9 +1,9 @@
 package com.portfolio.action;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.ArrayList;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.portfolio.dto.ScheduleGetDTO;
 
 public class ScheduleConfirmAction extends ActionSupport{
 
@@ -13,19 +13,26 @@ public class ScheduleConfirmAction extends ActionSupport{
 	private int userId;
 	private String schedule;
 	private String memo;
-	private LocalDate startDate;
-	private LocalDate endDate;
+	private String startDate;
+	private String endDate;
 	private int allDayFlg;
-	private LocalTime startTime;
-	private LocalTime endTime;
+	private String startTime;
+	private String endTime;
 	private int calendarDeleteFlg;
 
 	private int year;
 	private int month;
 	private int date;
 
+	ArrayList<ScheduleGetDTO> scheduleListDTO = new ArrayList<ScheduleGetDTO>();
+
 
 	public String execute(){
+
+		System.out.println();
+		System.out.println("year  :"+year);
+		System.out.println("month  :"+month);
+		System.out.println("date  :"+date);
 
 
 		result = "success";
@@ -57,16 +64,16 @@ public class ScheduleConfirmAction extends ActionSupport{
 	public void setMemo(String memo){
 		this.memo = memo;
 	}
-	public LocalDate getStartDate(){
+	public String getStartDate(){
 		return startDate;
 	}
-	public void setStartDate(LocalDate startDate){
+	public void setStartDate(String startDate){
 		this.startDate = startDate;
 	}
-	public LocalDate getEndDate(){
+	public String getEndDate(){
 		return endDate;
 	}
-	public void setEndDate(LocalDate endDate){
+	public void setEndDate(String endDate){
 		this.endDate = endDate;
 	}
 	public int getAllDayFlg(){
@@ -75,24 +82,26 @@ public class ScheduleConfirmAction extends ActionSupport{
 	public void setAllDayFlg(int allDayFlg){
 		this.allDayFlg = allDayFlg;
 	}
-	public LocalTime getStartTime(){
+	public String getStartTime(){
 		return startTime;
 	}
-	public void setStartTime(LocalTime startTime){
+	public void setStartTime(String startTime){
 		this.startTime = startTime;
 	}
-	public LocalTime getEndTime(){
+	public String getEndTime(){
 		return endTime;
 	}
-	public void setEndTime(LocalTime endTime){
+	public void setEndTime(String endTime){
 		this.endTime = endTime;
 	}
+
 	public int getCalendarDeleteFlg(){
 		return calendarDeleteFlg;
 	}
 	public void setCalendarDeleteFlg(int calendarDeleteFlg){
 		this.calendarDeleteFlg = calendarDeleteFlg;
 	}
+
 
 	public int getYear(){
 		return year;
@@ -111,6 +120,13 @@ public class ScheduleConfirmAction extends ActionSupport{
 	}
 	public void setDate(int date){
 		this.date = date;
+	}
+
+	public ArrayList<ScheduleGetDTO> getScheduleListDTO(){
+		return scheduleListDTO;
+	}
+	public void setScheduleListDTO(ArrayList<ScheduleGetDTO> scheduleListDTO){
+		this.scheduleListDTO = scheduleListDTO;
 	}
 
 }

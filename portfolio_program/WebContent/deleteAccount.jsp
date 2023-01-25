@@ -30,7 +30,7 @@
 	<div id="main">
 		<div id="box">
 			<div id="main_title">
-				<p>アカウント削除確認画面</p>
+				<p>予定削除確認画面</p>
 			</div>
 			<div id="input">
 				<p>本当に削除しますか？</p>

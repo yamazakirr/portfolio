@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="./css/scheduleConfirm.css">
+
 <title>スケジュール確認画面</title>
 </head>
 <body>
@@ -28,61 +30,90 @@
 	<div id="main">
 
 		<div id="button">
-			<s:form action="ScheduleDeleteAction">
-				<input type="submit" value="削除">
-			</s:form>
-
-			<s:form action="CalendarAction">
-				<input type="submit" value="カレンダーに戻る">
-			</s:form>
-
-			<s:form action="ScheduleEditAction">
-				<input type="submit" value="編集"/>
-			</s:form>
+			<table>
+				<tr>
+					<td>
+						<s:form action="ScheduleDeleteAction">
+							<input type="submit" value="削除">
+						</s:form>
+					</td>
+					<td>
+						<s:form action="CalendarAction">
+							<input type="submit" value="カレンダーに戻る">
+						</s:form>
+					</td>
+					<td>
+						<s:form action="ScheduleEditAction">
+							<input type="submit" value="編集"/>
+						</s:form>
+					</td>
+				</tr>
+			</table>
 
 		</div>
 
 		<div id="schedule">
 			<table border="1">
-				<!-- 日付表示 -->
-				<tr>
-					<td><s:property value="startDate"/></td>
-					<td>〜</td>
-					<td><s:property value="endDate"/></td>
-				</tr>
-				<!-- 時刻表示 -->
-				<tr>
-					<s:if test="allDayFlg == 1">
-						<td>終日</td>
-						<td>〜</td>
-						<td>終日</td>
-					</s:if>
-					<s:elseif test="allDayFlg == 0">
-						<td><s:property value="startTime"/></td>
-						<td>〜</td>
-						<td><s:property value="endTime"/></td>
-					</s:elseif>
-				</tr>
-				<!-- スケジュール表示 -->
-				<tr>
-					<td><b>タイトル</b></td>
-				</tr>
-				<tr>
-					<td><s:property value="schedule"/></td>
-				</tr>
-				<!-- メモの表示 -->
-				<tr>
-					<td><b>メモ</b></td>
-				</tr>
-				<tr>
-					<td><s:property value="memo"/></td>
-				</tr>
 
+					<!-- 日付表示 -->
+					<tr>
+						<td><s:property value="startDate"/></td>
+						<td>〜</td>
+						<td><s:property value="endDate"/></td>
+					</tr>
+					<!-- 時刻表示 -->
+					<tr>
+						<s:if test="allDayFlg == 1">
+							<td>終日</td>
+							<td>〜</td>
+							<td>終日</td>
+						</s:if>
+						<s:elseif test="allDayFlg == 0">
+							<td><s:property value="startTime"/></td>
+							<td>〜</td>
+							<td><s:property value="endTime"/></td>
+						</s:elseif>
+					</tr>
+					<!-- スケジュール表示 -->
+					<tr>
+						<td><b>タイトル</b></td>
+					</tr>
+					<tr>
+						<td><s:property value="schedule"/></td>
+					</tr>
+					<!-- メモの表示 -->
+					<tr>
+						<td><b>メモ</b></td>
+					</tr>
+					<tr>
+						<td><s:property value="memo"/></td>
+					</tr>
 
 			</table>
 		</div>
 
 	</div>
+
+	====動作確認用====<br>
+	年：<s:property value="year"/><br>
+	月：<s:property value="month"/><br>
+	日：<s:property value="date"/><br>
+	開始日：<s:property value="startDate"/><br>
+	終了日：<s:property value="endDate"/><br>
+	開始時刻：<s:property value="startTime"/><br>
+	終了時刻：<s:property value="endTime"/><br>
+	予定：<s:property value="schedule"/><br>
+	メモ：<s:property value="memo"/><br>
+
+
+	<s:iterator value="scheduleListDTO">
+	年：<s:property value="year"/><br>
+	月：<s:property value="month"/><br>
+	日：<s:property value="date"/><br>
+	開始日：<s:property value="startDate"/><br>
+	終了日：<s:property value="endDate"/>
+	</s:iterator>
+	================
 
 </body>
 </html>

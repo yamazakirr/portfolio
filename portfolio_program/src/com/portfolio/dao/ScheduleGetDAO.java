@@ -101,9 +101,18 @@ public class ScheduleGetDAO {
 					dto.setEndDate(LocalDate.parse(resultSet.getString("end_date"), DateTimeFormatter.ofPattern(dateFormat)));
 					System.out.println("③");
 
+					System.out.println("値を確認");
+					System.out.println("startDate :"+dto.getStartDate());
+					System.out.println("endDate :"+dto.getEndDate());
+					System.out.println("startDate :"+resultSet.getString("start_date"));
+					System.out.println("endDate :"+resultSet.getString("end_date"));
+
 					dto.setStartTime(LocalTime.parse(resultSet.getString("start_time")));
 					dto.setEndTime(LocalTime.parse(resultSet.getString("end_time")));
 
+					dto.setYear(year);
+					dto.setMonth(month);
+					dto.setDate(date);
 
 //					String timeFormat = "HH:mm";
 //					dto.setStartTime(LocalTime.parse(resultSet.getString("start_time"), DateTimeFormatter.ofPattern(timeFormat)));
