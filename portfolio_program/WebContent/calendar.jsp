@@ -211,12 +211,6 @@
 
 								<input type="submit" value="確認" class="scheduleButton"/>
 
-								年：<s:property value="year"/><br>
-								月：<s:property value="month"/><br>
-								日：<s:property value="date"/><br>
-								開始日：<s:property value="startDate"/><br>
-								終了日：<s:property value="endDate"/><br>
-
 							</s:form>
 
 						</td>
@@ -248,14 +242,6 @@
 			</table>
 		</div>
 	</div>
-
-<br>
-
-	年：<s:property value="year"/><br>
-	月：<s:property value="month"/><br>
-	日：<s:property value="date"/><br>
-	開始日：<s:property value="startDate"/><br>
-	終了日：<s:property value="endDate"/><br>
 
 
 

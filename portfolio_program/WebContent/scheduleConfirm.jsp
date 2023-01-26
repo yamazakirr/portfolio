@@ -29,7 +29,7 @@
 	<!-- ■メイン -->
 	<div id="main">
 
-		<div id="button">
+		<div id="main_button" align="center">
 			<table>
 				<tr>
 					<td>
@@ -52,20 +52,19 @@
 
 		</div>
 
-		<div id="schedule">
-			<table border="1">
+		<div id="main_schedule" align="center">
+			<table id="table_schedule" border="1">
 
 					<!-- 日付表示 -->
 					<tr>
 						<td><s:property value="startDate"/></td>
-						<td>〜</td>
+						<td rowspan="2">〜</td>
 						<td><s:property value="endDate"/></td>
 					</tr>
 					<!-- 時刻表示 -->
 					<tr>
 						<s:if test="allDayFlg == 1">
 							<td>終日</td>
-							<td>〜</td>
 							<td>終日</td>
 						</s:if>
 						<s:elseif test="allDayFlg == 0">

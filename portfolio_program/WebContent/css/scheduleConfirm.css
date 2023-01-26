@@ -33,3 +33,33 @@ body{
 }
 
 /* メイン */
+#main{
+	width:90%;
+	text-align:center;
+	margin: 0 auto;
+	margin-top: 40px;
+}
+#main_button table{
+	table-layout: fixed;
+	width: 100%;
+}
+table#table_schedule {
+	table-layout: fixed;
+	width: 100%;
+	border: 1px solid;
+}
+table#table_schedule{
+	border-collapse: collapse;
+	border-spacing: 1px solid;
+	table-layout: fixed;
+	width: 100%;
+	height: 100px;
+}
+
+#button table{
+	table-layout: fixed;
+	width: 100%;
+}
+
+
+
