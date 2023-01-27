@@ -95,17 +95,32 @@ public class ScheduleGetDAO {
 					dto.setMemo(resultSet.getString("memo"));
 					dto.setAllDayFlg(resultSet.getInt("all_day_flg"));
 
-					System.out.println("①");
 					dto.setStartDate(LocalDate.parse(resultSet.getString("start_date"), DateTimeFormatter.ofPattern(dateFormat)));
-					System.out.println("②");
 					dto.setEndDate(LocalDate.parse(resultSet.getString("end_date"), DateTimeFormatter.ofPattern(dateFormat)));
-					System.out.println("③");
+
+//					startDate,endDateをそれぞれ年、月、日に分けて格納
+					dto.setStartYear(dto.getStartDate().getYear());
+					dto.setStartMonth(dto.getStartDate().getMonthValue());
+					dto.setStartDay(dto.getStartDate().getDayOfMonth());
+
+					dto.setEndYear(dto.getEndDate().getYear());
+					dto.setEndMonth(dto.getEndDate().getMonthValue());
+					dto.setEndDay(dto.getEndDate().getDayOfMonth());
 
 					System.out.println("値を確認");
 					System.out.println("startDate :"+dto.getStartDate());
+					System.out.println("startYear :"+dto.getStartYear());
+					System.out.println("startMonth :"+dto.getStartMonth());
+					System.out.println("startDay :"+dto.getStartDay());
+
 					System.out.println("endDate :"+dto.getEndDate());
+					System.out.println("endYear :"+dto.getEndYear());
+					System.out.println("endMonth :"+dto.getEndMonth());
+					System.out.println("endDay :"+dto.getEndDay());
+
 					System.out.println("startDate :"+resultSet.getString("start_date"));
 					System.out.println("endDate :"+resultSet.getString("end_date"));
+
 
 					dto.setStartTime(LocalTime.parse(resultSet.getString("start_time")));
 					dto.setEndTime(LocalTime.parse(resultSet.getString("end_time")));

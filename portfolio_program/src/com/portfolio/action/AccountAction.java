@@ -19,6 +19,9 @@ public class AccountAction extends ActionSupport implements SessionAware{
 
 	public String execute(){
 
+		System.out.println("userId :"+userId);
+		System.out.println("userName :"+userName);
+
 
 		String result = "";
 
@@ -26,6 +29,9 @@ public class AccountAction extends ActionSupport implements SessionAware{
 		if(session.containsKey("userName") && session.containsKey("userId")){
 			userId = session.get("userId").toString();
 			userName = session.get("userName").toString();
+
+			System.out.println("userId :"+userId);
+			System.out.println("userName :"+userName);
 
 			try{
 				result = dao.getUserInfo(userId, userName);

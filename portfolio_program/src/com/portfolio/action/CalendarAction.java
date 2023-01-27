@@ -33,6 +33,21 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 
 	public String execute(){
 
+		year = new Integer(session.get("year").toString());
+		month = new Integer(session.get("month").toString());
+		date = new Integer(session.get("date").toString());
+		userId = new Integer(session.get("userId").toString());
+		userName = session.get("userName").toString();
+
+		System.out.println();
+		System.out.println("CalendarAction.java");
+		System.out.println("year :"+year);
+		System.out.println("month :"+month);
+		System.out.println("date :"+date);
+		System.out.println("userId :"+userId);
+		System.out.println("userName :"+userName);
+
+
 
 //		■ログイン済み判定
 		if(session.containsKey("userId") && session.containsKey("userName")){
@@ -40,21 +55,26 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 			if(year != 0 && month != 0){
 
 //				■日付変更処理
-				if(changeCalendarDate.equals("lastYear")){
-					this.year = year - 1;
-				}else if(changeCalendarDate.equals("nextYear")){
-					this.year = year + 1;
-				}else if(changeCalendarDate.equals("lastMonth")){
-					if(month == 1){
-						month = 12;
-					}else{
-						this.month = month - 1;
-					}
-				}else if(changeCalendarDate.equals("nextMonth")){
-					if(month == 12){
-						month = 1;
-					}else{
-						this.month = month + 1;
+//				changeCalendarDateがnullの場合は「日付変更処理」は実行しない
+				if(changeCalendarDate == null){
+					;
+				}else{
+					if(changeCalendarDate.equals("lastYear")){
+						this.year = year - 1;
+					}else if(changeCalendarDate.equals("nextYear")){
+						this.year = year + 1;
+					}else if(changeCalendarDate.equals("lastMonth")){
+						if(month == 1){
+							month = 12;
+						}else{
+							this.month = month - 1;
+						}
+					}else if(changeCalendarDate.equals("nextMonth")){
+						if(month == 12){
+							month = 1;
+						}else{
+							this.month = month + 1;
+						}
 					}
 				}
 

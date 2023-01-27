@@ -41,6 +41,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 //		■sessionにyear,monthを格納
 		session.put("year", year);
 		session.put("month", month);
+		session.put("date", date);
 
 
 //		■カレンダー作成処理
@@ -84,7 +85,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 
 		lastDate = today.getActualMaximum(Calendar.DATE);
 		firstDate = today.getActualMinimum(Calendar.DATE);
-
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		System.out.println("今日の日付"+ sdf.format(today.getTime()));

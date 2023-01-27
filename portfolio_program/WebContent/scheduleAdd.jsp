@@ -70,12 +70,12 @@
 					<td>
 						<select name="year" id="selectYear">
 							<script>
-								var today = new Date();
-								var year = "<s:property value='year'/>"
+								let today = new Date();
+								let year = "<s:property value='year'/>"
 
 								/* 現在の年から前後15年の合計31年分の年を取得する */
 								/* 繰り返し処理にて値を追加する */
-								var yearAll = [""];
+								let yearAll = [""];
 								year = year - 15;
 
 								for(i =0 ; i <= 31; i++){
@@ -83,7 +83,7 @@
 									year++;
 								}
 
-								for(var i = 0; i < 31; i++){
+								for(let i = 0; i < 31; i++){
 									if(yearAll[i] == year){
 										document.write("<option selected>");
 									}else{
@@ -100,8 +100,8 @@
 
 						<select name="month" id="selectMonth">
 							<script>
-								var monthAll = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-								var month = "<s:property value='month'/>";
+								let monthAll = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+								let month = "<s:property value='month'/>";
 
 								for(var i = 0; i < monthAll.length; i++){
 									if(monthAll[i] == month){
@@ -119,11 +119,11 @@
 
 						<select name="date" id="selectDate">
 							<script>
-								var dateAll = "<s:property value='%{calendarLists}'/>"
-								var dateAll2 = "<s:property value='calendarLists'/>"
+								let dateAll = "<s:property value='%{calendarLists}'/>"
+								let dateAll2 = "<s:property value='calendarLists'/>"
 								var date = "<s:property value='date'/>"
 
-								for(var i = 0; i < dateAll.length; i++){
+								for(let i = 0; i < dateAll.length; i++){
 									if(dateAll[i] == date){
 										document.write("<option selected>");
 									}else{

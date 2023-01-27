@@ -197,9 +197,18 @@
 								<input type="hidden" name="schedule" value="<s:property value='schedule'/>">
 								<input type="hidden" name="memo" value="<s:property value='memo'/>">
 								<input type="hidden" name="startDate" value="<s:property value='startDate'/>">
+								<input type="hidden" name="startYear" value="<s:property value='startYear'/>">
+								<input type="hidden" name="startMonth" value="<s:property value='startMonth'/>">
+								<input type="hidden" name="startDay" value="<s:property value='startDay'/>">
+
 								<input type="hidden" name="endDate" value="<s:property value='endDate'/>">
+								<input type="hidden" name="endYear" value="<s:property value='endYear'/>">
+								<input type="hidden" name="endMonth" value="<s:property value='endMonth'/>">
+								<input type="hidden" name="endDay" value="<s:property value='endDay'/>">
+
 								<input type="hidden" name="allDayFlg" value="<s:property value='allDayFlg'/>">
 								<input type="hidden" name="startTime" value="<s:property value='startTime'/>">
+
 								<input type="hidden" name="endTime" value="<s:property value='endTime'/>">
 
 								<input type="hidden" name="year" value="<s:property value='year'/>">

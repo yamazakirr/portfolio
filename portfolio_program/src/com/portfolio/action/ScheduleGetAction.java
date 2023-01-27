@@ -22,6 +22,7 @@ public class ScheduleGetAction extends ActionSupport{
 	ArrayList<Object> calendarLists = new ArrayList<Object>();
 
 	public String execute(){
+		result = "error";
 
 		System.out.println("ScheduleGetAction処理");
 		System.out.println("year :"+year);
@@ -34,14 +35,14 @@ public class ScheduleGetAction extends ActionSupport{
 			scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
 			calendarLists = loginAction.getCalendar(year, month -1);
 
-			session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
+//			session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
 
-			System.out.println("firstDayOfWeek :"+loginAction.getFirstDayOfWeek());
+//			System.out.println("firstDayOfWeek :"+loginAction.getFirstDayOfWeek());
+			result = "success";
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 
-		result = "success";
 		System.out.println("result :"+result);
 		return SUCCESS;
 	}

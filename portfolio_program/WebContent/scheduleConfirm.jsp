@@ -34,17 +34,47 @@
 				<tr>
 					<td>
 						<s:form action="ScheduleDeleteAction">
-							<input type="submit" value="削除">
+							<input type="submit" class="button" value="削除">
 						</s:form>
 					</td>
 					<td>
 						<s:form action="CalendarAction">
-							<input type="submit" value="カレンダーに戻る">
+							<input type="hidden" name="year" value="<s:property value='year'/>">
+							<input type="hidden" name="month" value="<s:property value='month'/>">
+							<input type="hidden" name="date" value="<s:property value='date'/>">
+
+							<input type="hidden" name="userId" value="<s:property value='#session.userId'/>">
+							<input type="hidden" name="userName" value="<s:property value='#session.userName'/>" >
+
+							<input type="submit" class="button" value="カレンダーに戻る">
 						</s:form>
 					</td>
 					<td>
 						<s:form action="ScheduleEditAction">
-							<input type="submit" value="編集"/>
+							<input type="hidden" name="id" value="<s:property value='id'/>">
+							<input type="hidden" name="schedule" value="<s:property value='schedule'/>">
+							<input type="hidden" name="memo" value="<s:property value='memo'/>">
+							<input type="hidden" name="startDate" value="<s:property value='startDate'/>">
+							<input type="hidden" name="startYear" value="<s:property value='startYear'/>">
+							<input type="hidden" name="startMonth" value="<s:property value='startMonth'/>">
+							<input type="hidden" name="startDay" value="<s:property value='startDay'/>">
+
+							<input type="hidden" name="endDate" value="<s:property value='endDate'/>">
+							<input type="hidden" name="endYear" value="<s:property value='endYear'/>">
+							<input type="hidden" name="endMonth" value="<s:property value='endMonth'/>">
+							<input type="hidden" name="endDay" value="<s:property value='endDay'/>">
+							<input type="hidden" name="allDayFlg" value="<s:property value='allDayFlg'/>">
+							<input type="hidden" name="startTime" value="<s:property value='startTime'/>">
+							<input type="hidden" name="endTime" value="<s:property value='endTime'/>">
+
+							<input type="hidden" name="year" value="<s:property value='year'/>">
+							<input type="hidden" name="month" value="<s:property value='month'/>">
+							<input type="hidden" name="date" value="<s:property value='date'/>">
+
+							<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
+							<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
+
+							<input type="submit" class="button" value="編集"/>
 						</s:form>
 					</td>
 				</tr>
@@ -69,50 +99,28 @@
 						</s:if>
 						<s:elseif test="allDayFlg == 0">
 							<td><s:property value="startTime"/></td>
-							<td>〜</td>
 							<td><s:property value="endTime"/></td>
 						</s:elseif>
 					</tr>
 					<!-- スケジュール表示 -->
 					<tr>
-						<td><b>タイトル</b></td>
+						<td colspan="3"><b>タイトル</b></td>
 					</tr>
 					<tr>
-						<td><s:property value="schedule"/></td>
+						<td colspan="3"><s:property value="schedule"/></td>
 					</tr>
 					<!-- メモの表示 -->
 					<tr>
-						<td><b>メモ</b></td>
+						<td colspan="3"><b>メモ</b></td>
 					</tr>
 					<tr>
-						<td><s:property value="memo"/></td>
+						<td colspan="3"><s:property value="memo"/></td>
 					</tr>
 
 			</table>
 		</div>
 
 	</div>
-
-	====動作確認用====<br>
-	年：<s:property value="year"/><br>
-	月：<s:property value="month"/><br>
-	日：<s:property value="date"/><br>
-	開始日：<s:property value="startDate"/><br>
-	終了日：<s:property value="endDate"/><br>
-	開始時刻：<s:property value="startTime"/><br>
-	終了時刻：<s:property value="endTime"/><br>
-	予定：<s:property value="schedule"/><br>
-	メモ：<s:property value="memo"/><br>
-
-
-	<s:iterator value="scheduleListDTO">
-	年：<s:property value="year"/><br>
-	月：<s:property value="month"/><br>
-	日：<s:property value="date"/><br>
-	開始日：<s:property value="startDate"/><br>
-	終了日：<s:property value="endDate"/>
-	</s:iterator>
-	================
 
 </body>
 </html>

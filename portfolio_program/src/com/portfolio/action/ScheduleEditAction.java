@@ -1,13 +1,15 @@
 package com.portfolio.action;
 
-import java.util.ArrayList;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.portfolio.dto.ScheduleGetDTO;
 
-public class ScheduleConfirmAction extends ActionSupport{
+public class ScheduleEditAction extends ActionSupport implements SessionAware{
 
 	private String result;
+	public Map<String, Object> session;
 
 	private int id;
 	private int userId;
@@ -18,13 +20,11 @@ public class ScheduleConfirmAction extends ActionSupport{
 	private int allDayFlg;
 	private String startTime;
 	private String endTime;
-	private int calendarDeleteFlg;
 
 	private int year;
 	private int month;
 	private int date;
 
-//	■予定編集画面の日付選択プルダウン作成のために追加
 	private int startYear;
 	private int startMonth;
 	private int startDay;
@@ -32,20 +32,17 @@ public class ScheduleConfirmAction extends ActionSupport{
 	private int endMonth;
 	private int endDay;
 
-	ArrayList<ScheduleGetDTO> scheduleListDTO = new ArrayList<ScheduleGetDTO>();
-
-
 	public String execute(){
 
-		System.out.println();
-		System.out.println("year  :"+year);
-		System.out.println("month  :"+month);
-		System.out.println("date  :"+date);
-
-
-		result = "success";
+//		■ログイン済み判定処理
+		if(session.containsKey("userId") && session.containsKey("userName")){
+			result = "success";
+		}else{
+			result = "error";
+		}
 		return result;
 	}
+
 
 //	■getterとsetter
 	public int getId(){
@@ -103,14 +100,6 @@ public class ScheduleConfirmAction extends ActionSupport{
 		this.endTime = endTime;
 	}
 
-	public int getCalendarDeleteFlg(){
-		return calendarDeleteFlg;
-	}
-	public void setCalendarDeleteFlg(int calendarDeleteFlg){
-		this.calendarDeleteFlg = calendarDeleteFlg;
-	}
-
-
 	public int getYear(){
 		return year;
 	}
@@ -167,11 +156,12 @@ public class ScheduleConfirmAction extends ActionSupport{
 		this.endDay = endDay;
 	}
 
-	public ArrayList<ScheduleGetDTO> getScheduleListDTO(){
-		return scheduleListDTO;
+//	@Override
+	public Map<String, Object> getSession(){
+		return session;
 	}
-	public void setScheduleListDTO(ArrayList<ScheduleGetDTO> scheduleListDTO){
-		this.scheduleListDTO = scheduleListDTO;
+	public void setSession(Map<String, Object> session){
+		this.session = session;
 	}
 
 }
