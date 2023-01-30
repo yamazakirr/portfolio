@@ -33,9 +33,6 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 
 	public String execute(){
 
-		year = new Integer(session.get("year").toString());
-		month = new Integer(session.get("month").toString());
-		date = new Integer(session.get("date").toString());
 		userId = new Integer(session.get("userId").toString());
 		userName = session.get("userName").toString();
 
