@@ -1,12 +1,14 @@
 package com.portfolio.action;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.portfolio.dao.ScheduleDeleteCompleteDAO;
 
-public class ScheduleDeleteAction extends ActionSupport implements SessionAware{
+public class ScheduleDeleteCompleteAction extends ActionSupport implements SessionAware{
 
 	public Map<String, Object> session;
 	private String result;
@@ -19,15 +21,27 @@ public class ScheduleDeleteAction extends ActionSupport implements SessionAware{
 	private int userId;
 	private String userName;
 
+	ScheduleDeleteCompleteDAO dao = new ScheduleDeleteCompleteDAO();
 
 	public String execute(){
-		result = "error";
+
+		System.out.println();
+		System.out.println("ScheduleDeleteCompleteAction.java");
+		System.out.println("userId :"+userId);
+		System.out.println("userId session:"+session.get("userId"));
+		System.out.println("userName :"+userName);
+		System.out.println("userName session:"+session.get("userName"));
 
 //		■ログイン済み判定
 		if(session.containsKey("userId") && session.containsKey("userName")){
-			result = "success";
-		}
 
+//			■スケジュール削除処理
+			try{
+				result = dao.scheduleDeleteInfo(id, userId);
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
 		return result;
 	}
 

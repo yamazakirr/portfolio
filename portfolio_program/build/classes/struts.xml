@@ -130,6 +130,12 @@
 	<result name="networkError">networkError.jsp</result>
 	</action>
 
+	<action name="ScheduleDeleteCompleteAction" class="com.portfolio.action.ScheduleDeleteCompleteAction" method="execute">
+		<result name="success">scheduleDeleteComplete.jsp</result>
+		<result name="accountError">login.jsp</result>
+		<result name="networkError">networkError.jsp</result>
+	</action>
+
 <!-- 予定編集操作 -->
 	<action name="ScheduleEditAction" class="com.portfolio.action.ScheduleEditAction" method="execute">
 		<result name="success">scheduleEdit.jsp</result>

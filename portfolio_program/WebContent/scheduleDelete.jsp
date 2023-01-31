@@ -41,10 +41,28 @@
 						<td>
 							<s:form action="CalendarAction">
 								<s:submit class="btn" value="キャンセル"/>
+
+
 							</s:form>
 						</td>
 						<td>
-							<s:form action="DeleteScheduleCompleteAction">
+							<s:form action="ScheduleDeleteCompleteAction">
+								<input type="hidden" name="id" value="<s:property value='id'/>">
+								<input type="hidden" name="schedule" value="<s:property value='schedule'/>">
+								<input type="hidden" name="memo" value="<s:property value='memo'/>">
+								<input type="hidden" name="startDate" value="<s:property value='startDate'/>">
+								<input type="hidden" name="endDate" value="<s:property value='endDate'/>">
+								<input type="hidden" name="allDayFlg" value="<s:property value='allDayFlg'/>">
+								<input type="hidden" name="startTime" value="<s:property value='startTime'/>">
+								<input type="hidden" name="endTime" value="<s:property value='endTime'/>">
+
+								<input type="hidden" name="year" value="<s:property value='year'/>">
+								<input type="hidden" name="month" value="<s:property value='month'/>">
+								<input type="hidden" name="date" value="<s:property value='date'/>">
+
+								<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
+								<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
+
 								<s:submit class="btn" value="削除"/>
 							</s:form>
 						</td>

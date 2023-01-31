@@ -225,7 +225,6 @@
 						</td>
 						<td>
 							<s:form action="ScheduleDeleteAction">
-								<input type="hidden" name="userId" value="<s:property value='#session.userId'/>">
 								<input type="hidden" name="id" value="<s:property value='id'/>">
 								<input type="hidden" name="schedule" value="<s:property value='schedule'/>">
 								<input type="hidden" name="memo" value="<s:property value='memo'/>">

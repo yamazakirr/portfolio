@@ -337,7 +337,48 @@
 							<td>終日</td>
 						</s:if>
 						<s:elseif test="allDayFlg == 0">
-							<td><s:property value="startTime"/></td>
+							<td>
+								<script>
+									let startTime = <s:property value="startTime"/>
+									let startTimeHour = Number(startTime.substr(0, 2));
+
+
+									<select name="startHour" id="startHour">
+										for(let i = 0; i <= 23; i++){
+											if(i == startTimeHour){
+												document.write("<option selected>");
+											}else{
+												document.write("<option>");
+											}
+											document.write(getDoubleNumber(i));
+											document.write("</option>");
+										}
+									</select>
+
+									/* 2桁表示する処理 */
+									function getDoubleNumber(number){
+										return("0" + number).slice(-2);
+									}
+								</script>
+								:
+								<script>
+									let startTimeMinutes = Number(startTime.substr(3, 5));
+
+									<select name="startMinutes" id="startMinutes">
+										for(let i = 0; i<= 59; i++){
+											if(i == startTimeMinutes){
+												document.write("<option selected>");
+											}else{
+												document.write("<option>");
+											}
+											document.write(getDoubleNumber(i));
+											document.write("</option>");
+										}
+									</select>
+
+								</script>
+								<s:property value="startTime"/>
+							</td>
 							<td><s:property value="endTime"/></td>
 						</s:elseif>
 					</tr>
@@ -369,10 +410,12 @@
 予定開始日　年：<s:property value="startYear"/><br>
 予定開始日　月：<s:property value="startMonth"/><br>
 予定開始日　日：<s:property value="startDay"/><br>
+予定開始時間　：<s:property value="startTime"/><br><br>
 
 予定終了日　年：<s:property value="endYear"/><br>
 予定終了日　月：<s:property value="endMonth"/><br>
 予定終了日　日：<s:property value="endDay"/><br>
+予定終了時間　：<s:property value="endTime"/><br>
 
 ================
 
