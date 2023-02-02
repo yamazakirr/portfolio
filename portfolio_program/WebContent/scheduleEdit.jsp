@@ -191,19 +191,6 @@
 											startDay.appendChild(option);
 										}
 									}
-
-
-
-
-
-
-
-
-
-
-									/* 年、月変更時の表示 年、月変更時に実行 */
-
-
 								</script>
 							</select>
 
@@ -316,8 +303,6 @@
 											endDay.appendChild(option);
 										}
 									}
-
-									/* 開始日にて処理が問題ないことを確認後に追加予定 */
 								</script>
 							</select>
 
@@ -325,11 +310,40 @@
 						</td>
 
 						<td>
-							<input type="checkbox" id="allDayFlg">
+							<input type="checkbox" name="allDayFlg" id="allDayFlg">
 							終日フラグ
+
+							<script>
+								var allDayFlg = document.getElementById("allDayFlg");
+								var startHour = document.getElementById("startHour");
+								var startMinutes = document.getElementById("startMinutes");
+
+								var scheduleTime = document.getElementById("scheduleTime");
+
+								console.log("allDayFlg :"+ allDayFlg);
+								console.log("startHour :"+ startHour);
+								console.log("startMinutes :"+ startMinutes);
+
+								allDayFlg.onchange = event => {
+									if(allDayFlg.checked){
+										scheduleTime.style.display = "none";
+									}
+								}
+
+
+
+							</script>
 						</td>
 
 					</tr>
+
+
+
+
+
+
+
+
 					<!-- 時刻表示 -->
 					<tr>
 						<s:if test="allDayFlg == 1">
@@ -337,49 +351,102 @@
 							<td>終日</td>
 						</s:if>
 						<s:elseif test="allDayFlg == 0">
-							<td>
-								<script>
-									let startTime = <s:property value="startTime"/>
-									let startTimeHour = Number(startTime.substr(0, 2));
+							<!-- 開始日の時刻表示 -->
+							<td id="scheduleTime">
+								<select name="startHour" id="startHour">
+									<script>
+										var startTime = "<s:property value='startTime'/>"
+										var startTimeHour = Number(startTime.substr(0, 2));
+
+										console.log("startTime :"+startTime);
+										console.log("startTimeHour :"+startTimeHour);
 
 
-									<select name="startHour" id="startHour">
-										for(let i = 0; i <= 23; i++){
-											if(i == startTimeHour){
-												document.write("<option selected>");
-											}else{
-												document.write("<option>");
+											for(let i = 0; i <= 23; i++){
+												if(i == startTimeHour){
+													document.write("<option selected>");
+												}else{
+													document.write("<option>");
+												}
+												document.write(getDoubleNumber(i));
+												console.log("getDoubleNumber(i) :"+getDoubleNumber(i));
+												document.write("</option>");
 											}
-											document.write(getDoubleNumber(i));
-											document.write("</option>");
-										}
-									</select>
 
-									/* 2桁表示する処理 */
-									function getDoubleNumber(number){
-										return("0" + number).slice(-2);
-									}
-								</script>
+										/* 2桁表示する処理 */
+										function getDoubleNumber(number){
+											return("0" + number).slice(-2);
+										}
+									</script>
+								</select>
 								:
-								<script>
-									let startTimeMinutes = Number(startTime.substr(3, 5));
+								<select name="startMinutes" id="startMinutes">
+									<script>
+										let startTimeMinutes = Number(startTime.substr(3, 5));
 
-									<select name="startMinutes" id="startMinutes">
-										for(let i = 0; i<= 59; i++){
-											if(i == startTimeMinutes){
-												document.write("<option selected>");
-											}else{
-												document.write("<option>");
+											for(let i = 0; i<= 59; i++){
+												if(i == startTimeMinutes){
+													document.write("<option selected>");
+												}else{
+													document.write("<option>");
+												}
+												document.write(getDoubleNumber(i));
+												document.write("</option>");
 											}
-											document.write(getDoubleNumber(i));
-											document.write("</option>");
-										}
-									</select>
 
-								</script>
-								<s:property value="startTime"/>
+									</script>
+								</select>
 							</td>
-							<td><s:property value="endTime"/></td>
+
+
+							<!-- 終了日の時刻 -->
+							<td>
+								<select name="endHour" id="endHour">
+									<script>
+										var endTime = "<s:property value='endTime'/>"
+										var endTimeHour = Number(endTime.substr(0, 2));
+
+										console.log("endTime :"+endTime);
+										console.log("endTimeHour :"+endTimeHour);
+
+
+											for(let i = 0; i <= 23; i++){
+												if(i == endTimeHour){
+													document.write("<option selected>");
+												}else{
+													document.write("<option>");
+												}
+												document.write(getDoubleNumber(i));
+												console.log("getDoubleNumber(i) :"+getDoubleNumber(i));
+												document.write("</option>");
+											}
+
+										/* 2桁表示する処理 */
+										function getDoubleNumber(number){
+											return("0" + number).slice(-2);
+										}
+									</script>
+								</select>
+								:
+								<select name="endMinutes" id="endMinutes">
+									<script>
+										let endTimeMinutes = Number(endTime.substr(3, 5));
+
+											for(let i = 0; i<= 59; i++){
+												if(i == endTimeMinutes){
+													document.write("<option selected>");
+												}else{
+													document.write("<option>");
+												}
+												document.write(getDoubleNumber(i));
+												document.write("</option>");
+											}
+
+									</script>
+								</select>
+
+
+							</td>
 						</s:elseif>
 					</tr>
 					<!-- スケジュール表示 -->
@@ -387,14 +454,18 @@
 						<td colspan="3"><b>予定</b></td>
 					</tr>
 					<tr>
-						<td colspan="3"><s:property value="schedule"/></td>
+						<td colspan="3">
+							<textarea name="schedule" id="shedule"><s:property value='schedule'/></textarea>
+						</td>
 					</tr>
 					<!-- メモの表示 -->
 					<tr>
 						<td colspan="3"><b>メモ</b></td>
 					</tr>
 					<tr>
-						<td colspan="3"><s:property value="memo"/></td>
+						<td colspan="3">
+							<textarea name="memo" id="memo"><s:property value='memo'/></textarea>
+						</td>
 					</tr>
 
 			</table>

@@ -2,21 +2,18 @@ package com.portfolio.action;
 
 import java.util.Map;
 
-import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.interceptor.SessionAware;
 
-public class ScheduleEditCompleteAction extends ActionSupport{
+import com.opensymphony.xwork2.ActionSupport;
+import com.portfolio.dao.ScheduleAddCompleteDAO;
+
+public class ScheduleAddCompleteAction extends ActionSupport implements SessionAware{
 
 	public Map<String, Object> session;
 	private String result;
 
-	private int year;
-	private int month;
-	private int date;
-
-	private int userId;
-	private String userName;
-
 	private int id;
+	private int userId;
 	private String schedule;
 	private String memo;
 	private String startDate;
@@ -26,26 +23,35 @@ public class ScheduleEditCompleteAction extends ActionSupport{
 	private String endTime;
 	private int calendarDeleteFlg;
 
+	private int year;
+	private int month;
+	private int date;
+
+//	■予定編集画面の日付選択プルダウン作成のために追加
 	private int startYear;
 	private int startMonth;
 	private int startDay;
-	private int startHour;
-	private int startMinutes;
-
 	private int endYear;
 	private int endMonth;
 	private int endDay;
-	private int endHour;
-	private int endMinutes;
 
+	ScheduleAddCompleteDAO dao = new ScheduleAddCompleteDAO();
 
 	public String execute(){
+
+//		■ログイン認証
+		if(session.containsKey("userName") && session.containsKey("userId")){
+//			■予定追加処理
+
+		}
+
+
+
 
 
 		result = "success";
 		return result;
 	}
-
 
 //	■getterとsetter
 	public int getId(){
@@ -60,13 +66,6 @@ public class ScheduleEditCompleteAction extends ActionSupport{
 	public void setUserId(int userId){
 		this.userId = userId;
 	}
-	public String getUserName(){
-		return userName;
-	}
-	public void setUserName(String userName){
-		this.userName = userName;
-	}
-
 	public String getSchedule(){
 		return schedule;
 	}
@@ -109,6 +108,7 @@ public class ScheduleEditCompleteAction extends ActionSupport{
 	public void setEndTime(String endTime){
 		this.endTime = endTime;
 	}
+
 	public int getCalendarDeleteFlg(){
 		return calendarDeleteFlg;
 	}
@@ -173,31 +173,12 @@ public class ScheduleEditCompleteAction extends ActionSupport{
 		this.endDay = endDay;
 	}
 
-
-
-	public int getStartHour(){
-		return startHour;
+//	@Override
+	public Map<String, Object> getSession(){
+		return session;
 	}
-	public void setStartHour(int startHour){
-		this.startHour = startHour;
-	}
-	public int getStartMinutes(){
-		return startMinutes;
-	}
-	public void setStartMinutes(int startMinutes){
-		this.startMinutes = startMinutes;
-	}
-	public int getEndHour(){
-		return endHour;
-	}
-	public void setEndHour(int endHour){
-		this.endHour = endHour;
-	}
-	public int getEndMinutes(){
-		return endMinutes;
-	}
-	public void setEndMinutes(int endMinutes){
-		this.endMinutes = endMinutes;
+	public void setSession(Map<String, Object> session){
+		this.session = session;
 	}
 
 
