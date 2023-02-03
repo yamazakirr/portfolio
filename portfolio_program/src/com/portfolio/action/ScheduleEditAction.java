@@ -37,6 +37,10 @@ public class ScheduleEditAction extends ActionSupport implements SessionAware{
 //		■ログイン済み判定処理
 		if(session.containsKey("userId") && session.containsKey("userName")){
 			result = "success";
+
+			session.put("allDayFlg", allDayFlg);
+			System.out.println("sessionのallDayFlg :"+session.get("allDayFlg"));
+
 		}else{
 			result = "error";
 		}

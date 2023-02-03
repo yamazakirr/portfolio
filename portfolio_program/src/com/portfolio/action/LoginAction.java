@@ -10,13 +10,15 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.portfolio.dao.LoginDAO;
+import com.portfolio.dao.ScheduleGetDAO;
+import com.portfolio.dto.ScheduleGetDTO;
 
 
 public class LoginAction extends ActionSupport implements SessionAware{
 
 //	■フィールド一覧
 	public Map<String, Object> session;
-	public String userId;
+	public int userId;
 	private String userName;
 	private String mail;
 	private String password;
@@ -31,28 +33,14 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private int firstDate;
 	private int firstDayOfWeek;
 
-
 	LoginDAO loginDAO = new LoginDAO();
 	ArrayList<Object> calendarLists = new ArrayList<Object>();
 
+	ScheduleGetDAO scheduleGetDAO = new ScheduleGetDAO();
+	ArrayList<ScheduleGetDTO> scheduleListDTO = new ArrayList<ScheduleGetDTO>();
+
 	public String execute(){
 		String result = "";
-
-//		■sessionにyear,monthを格納
-		session.put("year", year);
-		session.put("month", month);
-		session.put("date", date);
-
-
-//		■カレンダー作成処理
-		if(session.get("year").equals(0) && session.get("month").equals(0)){
-//			■カレンダー初期表示
-			calendarLists = getCalendar();
-		}else{
-//			■日付変更後のカレンダー表示
-			calendarLists = getCalendar(year, month);
-		}
-
 //		■ログイン処理
 		try{
 			result = loginDAO.getLoginResult(mail, password);
@@ -63,11 +51,39 @@ public class LoginAction extends ActionSupport implements SessionAware{
 
 				session.put("userName", userName);
 				session.put("userId", userId);
+
+//				■sessionにyear,monthを格納
+				session.put("year", year);
+				session.put("month", month);
+				session.put("date", date);
+
+//				■カレンダー作成処理
+					if(session.get("year").equals(0) && session.get("month").equals(0)){
+//						■カレンダー初期表示
+						calendarLists = getCalendar();
+//						■今日のスケジュール取得処理
+						try{
+							scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
+
+							System.out.println();
+							System.out.println("LoginAction.java");
+							System.out.println("year :"+year);
+							System.out.println("month :"+month);
+							System.out.println("date :"+date);
+							System.out.println("userId :"+userId);
+							System.out.println();
+
+						}catch(SQLException e){
+							e.printStackTrace();
+						}
+					}else{
+//						■日付変更後のカレンダー表示
+						calendarLists = getCalendar(year, month);
+					}
 			}else if(result.equals("error")){
 				System.out.println("result "+ result);
 				this.loginErrorMessage = loginDAO.getLoginErrorMessage();
 			}
-
 		}catch(SQLException e){
 			result = "networkError";
 			e.printStackTrace();
@@ -138,10 +154,10 @@ public class LoginAction extends ActionSupport implements SessionAware{
 
 
 //	■getterとsetter
-	public String getUserId(){
+	public int getUserId(){
 		return userId;
 	}
-	public void setUserId(String userId){
+	public void setUserId(int userId){
 		this.userId = userId;
 	}
 	public String getUserName(){
@@ -218,6 +234,12 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		this.selectDate = selectDate;
 	}
 
+	public ArrayList<ScheduleGetDTO> getScheduleListDTO(){
+		return scheduleListDTO;
+	}
+	public void setScheduleListDTO(ArrayList<ScheduleGetDTO> scheduleListDTO){
+		this.scheduleListDTO = scheduleListDTO;
+	}
 
 //	@Override
 	public Map<String, Object> getSession(){

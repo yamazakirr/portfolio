@@ -79,8 +79,10 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 				if(date == 0){
 					date = 1;
 				}
+//				■sessionに「year」「month」「date」を格納
 				session.put("year", year);
 				session.put("month", month);
+				session.put("date", date);
 
 //				■カレンダー作成処理
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -95,8 +97,6 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 				System.out.println("CalendarAction.javaの日付"+ sdf.format(loginAction.getSelectDate().getTime()));
 
 //				■選択した日付のスケジュール取得処理
-
-
 				try{
 					scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
 

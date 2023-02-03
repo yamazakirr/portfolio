@@ -10,7 +10,7 @@ import com.portfolio.util.DBConnector;
 public class LoginDAO {
 
 	private String loginErrorMessage = "";
-	private String userId = "";
+	private int userId ;
 	private String userName = "";
 
 	private DBConnector dbConnector = new DBConnector();
@@ -38,7 +38,7 @@ public class LoginDAO {
 //		■ログイン可否判定
 		if(resultSet.next()){
 			result = "success";
-			this.userId = resultSet.getString("user_id");
+			this.userId = resultSet.getInt("user_id");
 			this.userName = resultSet.getString("user_name");
 		}else{
 			this.loginErrorMessage = "メールアドレスまたはパスワードが違います。";
@@ -48,10 +48,10 @@ public class LoginDAO {
 	}
 
 //	■getterとsetter
-	public String getUserId(){
+	public int getUserId(){
 		return userId;
 	}
-	public void setUserId(String userId){
+	public void setUserId(int userId){
 		this.userId = userId;
 	}
 	public String getUserName(){
