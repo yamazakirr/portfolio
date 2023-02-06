@@ -3,11 +3,13 @@ package com.portfolio.action;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.apache.struts2.interceptor.SessionAware;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.portfolio.dao.ScheduleGetDAO;
 import com.portfolio.dto.ScheduleGetDTO;
 
-public class ScheduleGetAction extends ActionSupport{
+public class ScheduleGetAction extends ActionSupport implements SessionAware{
 
 	public Map<String, Object> session;
 	private String result;
@@ -24,12 +26,10 @@ public class ScheduleGetAction extends ActionSupport{
 	public String execute(){
 		result = "error";
 
-		System.out.println("ScheduleGetAction処理");
-		System.out.println("year :"+year);
-		System.out.println("month :"+month);
-		System.out.println("date :"+date);
-		System.out.println("userId :" +userId);
-		System.out.println();
+//		■sessionに選択中の日付を格納
+		session.put("year", year);
+		session.put("month", month);
+		session.put("date", date);
 
 		try{
 			scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);

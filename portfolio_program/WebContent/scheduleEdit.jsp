@@ -55,30 +55,27 @@
 					</td>
 					<td>
 						<!-- スケジュール欄が空欄であればエラー表示 -->
-						<s:property value="scheduleErrorMessage"/>
+						<div class="errorMessage">
+							<s:property value="scheduleErrorMessage"/>
+						</div>
 					</td>
 					<td>
 						<s:form action="ScheduleEditCompleteAction">
 							<input type="hidden" name="id" value="<s:property value='id'/>">
-							<input type="hidden" name="schedule" value="<s:property value='schedule'/>">
-							<input type="hidden" name="memo" value="<s:property value='memo'/>">
-
+							<input type="hidden" name="schedule" id="scheduleOutput" value="<s:property value='schedule'/>">
+							<input type="hidden" name="memo" id="memoOutput" value="<s:property value='memo'/>">
+							<input type="hidden" name="allDayFlg" id="allDayFlgOutput" value="<s:property value='allDayFlg'/>">
 
 							<input type="hidden" name="startYear" id="startYearOutput" value="<s:property value='startYear'/>">
 							<input type="hidden" name="startMonth" id="startMonthOutput" value="<s:property value='startMonth'/>">
 							<input type="hidden" name="startDay" id="startDayOutput" value="<s:property value='startDay'/>">
-
-
 							<input type="hidden" name="endYear" id="endYearOutput" value="<s:property value='endYear'/>">
 							<input type="hidden" name="endMonth" id="endMonthOutput" value="<s:property value='endMonth'/>">
 							<input type="hidden" name="endDay" id="endDayOutput" value="<s:property value='endDay'/>">
 
-							<input type="hidden" name="allDayFlg" id="allDayFlgOutput" value="<s:property value='allDayFlg'/>">
-
 							<input type="hidden" name="startTime" value="<s:property value='startTime'/>">
 							<input type="hidden" name="startHour" id="startHourOutput" value="">
 							<input type="hidden" name="startMinutes" id="startMinutesOutput" value="">
-
 							<input type="hidden" name="endTime" value="<s:property value='endTime'/>">
 							<input type="hidden" name="endHour" id="endHourOutput" value="">
 							<input type="hidden" name="endMinutes" id="endMinutesOutput" value="">
@@ -100,7 +97,7 @@
 	</div>
 
 	<div id="main_schedule" align="center">
-			<table id="table_schedule" border="1">
+			<table id="table_schedule">
 
 					<!-- 日付表示 -->
 					<tr>
@@ -354,9 +351,9 @@
 								</script>
 							</select>
 						</td>
-						<td>
+						<td rowspan="2">
+							<label for="allDayFlgInput">終日フラグ</label><br>
 							<input type="checkbox" name="allDayFlgInput" id="allDayFlgInput">
-							終日フラグ
 						</td>
 					</tr>
 
@@ -554,7 +551,7 @@
 					</tr>
 					<tr>
 						<td colspan="3">
-							<textarea name="schedule" id="shedule"><s:property value='schedule'/></textarea>
+							<textarea name="scheduleInput" id="scheduleInput"><s:property value='schedule'/></textarea>
 						</td>
 					</tr>
 					<!-- メモの表示 -->
@@ -563,9 +560,27 @@
 					</tr>
 					<tr>
 						<td colspan="3">
-							<textarea name="memo" id="memo"><s:property value='memo'/></textarea>
+							<textarea name="memoInput" id="memoInput"><s:property value='memo'/></textarea>
 						</td>
 					</tr>
+
+					<script>
+						var scheduleInput = document.getElementById("scheduleInput");
+						var scheduleOutput = document.getElementById("scheduleOutput");
+						var memoInput = document.getElementById("memoInput");
+						var memoOutput = document.getElementById("memoOutput");
+
+						function inputSchedule(){
+							scheduleOutput.value = scheduleInput.value;
+						}
+						function inputMemo(){
+							memoOutput.value = memoInput.value;
+						}
+						scheduleInput.addEventListener("input" , inputSchedule);
+						memoInput.addEventListener("input" , inputMemo);
+
+
+					</script>
 
 			</table>
 		</div>

@@ -1,5 +1,6 @@
 package com.portfolio.action;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +16,7 @@ import com.portfolio.dto.ScheduleGetDTO;
 
 public class ScheduleEditCompleteAction extends ActionSupport implements SessionAware{
 
+//	■フィールド一覧
 	public Map<String, Object> session;
 	private String result;
 
@@ -47,6 +49,8 @@ public class ScheduleEditCompleteAction extends ActionSupport implements Session
 	private int endHour;
 	private int endMinutes;
 
+	private String scheduleErrorMessage;
+
 	ArrayList<Object> calendarLists = new ArrayList<Object>();
 	LoginAction loginAction = new LoginAction();
 	ScheduleGetDAO scheduleGetDAO = new ScheduleGetDAO();
@@ -59,13 +63,14 @@ public class ScheduleEditCompleteAction extends ActionSupport implements Session
 //		■ログイン済み認証
 		if(session.containsKey("userId") && session.containsKey("userName")){
 
+			System.out.println("schedule :"+schedule);
+
 //			スケジュールの空白判定
 			if(schedule.equals("")){
-//				入力内容の不足判定
+//				「予定」欄が空白
+				scheduleErrorMessage = "予定が未入力です。";
 				result = "error";
 			}else{
-//				■スケジュール編集処理
-//				userId, id, schedule, memo, startDate, endDate, allDayFlg, startTime, endTime
 				String dateFormat = "yyyy-MM-dd";
 				String timeFormat = "HH:mm";
 
@@ -75,24 +80,41 @@ public class ScheduleEditCompleteAction extends ActionSupport implements Session
 				LocalDate endDate = LocalDate.of(endYear, endMonth, endDay);
 				this.endDate = endDate.format(DateTimeFormatter.ofPattern(dateFormat));
 
-//				startTime,endTimeの作成
-				LocalTime startTime = LocalTime.of(startHour, startMinutes);
-				this.startTime = startTime.format(DateTimeFormatter.ofPattern(timeFormat));
-				LocalTime endTime = LocalTime.of(endHour, endMinutes);
-				this.endTime = endTime.format(DateTimeFormatter.ofPattern(timeFormat));
+//				■allDayFlgが「0」と「1」で処理を分けるようにする
+				if(allDayFlg == 0){
+//					終日フラグが「0」の場合
+//					startTime,endTimeの作成
+					LocalTime startTime = LocalTime.of(startHour, startMinutes);
+					this.startTime = startTime.format(DateTimeFormatter.ofPattern(timeFormat));
+					LocalTime endTime = LocalTime.of(endHour, endMinutes);
+					this.endTime = endTime.format(DateTimeFormatter.ofPattern(timeFormat));
+				}else if(allDayFlg == 1){
+//					終日フラグが「1」の場合
+					this.startTime = "0";
+					this.endTime = "0";
+				}
 
-				System.out.println();
-				System.out.println("LocalのstartDate :"+startDate);
-				System.out.println("フィールドのstartDate :"+this.startDate);
-				System.out.println("LocalのendDate :"+endDate);
-				System.out.println("フィールドのendDate :"+this.endDate);
+				try{
+//					■スケジュール編集処理
+					result = dao.scheduleEdit(userId, id, schedule, memo, this.startDate, this.endDate, allDayFlg, this.startTime, this.endTime);
+					System.out.println("スケジュール編集処理 実行完了");
+//					■カレンダー取得処理
+					System.out.println("ScheduleEditCompleteAction.java");
+					System.out.println("year :"+year);
+					System.out.println("month :"+month);
+					System.out.println("date :"+date);
+					System.out.println();
 
+					calendarLists = loginAction.getCalendar(year, month -1);
+					System.out.println("カレンダー取得処理 実行完了");
 
+//					■選択した日付のスケジュール取得処理
+					scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
+					System.out.println("選択した日付のスケジュール取得処理 実行完了");
 
-//				■カレンダー取得処理
-
-//				■選択した日付のスケジュール取得処理
-
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
 				result = "success";
 			}
 		}else{
@@ -254,6 +276,13 @@ public class ScheduleEditCompleteAction extends ActionSupport implements Session
 	}
 	public void setEndMinutes(int endMinutes){
 		this.endMinutes = endMinutes;
+	}
+
+	public String getScheduleErrorMessage(){
+		return scheduleErrorMessage;
+	}
+	public void setScheduleErrorMessage(String scheduleErrorMessage){
+		this.scheduleErrorMessage = scheduleErrorMessage;
 	}
 
 

@@ -57,6 +57,11 @@ public class LoginAction extends ActionSupport implements SessionAware{
 				session.put("month", month);
 				session.put("date", date);
 
+				System.out.println();
+				System.out.println("session year :"+ year);
+				System.out.println("session month :"+ month);
+				System.out.println("session date :"+ date);
+
 //				■カレンダー作成処理
 					if(session.get("year").equals(0) && session.get("month").equals(0)){
 //						■カレンダー初期表示
@@ -64,15 +69,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 //						■今日のスケジュール取得処理
 						try{
 							scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
-
-							System.out.println();
-							System.out.println("LoginAction.java");
-							System.out.println("year :"+year);
-							System.out.println("month :"+month);
-							System.out.println("date :"+date);
-							System.out.println("userId :"+userId);
-							System.out.println();
-
 						}catch(SQLException e){
 							e.printStackTrace();
 						}
@@ -98,6 +94,10 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		year = today.get(Calendar.YEAR);
 		month = today.get(Calendar.MONTH) + 1;
 		date = today.get(Calendar.DATE);
+
+		session.put("year", year);
+		session.put("month", month);
+		session.put("date", date);
 
 		lastDate = today.getActualMaximum(Calendar.DATE);
 		firstDate = today.getActualMinimum(Calendar.DATE);

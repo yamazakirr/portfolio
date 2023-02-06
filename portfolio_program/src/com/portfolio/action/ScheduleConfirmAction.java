@@ -1,12 +1,16 @@
 package com.portfolio.action;
 
 import java.util.ArrayList;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.portfolio.dto.ScheduleGetDTO;
 
-public class ScheduleConfirmAction extends ActionSupport{
+public class ScheduleConfirmAction extends ActionSupport implements SessionAware{
 
+	public Map<String, Object> session;
 	private String result;
 
 	private int id;
@@ -37,11 +41,18 @@ public class ScheduleConfirmAction extends ActionSupport{
 
 	public String execute(){
 
+		System.out.println("ScheduleConfirmAction");
 		System.out.println();
 		System.out.println("year  :"+year);
 		System.out.println("month  :"+month);
 		System.out.println("date  :"+date);
 
+		System.out.println();
+		System.out.println("session year :"+ session.get("year"));
+		System.out.println("session month :"+ session.get("month"));
+		System.out.println("session date :"+ session.get("date"));
+		System.out.println("session userId :"+ session.get("userId"));
+		System.out.println("session userName :"+ session.get("userName"));
 
 		result = "success";
 		return result;
@@ -172,6 +183,14 @@ public class ScheduleConfirmAction extends ActionSupport{
 	}
 	public void setScheduleListDTO(ArrayList<ScheduleGetDTO> scheduleListDTO){
 		this.scheduleListDTO = scheduleListDTO;
+	}
+
+//	@Override
+	public Map<String, Object> getSession(){
+		return session;
+	}
+	public void setSession(Map<String, Object> session){
+		this.session = session;
 	}
 
 }

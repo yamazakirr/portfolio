@@ -39,6 +39,11 @@ body{
 	margin: 0 auto;
 	margin-top: 40px;
 }
+#main_schedule{
+	width:90%;
+	margin: 0 auto;
+	text-align:center;
+}
 /* ボタン部分 */
 #main_button table{
 	table-layout: fixed;
@@ -80,10 +85,19 @@ body{
 #table_schedule tr:nth-child(2) td{
 	font-size: 25px;
 }
-#table_schedule tr:nth-child(1) td:nth-child(2){
-	width: 20%;
+#table_schedule tr:nth-child(1) select,
+#table_schedule tr:nth-child(2) select{
+	font-size: 20px;
 }
-
+#table_schedule tr:nth-child(1) td:nth-child(2){
+	width: 10%;
+}
+/* 「終日フラグ」 */
+#table_schedule tr:nth-child(1) td:nth-child(4){
+	width: 15%;
+	border: none;
+	font-weight: bold;
+}
 
 /* タイトル、メモ部分 */
 #table_schedule tr:nth-child(3) td,
@@ -99,9 +113,17 @@ body{
 	font-size: 25px;
 	background-color: orange;
 }
+#scheduleInput{
+	width: 99.5%;
+	height:100px;
+}
 #table_schedule tr:nth-child(4) td{
 	height: 100px;
 	vertical-align: top;
+}
+#memoInput{
+	width: 99.5%;
+	height:200px;
 }
 #table_schedule tr:nth-child(6) td{
 	height: 200px;
@@ -110,9 +132,19 @@ body{
 
 
 
+
+
+
 #button table{
 	table-layout: fixed;
 	width: 100%;
+}
+
+
+.errorMessage{
+	color: red;
+	font-weight: bold;
+	font-size: 25px;
 }
 
 

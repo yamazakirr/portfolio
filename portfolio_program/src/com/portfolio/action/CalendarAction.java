@@ -36,95 +36,80 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 		userId = new Integer(session.get("userId").toString());
 		userName = session.get("userName").toString();
 
-		System.out.println();
-		System.out.println("CalendarAction.java");
-		System.out.println("year :"+year);
-		System.out.println("month :"+month);
-		System.out.println("date :"+date);
-		System.out.println("userId :"+userId);
-		System.out.println("userName :"+userName);
-
-
-
 //		■ログイン済み判定
 		if(session.containsKey("userId") && session.containsKey("userName")){
-//			■yearとmonthの判定
-			if(year != 0 && month != 0){
 
-//				■日付変更処理
-//				changeCalendarDateがnullの場合は「日付変更処理」は実行しない
-				if(changeCalendarDate == null){
-					;
-				}else{
-					if(changeCalendarDate.equals("lastYear")){
-						this.year = year - 1;
-					}else if(changeCalendarDate.equals("nextYear")){
-						this.year = year + 1;
-					}else if(changeCalendarDate.equals("lastMonth")){
-						if(month == 1){
-							month = 12;
-						}else{
-							this.month = month - 1;
-						}
-					}else if(changeCalendarDate.equals("nextMonth")){
-						if(month == 12){
-							month = 1;
-						}else{
-							this.month = month + 1;
-						}
+//			■yearとmonthの判定
+			if(year == 0 && month == 0){
+				System.out.println("CalendarAction.java yearとmonthが「0」の場合");
+				session.put("year", session.get("year"));
+				session.put("month", session.get("month"));
+				session.put("date", session.get("date"));
+				year = (Integer)session.get("year");
+				month = (Integer)session.get("month");
+				date = (Integer)session.get("date");
+			}
+
+
+//			■日付変更処理
+//			changeCalendarDateがnullの場合は「日付変更処理」は実行しない
+			if(changeCalendarDate == null){
+				;
+			}else{
+				if(changeCalendarDate.equals("lastYear")){
+					this.year = year - 1;
+				}else if(changeCalendarDate.equals("nextYear")){
+					this.year = year + 1;
+				}else if(changeCalendarDate.equals("lastMonth")){
+					if(month == 1){
+						month = 12;
+					}else{
+						this.month = month - 1;
+					}
+				}else if(changeCalendarDate.equals("nextMonth")){
+					if(month == 12){
+						month = 1;
+					}else{
+						this.month = month + 1;
 					}
 				}
-
-//				dateの指定がない場合は「1」を代入
-				if(date == 0){
-					date = 1;
-				}
-//				■sessionに「year」「month」「date」を格納
-				session.put("year", year);
-				session.put("month", month);
-				session.put("date", date);
-
-//				■カレンダー作成処理
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-				System.out.println("year :"+ year);
-				System.out.println("month :"+ month);
-				System.out.println("lastDate :"+ loginAction.getLastDate());
-
-				calendarLists = loginAction.getCalendar(year, month -1);
-				session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
-
-				System.out.println("sessionのfirstDayOfWeek"+ loginAction.getFirstDayOfWeek());
-				System.out.println("CalendarAction.javaの日付"+ sdf.format(loginAction.getSelectDate().getTime()));
-
-//				■選択した日付のスケジュール取得処理
-				try{
-					scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
-
-				}catch(NullPointerException e){
-					System.out.println("値が取得出来ていません。");
-					System.out.println("year :"+year);
-					System.out.println("month :"+month);
-					System.out.println("date :"+date);
-					System.out.println("userId :"+userId);
-					System.out.println();
-
-					e.printStackTrace();
-				}catch(SQLException e){
-					e.printStackTrace();
-				}
-
-				result = "success";
-			}else{
-				result = "networkError";
 			}
+
+//			dateの指定がない場合は「1」を代入
+			if(date == 0){
+				date = 1;
+			}
+
+			session.put("year", year);
+			session.put("month", month);
+			session.put("date", date);
+
+//			■カレンダー作成処理
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+			calendarLists = loginAction.getCalendar(year, month -1);
+			session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
+
+			System.out.println("sessionのfirstDayOfWeek"+ loginAction.getFirstDayOfWeek());
+			System.out.println("CalendarAction.javaの日付"+ sdf.format(loginAction.getSelectDate().getTime()));
+
+//			■選択した日付のスケジュール取得処理
+			try{
+				scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
+
+			}catch(NullPointerException e){
+				e.printStackTrace();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+
+			result = "success";
+
 		}else{
 			result = "accountError";
 		}
 		return result;
 	}
-
-
-
 
 
 //	■getterとsetter

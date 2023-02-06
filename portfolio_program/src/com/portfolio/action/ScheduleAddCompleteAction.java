@@ -1,19 +1,33 @@
 package com.portfolio.action;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.portfolio.dao.ScheduleAddCompleteDAO;
+import com.portfolio.dao.ScheduleGetDAO;
+import com.portfolio.dto.ScheduleGetDTO;
 
 public class ScheduleAddCompleteAction extends ActionSupport implements SessionAware{
 
+//	■フィールド一覧
 	public Map<String, Object> session;
 	private String result;
 
-	private int id;
+	private int year;
+	private int month;
+	private int date;
+
 	private int userId;
+	private String userName;
+
+	private int id;
 	private String schedule;
 	private String memo;
 	private String startDate;
@@ -23,17 +37,24 @@ public class ScheduleAddCompleteAction extends ActionSupport implements SessionA
 	private String endTime;
 	private int calendarDeleteFlg;
 
-	private int year;
-	private int month;
-	private int date;
-
-//	■予定編集画面の日付選択プルダウン作成のために追加
 	private int startYear;
 	private int startMonth;
 	private int startDay;
+	private int startHour;
+	private int startMinutes;
+
 	private int endYear;
 	private int endMonth;
 	private int endDay;
+	private int endHour;
+	private int endMinutes;
+
+	private String scheduleErrorMessage;
+
+	ArrayList<Object> calendarLists = new ArrayList<Object>();
+	LoginAction loginAction = new LoginAction();
+	ScheduleGetDAO scheduleGetDAO = new ScheduleGetDAO();
+	ArrayList<ScheduleGetDTO> scheduleListDTO = new ArrayList<ScheduleGetDTO>();
 
 	ScheduleAddCompleteDAO dao = new ScheduleAddCompleteDAO();
 
@@ -41,13 +62,66 @@ public class ScheduleAddCompleteAction extends ActionSupport implements SessionA
 
 //		■ログイン認証
 		if(session.containsKey("userName") && session.containsKey("userId")){
-//			■予定追加処理
 
+//			スケジュールの空白判定
+			if(schedule.equals("")){
+//				「予定」欄が空白
+				scheduleErrorMessage = "予定が未入力です。";
+				result = "error";
+			}else{
+				String dateFormat = "yyyy-MM-dd";
+				String timeFormat = "HH:mm";
+
+//				startDate,endDateの作成
+				LocalDate startDate = LocalDate.of(startYear, startMonth, startDay);
+				this.startDate = startDate.format(DateTimeFormatter.ofPattern(dateFormat));
+				LocalDate endDate = LocalDate.of(endYear, endMonth, endDay);
+				this.endDate = endDate.format(DateTimeFormatter.ofPattern(dateFormat));
+
+//				■allDayFlgが「0」と「1」で処理分岐
+				if(allDayFlg == 0){
+//					終日フラグが「0」の場合
+//					startTime,endTimeの作成
+					LocalTime startTime = LocalTime.of(startHour, startMinutes);
+					this.startTime = startTime.format(DateTimeFormatter.ofPattern(timeFormat));
+					LocalTime endTime = LocalTime.of(endHour, endMinutes);
+					this.endTime = endTime.format(DateTimeFormatter.ofPattern(timeFormat));
+				}else if(allDayFlg == 1){
+//					終日フラグが「1」の場合
+					this.startTime = "0";
+					this.endTime = "0";
+				}
+
+				try{
+//					■予定追加処理
+					result = dao.scheduleAdd(userId, schedule, memo, this.startDate, this.endDate, allDayFlg, this.startTime, this.endTime);
+					System.out.println("スケジュール追加処理 結果"+result);
+					System.out.println("スケジュール追加処理 実行完了");
+
+//					■カレンダー取得処理
+					System.out.println("ScheduleEditCompleteAction.java");
+					System.out.println("year :"+year);
+					System.out.println("month :"+month);
+					System.out.println("date :"+date);
+					System.out.println();
+
+					calendarLists = loginAction.getCalendar(year, month -1);
+					System.out.println("カレンダー取得処理 実行完了");
+
+//					■選択した日付のスケジュール取得処理
+					scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
+					System.out.println("選択した日付のスケジュール取得処理 実行完了");
+
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+				result = "success";
+
+			}
+		}else{
+//			未ログイン判定
+			result = "accountError";
 		}
-
-
-
-
 
 		result = "success";
 		return result;
@@ -65,6 +139,12 @@ public class ScheduleAddCompleteAction extends ActionSupport implements SessionA
 	}
 	public void setUserId(int userId){
 		this.userId = userId;
+	}
+	public String getUserName(){
+		return userName;
+	}
+	public void setUserName(String userName){
+		this.userName = userName;
 	}
 	public String getSchedule(){
 		return schedule;
@@ -171,6 +251,13 @@ public class ScheduleAddCompleteAction extends ActionSupport implements SessionA
 	}
 	public void setEndDay(int endDay){
 		this.endDay = endDay;
+	}
+
+	public String getScheduleErrorMessage(){
+		return scheduleErrorMessage;
+	}
+	public void setScheduleErrorMessage(String scheduleErrorMessage){
+		this.scheduleErrorMessage = scheduleErrorMessage;
 	}
 
 //	@Override
