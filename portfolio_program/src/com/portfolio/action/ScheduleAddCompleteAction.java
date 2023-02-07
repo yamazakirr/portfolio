@@ -122,8 +122,6 @@ public class ScheduleAddCompleteAction extends ActionSupport implements SessionA
 //			未ログイン判定
 			result = "accountError";
 		}
-
-		result = "success";
 		return result;
 	}
 
@@ -258,6 +256,19 @@ public class ScheduleAddCompleteAction extends ActionSupport implements SessionA
 	}
 	public void setScheduleErrorMessage(String scheduleErrorMessage){
 		this.scheduleErrorMessage = scheduleErrorMessage;
+	}
+
+	public ArrayList<Object> getCalendarLists(){
+		return calendarLists;
+	}
+	public void setCalendarLists(ArrayList<Object> calendarLists){
+		this.calendarLists = calendarLists;
+	}
+	public ArrayList<ScheduleGetDTO> getScheduleListDTO(){
+		return scheduleListDTO;
+	}
+	public void setScheduleListDTO(ArrayList<ScheduleGetDTO> scheduleListDTO){
+		this.scheduleListDTO = scheduleListDTO;
 	}
 
 //	@Override

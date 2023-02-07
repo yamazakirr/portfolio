@@ -584,28 +584,5 @@
 
 			</table>
 		</div>
-
-
-<br>
-====動作確認用====<br>
-年：<s:property value="year"/><br>
-月：<s:property value="month"/><br>
-日：<s:property value="date"/><br>
-
-予定開始日　年：<s:property value="startYear"/><br>
-予定開始日　月：<s:property value="startMonth"/><br>
-予定開始日　日：<s:property value="startDay"/><br>
-予定開始時間　：<s:property value="startTime"/><br>
-終日フラグ　：<s:property value="allDayFlg"/><br>
-終日フラグ(session)　：<s:property value="#session.allDayFlg"/><br><br>
-
-
-予定終了日　年：<s:property value="endYear"/><br>
-予定終了日　月：<s:property value="endMonth"/><br>
-予定終了日　日：<s:property value="endDay"/><br>
-予定終了時間　：<s:property value="endTime"/><br>
-
-================
-
 </body>
 </html>
