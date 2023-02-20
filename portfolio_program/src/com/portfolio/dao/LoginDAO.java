@@ -28,21 +28,31 @@ public class LoginDAO {
 		password = registAccountCompleteDAO.passwordHash(password);
 
 
-		PreparedStatement preparedStatement = connection.prepareStatement(sql);
-		preparedStatement.setString(1, mail);
-		preparedStatement.setString(2, password);
-		preparedStatement.setString(3, "0");
+		try{
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, mail);
+			preparedStatement.setString(2, password);
+			preparedStatement.setString(3, "0");
 
-		ResultSet resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 
-//		■ログイン可否判定
-		if(resultSet.next()){
-			result = "success";
-			this.userId = resultSet.getInt("user_id");
-			this.userName = resultSet.getString("user_name");
-		}else{
-			this.loginErrorMessage = "メールアドレスまたはパスワードが違います。";
-			result = "error";
+//			■ログイン可否判定
+			if(resultSet.next()){
+				result = "success";
+				this.userId = resultSet.getInt("user_id");
+				this.userName = resultSet.getString("user_name");
+			}else{
+				this.loginErrorMessage = "メールアドレスまたはパスワードが違います。";
+				result = "error";
+			}
+		}finally{
+			if(connection != null){
+				connection.close();
+			}else if(connection == null){
+				System.out.println("LoginDAO.javaにてconnectionがNull");
+				result = "networkError";
+				return result;
+			}
 		}
 		return result;
 	}

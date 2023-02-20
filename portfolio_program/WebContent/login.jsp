@@ -26,19 +26,33 @@
 			<div id="main_title">
 				<p>ログイン</p>
 			</div>
-			<div id="input">
-				<p>メールアドレス</p>
-				<input type="text" size="40" name="mailCopy" id="mailInput" value='<s:property value="mail"/>'>
 
-				<p>パスワード</p>
-				<input type="password" size="40" name="passwordCopy" id="passwordInput" value='<s:property value="password"/>'>
 
-				<div class="errorMessage">
-					<s:if test="loginErrorMessage != null">
-						<s:property value="loginErrorMessage"/>
-					</s:if>
-				</div>
-			</div>
+
+			<table id="input">
+				<tr>
+					<td><p>メールアドレス</p></td>
+				</tr>
+				<tr>
+					<td><input type="text" size="40" name="mailCopy" id="mailInput" value='<s:property value="mail"/>'></td>
+				</tr>
+				<tr>
+					<td><p>パスワード</p></td>
+				</tr>
+				<tr>
+					<td><input type="password" size="40" name="passwordCopy" id="passwordInput" value='<s:property value="password"/>'></td>
+				</tr>
+				<tr>
+					<td>
+						<div class="errorMessage">
+							<s:if test="loginErrorMessage != null">
+								<s:property value="loginErrorMessage"/>
+							</s:if>
+						</div>
+					</td>
+				</tr>
+
+			</table>
 
 
 			<div id="btn">
@@ -49,7 +63,7 @@
 							<s:submit class="btn" value="アカウント登録はこちら"/>
 						</s:form>
 					</td>
-					<td>
+					<td id="test">
 						<s:form action="LoginAction" class="btn_pattern1">
 							<s:submit class="btn" value="ログイン"/>
 							<input type="hidden" name="mail" id="mailOutput" value='<s:property value="mail"/>'>

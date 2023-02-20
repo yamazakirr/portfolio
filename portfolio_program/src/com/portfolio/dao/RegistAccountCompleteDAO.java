@@ -53,6 +53,7 @@ public class RegistAccountCompleteDAO {
 			if(connection != null){
 				connection.close();
 			}else if(connection == null){
+				result = "networkError";
 				return result;
 			}
 		}

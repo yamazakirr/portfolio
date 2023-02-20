@@ -1,6 +1,5 @@
 package com.portfolio.action;
 
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
@@ -33,11 +32,11 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 
 	public String execute(){
 
-		userId = new Integer(session.get("userId").toString());
-		userName = session.get("userName").toString();
 
 //		■ログイン済み判定
 		if(session.containsKey("userId") && session.containsKey("userName")){
+			userId = new Integer(session.get("userId").toString());
+			userName = session.get("userName").toString();
 
 //			■yearとmonthの判定
 			if(year == 0 && month == 0){
@@ -96,16 +95,19 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 //			■選択した日付のスケジュール取得処理
 			try{
 				scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
+				System.out.println("scheduleListDTO  "+scheduleListDTO);
 
-			}catch(NullPointerException e){
-				e.printStackTrace();
-			}catch(SQLException e){
+				if(scheduleListDTO == null){
+					result = "networkError";
+				}else{
+					result = "success";
+				}
+			}catch(Exception e){
+				System.out.println("errorが発生");
 				e.printStackTrace();
 			}
-
-			result = "success";
-
 		}else{
+//			■sessionにuserId, userNameの情報なし
 			result = "accountError";
 		}
 		return result;

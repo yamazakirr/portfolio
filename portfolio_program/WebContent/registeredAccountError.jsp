@@ -6,13 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="./css/networkError.css">
+<link rel="stylesheet" type="text/css" href="./css/registerdAccountError.css">
 
-<title>ネットワークエラー</title>
+<title>アカウント登録済みエラー</title>
 </head>
 <body>
-
-
 
 <!-- ■ヘッダー -->
 	<div id="header">
@@ -28,8 +26,8 @@
 				<p>エラー画面</p>
 			</div>
 			<div id="input">
-				<p>ネットワークエラーが発生しました。</p>
-				<p>戻ってもう一度操作をやり直すかログイン画面からやり直してください。</p>
+				<p>このメールアドレスは既に登録済みです。。</p>
+				<p>戻ってもう一度操作をやり直すかログイン画面操作をお願いします。</p>
 			</div>
 			<div id="btn">
 				<s:form action="login.jsp">
@@ -38,7 +36,6 @@
 			</div>
 		</div>
 	</div>
-
 
 </body>
 </html>

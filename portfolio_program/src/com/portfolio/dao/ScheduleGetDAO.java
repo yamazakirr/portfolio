@@ -43,8 +43,6 @@ public class ScheduleGetDAO {
 		selectDate = selectCalendar.getTime();
 		System.out.println(sdf.format(selectDate));
 
-
-
 		String dateString = sdf.format(selectDate);
 
 		System.out.println("a     :"+dateString);
@@ -107,21 +105,6 @@ public class ScheduleGetDAO {
 					dto.setEndMonth(dto.getEndDate().getMonthValue());
 					dto.setEndDay(dto.getEndDate().getDayOfMonth());
 
-					System.out.println("値を確認");
-					System.out.println("startDate :"+dto.getStartDate());
-					System.out.println("startYear :"+dto.getStartYear());
-					System.out.println("startMonth :"+dto.getStartMonth());
-					System.out.println("startDay :"+dto.getStartDay());
-
-					System.out.println("endDate :"+dto.getEndDate());
-					System.out.println("endYear :"+dto.getEndYear());
-					System.out.println("endMonth :"+dto.getEndMonth());
-					System.out.println("endDay :"+dto.getEndDay());
-
-					System.out.println("startDate :"+resultSet.getString("start_date"));
-					System.out.println("endDate :"+resultSet.getString("end_date"));
-
-
 					dto.setStartTime(LocalTime.parse(resultSet.getString("start_time")));
 					dto.setEndTime(LocalTime.parse(resultSet.getString("end_time")));
 
@@ -129,17 +112,10 @@ public class ScheduleGetDAO {
 					dto.setMonth(month);
 					dto.setDate(date);
 
-//					String timeFormat = "HH:mm";
-//					dto.setStartTime(LocalTime.parse(resultSet.getString("start_time"), DateTimeFormatter.ofPattern(timeFormat)));
-					System.out.println("④");
-//					dto.setEndTime(LocalTime.parse(resultSet.getString("end_time"), DateTimeFormatter.ofPattern(timeFormat)));
-
-
 					System.out.println("開始日 :"+ dto.getStartDate());
 					System.out.println("終了日 :"+ dto.getEndDate());
 					System.out.println("開始時刻 :"+ dto.getStartTime());
 					System.out.println("終了時刻 :"+ dto.getEndTime());
-
 
 					scheduleListDTO.add(dto);
 				}
@@ -149,6 +125,14 @@ public class ScheduleGetDAO {
 
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			if(connection != null){
+				connection.close();
+			}else if(connection == null){
+				System.out.println("ScheduleGetDAO.javaにてconnectionがNull");
+				scheduleListDTO = null;
+				return scheduleListDTO;
+			}
 		}
 
 		return scheduleListDTO;

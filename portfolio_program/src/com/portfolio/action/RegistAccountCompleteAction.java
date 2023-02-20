@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.portfolio.dao.RegistAccountCompleteDAO;
+import com.portfolio.dao.RegistAccountConfirmDAO;
 
 public class RegistAccountCompleteAction extends ActionSupport{
 
@@ -14,17 +15,32 @@ public class RegistAccountCompleteAction extends ActionSupport{
 
 
 	public String execute(){
+		String mailCheckResult = "networkError";
 		String result = "error";
 
+		RegistAccountConfirmDAO registAccountConfirmDAO = new RegistAccountConfirmDAO();
 		RegistAccountCompleteDAO registAccountCompleteDAO = new RegistAccountCompleteDAO();
 
 		try{
-			result = registAccountCompleteDAO.createUser(userName, mail, password);
+//			■メアド登録済みチェック処理
+			mailCheckResult = registAccountConfirmDAO.checkMailDatebase(mail);
+
+			System.out.println("RegistAccountCompleteAction.javaのmailCheckResult "+ mailCheckResult);
+
+			if(mailCheckResult.equals("success")){
+//				■アカウント作成処理
+				result = registAccountCompleteDAO.createUser(userName, mail, password);
+			}else{
+//				■メアドが既に登録済み
+				mailCheckResult = "registerdAccountError";
+				return mailCheckResult;
+			}
+
 		}catch(SQLException e){
 			e.printStackTrace();
 			return result;
 		}
-
+		System.out.println("RegistAccountCompleteAction.javaのresult "+ result);
 		return result;
 	}
 

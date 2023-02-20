@@ -39,10 +39,9 @@ body{
   margin:0 auto;
 }
 #box #input{
-  width:80%;
+  width:50%;
   text-align:left;
-  margin-left:20%;
-  margin-bottom:100px;
+  margin:100px auto;
   font-size:20px;
 }
 #box #input table{

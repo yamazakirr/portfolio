@@ -26,6 +26,7 @@
 	<action name="RegistAccountCompleteAction" class="com.portfolio.action.RegistAccountCompleteAction" method="execute">
 	<result name="success">registAccountComplete.jsp</result>
 	<result name="networkError">networkError.jsp</result>
+	<result name="registerdAccountError">registeredAccountError.jsp</result>
 	</action>
 
 <!-- ログイン操作 -->

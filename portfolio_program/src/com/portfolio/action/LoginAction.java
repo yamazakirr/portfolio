@@ -77,7 +77,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 						calendarLists = getCalendar(year, month);
 					}
 			}else if(result.equals("error")){
-				System.out.println("result "+ result);
 				this.loginErrorMessage = loginDAO.getLoginErrorMessage();
 			}
 		}catch(SQLException e){

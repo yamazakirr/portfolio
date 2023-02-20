@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="./css/deleteScheduleConfirm.css">
+<link rel="stylesheet" type="text/css" href="./css/scheduleDelete.css">
 
 <title>スケジュール削除画面</title>
 </head>
@@ -30,7 +30,7 @@
 	<div id="main">
 		<div id="box">
 			<div id="main_title">
-				<p>アカウント削除確認画面</p>
+				<p>予定削除確認画面</p>
 			</div>
 			<div id="input">
 				<p>本当に削除しますか？</p>
