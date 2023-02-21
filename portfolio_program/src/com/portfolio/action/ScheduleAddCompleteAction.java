@@ -86,6 +86,7 @@ public class ScheduleAddCompleteAction extends ActionSupport implements SessionA
 					this.startTime = startTime.format(DateTimeFormatter.ofPattern(timeFormat));
 					LocalTime endTime = LocalTime.of(endHour, endMinutes);
 					this.endTime = endTime.format(DateTimeFormatter.ofPattern(timeFormat));
+
 				}else if(allDayFlg == 1){
 //					終日フラグが「1」の場合
 					this.startTime = "0";
@@ -95,28 +96,20 @@ public class ScheduleAddCompleteAction extends ActionSupport implements SessionA
 				try{
 //					■予定追加処理
 					result = dao.scheduleAdd(userId, schedule, memo, this.startDate, this.endDate, allDayFlg, this.startTime, this.endTime);
-					System.out.println("スケジュール追加処理 結果"+result);
-					System.out.println("スケジュール追加処理 実行完了");
 
-//					■カレンダー取得処理
-					System.out.println("ScheduleEditCompleteAction.java");
-					System.out.println("year :"+year);
-					System.out.println("month :"+month);
-					System.out.println("date :"+date);
-					System.out.println();
-
-					calendarLists = loginAction.getCalendar(year, month -1);
-					System.out.println("カレンダー取得処理 実行完了");
-
-//					■選択した日付のスケジュール取得処理
-					scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
-					System.out.println("選択した日付のスケジュール取得処理 実行完了");
-
+//					■予定追加エラー判定処理
+					if(result.equals("networkError")){
+						return result;
+					}else{
+//						■カレンダー取得処理
+						calendarLists = loginAction.getCalendar(year, month -1);
+//						■選択した日付のスケジュール取得処理
+						scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
+					}
 				}catch(SQLException e){
 					e.printStackTrace();
 				}
 				result = "success";
-
 			}
 		}else{
 //			未ログイン判定
@@ -185,6 +178,31 @@ public class ScheduleAddCompleteAction extends ActionSupport implements SessionA
 	}
 	public void setEndTime(String endTime){
 		this.endTime = endTime;
+	}
+
+	public int getStartHour(){
+		return startHour;
+	}
+	public void setStartHour(int startHour){
+		this.startHour = startHour;
+	}
+	public int getStartMinutes(){
+		return startMinutes;
+	}
+	public void setStartMinutes(int startMinutes){
+		this.startMinutes = startMinutes;
+	}
+	public int getEndHour(){
+		return endHour;
+	}
+	public void setEndHour(int endHour){
+		this.endHour = endHour;
+	}
+	public int getEndMinutes(){
+		return endMinutes;
+	}
+	public void setEndMinutes(int endMinutes){
+		this.endMinutes = endMinutes;
 	}
 
 	public int getCalendarDeleteFlg(){

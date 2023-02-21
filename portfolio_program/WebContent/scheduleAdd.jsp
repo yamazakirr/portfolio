@@ -389,6 +389,10 @@
 
 									/* 開始時刻の「時」変更時の処理 */
 									startHourInput.onchange = event =>{
+
+										console.log("startHourInput :"+startHourInput.value);
+										console.log("startHourOutput :"+startHourOutput.value);
+
 										startHourOutput.value = startHourInput.value;
 									}
 								</script>
