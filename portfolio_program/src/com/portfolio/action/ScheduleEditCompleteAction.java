@@ -97,20 +97,16 @@ public class ScheduleEditCompleteAction extends ActionSupport implements Session
 				try{
 //					■スケジュール編集処理
 					result = dao.scheduleEdit(userId, id, schedule, memo, this.startDate, this.endDate, allDayFlg, this.startTime, this.endTime);
-					System.out.println("スケジュール編集処理 実行完了");
-//					■カレンダー取得処理
-					System.out.println("ScheduleEditCompleteAction.java");
-					System.out.println("year :"+year);
-					System.out.println("month :"+month);
-					System.out.println("date :"+date);
-					System.out.println();
 
-					calendarLists = loginAction.getCalendar(year, month -1);
-					System.out.println("カレンダー取得処理 実行完了");
-
-//					■選択した日付のスケジュール取得処理
-					scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
-					System.out.println("選択した日付のスケジュール取得処理 実行完了");
+//					■スケジュール編集エラー判定処理
+					if(result.equals("networkError")){
+						return result;
+					}else{
+//						■カレンダー取得処理
+						calendarLists = loginAction.getCalendar(year, month -1);
+//						■選択した日付のスケジュール取得処理
+						scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
+					}
 
 				}catch(SQLException e){
 					e.printStackTrace();

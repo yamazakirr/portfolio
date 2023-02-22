@@ -34,6 +34,10 @@
 				<tr>
 					<td>
 						<s:form action="ScheduleDeleteAction">
+							<input type="hidden" name="id" value="<s:property value='id'/>">
+							<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
+							<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
+
 							<input type="submit" class="button" value="削除">
 						</s:form>
 					</td>

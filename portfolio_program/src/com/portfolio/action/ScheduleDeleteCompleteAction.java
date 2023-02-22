@@ -25,13 +25,6 @@ public class ScheduleDeleteCompleteAction extends ActionSupport implements Sessi
 
 	public String execute(){
 
-		System.out.println();
-		System.out.println("ScheduleDeleteCompleteAction.java");
-		System.out.println("userId :"+userId);
-		System.out.println("userId session:"+session.get("userId"));
-		System.out.println("userName :"+userName);
-		System.out.println("userName session:"+session.get("userName"));
-
 //		■ログイン済み判定
 		if(session.containsKey("userId") && session.containsKey("userName")){
 

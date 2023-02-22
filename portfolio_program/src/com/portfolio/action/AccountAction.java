@@ -30,19 +30,18 @@ public class AccountAction extends ActionSupport implements SessionAware{
 			userId = session.get("userId").toString();
 			userName = session.get("userName").toString();
 
-			System.out.println("userId :"+userId);
-			System.out.println("userName :"+userName);
-
 			try{
 				result = dao.getUserInfo(userId, userName);
-				userName = dao.getUserName();
-				mail = dao.getMail();
 
+				if(result.equals("networkError")){
+					return result;
+				}else{
+					userName = dao.getUserName();
+					mail = dao.getMail();
+				}
 			}catch(SQLException e){
 				e.printStackTrace();
 			}
-
-			result = SUCCESS;
 		}else{
 			result = "accountError";
 		}

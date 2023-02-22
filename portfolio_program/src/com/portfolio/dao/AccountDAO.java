@@ -44,6 +44,7 @@ public class AccountDAO {
 				connection.close();
 			}else if(connection == null){
 				result = "networkError";
+				return result;
 			}
 		}
 

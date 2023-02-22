@@ -48,6 +48,7 @@ public class ScheduleEditCompleteDAO {
 				connection.close();
 			}else if(connection == null){
 				result = "networkError";
+				return result;
 			}
 		}
 		return result;
