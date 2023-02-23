@@ -35,11 +35,15 @@
 			<div id="input">
 				<p>新しいニックネーム</p>
 				<input type="text" size="40" class="input_box" id="userNameInput" value="<s:property value='changeUserName'/>"><br>
-				<s:property value="userNameErrorMessage"/>
+				<div class="errorMessage">
+					<s:property value="userNameErrorMessage"/>
+				</div>
 
 				<p>パスワード</p>
 				<input type="password" size="40" class="input_box" id="passwordInput" value="<s:property value='password'/>"><br>
-				<s:property value="passwordErrorMessage"/>
+				<div class="errorMessage">
+					<s:property value="passwordErrorMessage"/>
+				</div>
 			</div>
 			<div id="btn">
 				<table>

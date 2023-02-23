@@ -36,7 +36,9 @@
 				<p>新しいパスワード</p>
 				<input type="password" size="40" class="input_box" id="changePasswordInput" value="<s:property value='changePassword'/>">
 				<button id="btn_passview">表示</button>
-				<p><s:property value="changePasswordErrorMessage"/></p>
+				<div class="errorMessage">
+					<s:property value="changePasswordErrorMessage"/>
+				</div>
 
 				<!-- パスワードの表示・非表示切り替え処理 -->
 				<script>
@@ -60,7 +62,9 @@
 
 				<p>現在のパスワード</p>
 				<input type="password" size="40" class="input_box" id="passwordInput" value="<s:property value='password'/>"><br>
-				<s:property value="passwordErrorMessage"/>
+				<div class="errorMessage">
+					<s:property value="passwordErrorMessage"/>
+				</div>
 			</div>
 			<div id="btn">
 				<table>

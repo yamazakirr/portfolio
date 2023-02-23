@@ -35,11 +35,15 @@
 			<div id="input">
 				<p>新しいメールアドレス</p>
 				<input type="text" size="40" class="input_box" id="changeMailInput" value="<s:property value='changeMail'/>">
-				<p><s:property value="changeMailErrorMessage"/></p>
+				<div class="errorMessage">
+					<s:property value="changeMailErrorMessage"/>
+				</div>
 
 				<p>パスワード</p>
 				<input type="password" size="40" class="input_box" id="passwordInput" value="<s:property value='password'/>"><br>
-				<s:property value="passwordErrorMessage"/>
+				<div class="errorMessage">
+					<s:property value="passwordErrorMessage"/>
+				</div>
 			</div>
 			<div id="btn">
 				<table>
