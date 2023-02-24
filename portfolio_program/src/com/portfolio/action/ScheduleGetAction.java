@@ -44,7 +44,7 @@ public class ScheduleGetAction extends ActionSupport implements SessionAware{
 		}
 
 		System.out.println("result :"+result);
-		return SUCCESS;
+		return result;
 	}
 
 //	■getterとsetter

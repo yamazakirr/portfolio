@@ -1,6 +1,5 @@
 package com.portfolio.action;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -84,13 +83,8 @@ public class CalendarAction extends ActionSupport implements SessionAware{
 			session.put("date", date);
 
 //			■カレンダー作成処理
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-
 			calendarLists = loginAction.getCalendar(year, month -1);
 			session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
-
-			System.out.println("sessionのfirstDayOfWeek"+ loginAction.getFirstDayOfWeek());
-			System.out.println("CalendarAction.javaの日付"+ sdf.format(loginAction.getSelectDate().getTime()));
 
 //			■選択した日付のスケジュール取得処理
 			try{

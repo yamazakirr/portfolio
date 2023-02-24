@@ -1,7 +1,6 @@
 package com.portfolio.action;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
@@ -57,11 +56,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 				session.put("month", month);
 				session.put("date", date);
 
-				System.out.println();
-				System.out.println("session year :"+ year);
-				System.out.println("session month :"+ month);
-				System.out.println("session date :"+ date);
-
 //				■カレンダー作成処理
 					if(session.get("year").equals(0) && session.get("month").equals(0)){
 //						■カレンダー初期表示
@@ -101,8 +95,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		lastDate = today.getActualMaximum(Calendar.DATE);
 		firstDate = today.getActualMinimum(Calendar.DATE);
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		System.out.println("今日の日付"+ sdf.format(today.getTime()));
 		today.set(Calendar.DATE, firstDate);
 
 		firstDayOfWeek = today.get(Calendar.DAY_OF_WEEK);
@@ -110,10 +102,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 
 //		※「sample < 4」は動作確認後「sample < firstDayOfWeek - 1」に変更する ※
 
-		System.out.println("firstDayOfWeek :" + firstDayOfWeek);
-
 		for(int sample=0; sample < firstDayOfWeek - 1; sample++){
-			System.out.println("中の処理firstDayOfWeek :" + firstDayOfWeek);
 			calendarLists.add("");
 		}
 		for(int sample2=1; sample2 != lastDate+1; sample2++){
@@ -129,17 +118,9 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		selectDate.set(Calendar.MONTH, month);
 		selectDate.set(Calendar.DATE, 1);
 
-		System.out.println("year :"+ year);
-		System.out.println("month :"+ month);
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println("LoginAction.java指定なしの日付"+ sdf.format(selectDate.getTime()));
-
 		lastDate = selectDate.getActualMaximum(Calendar.DATE);
 		firstDate = selectDate.getActualMinimum(Calendar.DATE);
 		firstDayOfWeek = selectDate.get(Calendar.DAY_OF_WEEK);
-
-		System.out.println("曜日 :"+ firstDayOfWeek);
 
 //		※「sample < 4」は動作確認後「sample < firstDayOfWeek - 1」に変更する ※
 		for(int sample=0; sample < firstDayOfWeek - 1 ; sample++){

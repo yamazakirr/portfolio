@@ -41,21 +41,15 @@ public class ScheduleGetDAO {
 //		selectDateのフォーマットを変更する
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		selectDate = selectCalendar.getTime();
-		System.out.println(sdf.format(selectDate));
 
 		String dateString = sdf.format(selectDate);
 
-		System.out.println("a     :"+dateString);
 		try{
 			selectDate = sdf.parse(dateString);
 		}catch(Exception e){
 			System.out.println("String型からDate型");
 			e.printStackTrace();
 		}
-
-
-		System.out.println("selectDate :"+selectDate);
-
 
 		String sql = "SELECT id, user_id, schedule, memo, start_date, end_date, "
 					+ "all_day_flg, start_time, end_time, calendar_delete_flg"
@@ -72,19 +66,14 @@ public class ScheduleGetDAO {
 //			■データベースから取得した情報をscheduleListDTOに格納
 			while(resultSet.next()){
 
+				System.out.println("ScheduleGetDAO.javaのresultSet.next実行");
+
 //				■日付が該当するか判定
 				Date startDate = resultSet.getDate("start_date");
 				Date endDate = resultSet.getDate("end_date");
 
-				System.out.println("startDate :"+ startDate);
-				System.out.println("endDate :"+ endDate);
-				System.out.println("selectDate :" + selectDate);
-				System.out.println();
-
 //				Listに格納する条件：start_date <= selectDate <= end_date
 				if((selectDate.compareTo(startDate) != -1) && (selectDate.compareTo(endDate) != 1)){
-
-					System.out.println("データ格納処理");
 
 					ScheduleGetDTO dto = new ScheduleGetDTO();
 					dto.setId(resultSet.getInt("id"));
@@ -112,15 +101,8 @@ public class ScheduleGetDAO {
 					dto.setMonth(month);
 					dto.setDate(date);
 
-					System.out.println("開始日 :"+ dto.getStartDate());
-					System.out.println("終了日 :"+ dto.getEndDate());
-					System.out.println("開始時刻 :"+ dto.getStartTime());
-					System.out.println("終了時刻 :"+ dto.getEndTime());
-
 					scheduleListDTO.add(dto);
 				}
-
-
 			}
 
 		}catch(Exception e){
@@ -128,6 +110,7 @@ public class ScheduleGetDAO {
 		}finally{
 			if(connection != null){
 				connection.close();
+				System.out.println("connection.close()実行済み");
 			}else if(connection == null){
 				System.out.println("ScheduleGetDAO.javaにてconnectionがNull");
 				scheduleListDTO = null;
