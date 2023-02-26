@@ -12,7 +12,7 @@
 </head>
 <body>
 
-!-- ■ヘッダー -->
+<!-- ■ヘッダー -->
 	<div id="header">
 		<div id="page_title">
 			マイカレンダー

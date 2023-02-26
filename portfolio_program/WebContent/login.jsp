@@ -27,8 +27,6 @@
 				<p>ログイン</p>
 			</div>
 
-
-
 			<table id="input">
 				<tr>
 					<td><p>メールアドレス</p></td>

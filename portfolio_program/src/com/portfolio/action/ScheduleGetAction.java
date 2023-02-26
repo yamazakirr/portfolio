@@ -34,7 +34,6 @@ public class ScheduleGetAction extends ActionSupport implements SessionAware{
 		try{
 			scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
 			calendarLists = loginAction.getCalendar(year, month -1);
-
 			session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
 
 //			System.out.println("firstDayOfWeek :"+loginAction.getFirstDayOfWeek());

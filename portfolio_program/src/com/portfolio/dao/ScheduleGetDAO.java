@@ -66,8 +66,6 @@ public class ScheduleGetDAO {
 //			■データベースから取得した情報をscheduleListDTOに格納
 			while(resultSet.next()){
 
-				System.out.println("ScheduleGetDAO.javaのresultSet.next実行");
-
 //				■日付が該当するか判定
 				Date startDate = resultSet.getDate("start_date");
 				Date endDate = resultSet.getDate("end_date");
