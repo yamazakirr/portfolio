@@ -33,11 +33,16 @@ public class ScheduleGetAction extends ActionSupport implements SessionAware{
 
 		try{
 			scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
-			calendarLists = loginAction.getCalendar(year, month -1);
-			session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
+
+			if(scheduleListDTO == null){
+				result = "networkError";
+			}else{
+				calendarLists = loginAction.getCalendar(year, month -1);
+				session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
+				result = "success";
+			}
 
 //			System.out.println("firstDayOfWeek :"+loginAction.getFirstDayOfWeek());
-			result = "success";
 		}catch(Exception e){
 			e.printStackTrace();
 		}

@@ -109,6 +109,7 @@
 <!-- カレンダー、予定の表示操作 -->
 	<action name="ScheduleGetAction" class="com.portfolio.action.ScheduleGetAction" method="execute">
 	<result name="success">calendar.jsp</result>
+	<result name="networkError">networkError.jsp</result>
 	</action>
 
 <!-- 予定追加操作 -->

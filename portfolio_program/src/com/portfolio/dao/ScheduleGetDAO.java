@@ -37,7 +37,6 @@ public class ScheduleGetDAO {
 		selectCalendar.set(Calendar.MONTH, month -1);
 		selectCalendar.set(Calendar.DATE, date);
 
-
 //		selectDateのフォーマットを変更する
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		selectDate = selectCalendar.getTime();
@@ -109,6 +108,7 @@ public class ScheduleGetDAO {
 			if(connection != null){
 				connection.close();
 				System.out.println("connection.close()実行済み");
+				System.out.println("connectionのクローズ判定 :"+connection.isClosed());
 			}else if(connection == null){
 				System.out.println("ScheduleGetDAO.javaにてconnectionがNull");
 				scheduleListDTO = null;
