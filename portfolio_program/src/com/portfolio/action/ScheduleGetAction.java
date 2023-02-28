@@ -32,6 +32,7 @@ public class ScheduleGetAction extends ActionSupport implements SessionAware{
 		session.put("date", date);
 
 		try{
+
 			scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
 
 			if(scheduleListDTO == null){

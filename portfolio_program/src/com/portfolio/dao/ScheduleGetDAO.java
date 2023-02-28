@@ -23,9 +23,9 @@ public class ScheduleGetDAO {
 	private Calendar selectCalendar;
 	private Date selectDate;
 	private ResultSet resultSet;
+	private PreparedStatement preparedStatement;
 
 	private String dateFormat = "yyyy-MM-dd";
-
 
 	ArrayList<ScheduleGetDTO> scheduleListDTO = new ArrayList<ScheduleGetDTO>();
 
@@ -57,7 +57,7 @@ public class ScheduleGetDAO {
 					+ " ORDER BY start_time ASC";
 
 		try{
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, userId);
 
 			resultSet = preparedStatement.executeQuery();
@@ -106,9 +106,15 @@ public class ScheduleGetDAO {
 			e.printStackTrace();
 		}finally{
 			if(connection != null){
+
+				resultSet.close();
+				System.out.println("resultSetのクローズ判定         :"+resultSet.isClosed());
+
+				preparedStatement.close();
+				System.out.println("preparedStatementのクローズ判定 :"+preparedStatement.isClosed());
+
 				connection.close();
-				System.out.println("connection.close()実行済み");
-				System.out.println("connectionのクローズ判定 :"+connection.isClosed());
+				System.out.println("connectionのクローズ判定        :"+connection.isClosed());
 			}else if(connection == null){
 				System.out.println("ScheduleGetDAO.javaにてconnectionがNull");
 				scheduleListDTO = null;
