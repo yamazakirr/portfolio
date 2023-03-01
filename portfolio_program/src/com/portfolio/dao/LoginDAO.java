@@ -9,12 +9,14 @@ import com.portfolio.util.DBConnector;
 
 public class LoginDAO {
 
+	Connection con;
+
 	private String loginErrorMessage = "";
 	private int userId ;
 	private String userName = "";
+	private ResultSet resultSet;
+	private PreparedStatement preparedStatement;
 
-	private DBConnector dbConnector = new DBConnector();
-	private Connection connection = dbConnector.getConnection();
 	private String sql = "SELECT user_id,user_name, mail, password"
 						+ " FROM login_user_transaction"
 						+ " WHERE mail=? AND password=? AND delete_flg=?";
@@ -27,14 +29,21 @@ public class LoginDAO {
 //		■パスワードのハッシュ化
 		password = registAccountCompleteDAO.passwordHash(password);
 
-
 		try{
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			if(DBConnector.connection == null){
+				System.out.println("DBConnector.connectionがnull");
+				DBConnector dbConnector = new DBConnector();
+				dbConnector.getConnection();
+			}else{
+				System.out.println("LoginDAO.java  DBConnector.connectionがnullではない");
+			}
+
+			preparedStatement = DBConnector.connection.prepareStatement(sql);
 			preparedStatement.setString(1, mail);
 			preparedStatement.setString(2, password);
 			preparedStatement.setString(3, "0");
 
-			ResultSet resultSet = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 
 //			■ログイン可否判定
 			if(resultSet.next()){
@@ -46,9 +55,22 @@ public class LoginDAO {
 				result = "error";
 			}
 		}finally{
-			if(connection != null){
-				connection.close();
-			}else if(connection == null){
+			if(DBConnector.connection != null){
+				if(resultSet != null){
+					resultSet.close();
+				}else{
+					;
+				}
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}
+
+				DBConnector.connection.close();
+				DBConnector.connection = null;
+
+				System.out.println();
+				System.out.println("LoginDAO.javaにてconnectionをclose()");
+			}else if(DBConnector.connection == null){
 				System.out.println("LoginDAO.javaにてconnectionがNull");
 				result = "networkError";
 				return result;

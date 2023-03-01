@@ -1,6 +1,5 @@
 package com.portfolio.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,9 +15,6 @@ import com.portfolio.dto.ScheduleGetDTO;
 import com.portfolio.util.DBConnector;
 
 public class ScheduleGetDAO {
-
-	private DBConnector dbConnector = new DBConnector();
-	private Connection connection = dbConnector.getConnection();
 
 	private Calendar selectCalendar;
 	private Date selectDate;
@@ -57,10 +53,26 @@ public class ScheduleGetDAO {
 					+ " ORDER BY start_time ASC";
 
 		try{
-			preparedStatement = connection.prepareStatement(sql);
+			if(DBConnector.connection == null){
+				System.out.println("DBConnector.connectionがnull");
+				DBConnector dbConnector = new DBConnector();
+
+				System.out.println("connectionの値   実行前:"+DBConnector.connection);
+				dbConnector.getConnection();
+				System.out.println("connectionの値   実行後:"+DBConnector.connection);
+			}else{
+				System.out.println("ScheduleGetDAO.java  DBConnector.connectionがnullではない");
+			}
+
+			System.out.println("connectionの値   :"+DBConnector.connection);
+			System.out.println("①");
+			preparedStatement = DBConnector.connection.prepareStatement(sql);
+			System.out.println("②");
 			preparedStatement.setInt(1, userId);
+			System.out.println("③");
 
 			resultSet = preparedStatement.executeQuery();
+			System.out.println("④");
 
 //			■データベースから取得した情報をscheduleListDTOに格納
 			while(resultSet.next()){
@@ -105,17 +117,21 @@ public class ScheduleGetDAO {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
-			if(connection != null){
-
-				resultSet.close();
-				System.out.println("resultSetのクローズ判定         :"+resultSet.isClosed());
-
-				preparedStatement.close();
-				System.out.println("preparedStatementのクローズ判定 :"+preparedStatement.isClosed());
-
-				connection.close();
-				System.out.println("connectionのクローズ判定        :"+connection.isClosed());
-			}else if(connection == null){
+			if(DBConnector.connection != null){
+				if(resultSet != null){
+					resultSet.close();
+					System.out.println("resultSetのクローズ判定         :"+resultSet.isClosed());
+				}else{
+					;
+				}
+				if(preparedStatement != null){
+					preparedStatement.close();
+					System.out.println("preparedStatementのクローズ判定 :"+preparedStatement.isClosed());
+				}
+				DBConnector.connection.close();
+				System.out.println();
+				System.out.println("ScheuleGetDAO.javaにてconnectionをclose()");
+			}else if(DBConnector.connection == null){
 				System.out.println("ScheduleGetDAO.javaにてconnectionがNull");
 				scheduleListDTO = null;
 				return scheduleListDTO;
