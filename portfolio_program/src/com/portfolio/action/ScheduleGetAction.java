@@ -31,21 +31,26 @@ public class ScheduleGetAction extends ActionSupport implements SessionAware{
 		session.put("month", month);
 		session.put("date", date);
 
-		try{
+		if(userId == 0){
+			result = "networkError";
+			System.out.println("userIdの情報が取得出来ません。");
+		}else{
+			try{
 
-			scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
+				scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
 
-			if(scheduleListDTO == null){
-				result = "networkError";
-			}else{
-				calendarLists = loginAction.getCalendar(year, month -1);
-				session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
-				result = "success";
+				if(scheduleListDTO == null){
+					result = "networkError";
+				}else{
+					calendarLists = loginAction.getCalendar(year, month -1);
+					session.put("firstDayOfWeek", loginAction.getFirstDayOfWeek());
+					result = "success";
+				}
+
+	//			System.out.println("firstDayOfWeek :"+loginAction.getFirstDayOfWeek());
+			}catch(Exception e){
+				e.printStackTrace();
 			}
-
-//			System.out.println("firstDayOfWeek :"+loginAction.getFirstDayOfWeek());
-		}catch(Exception e){
-			e.printStackTrace();
 		}
 
 		System.out.println("result :"+result);

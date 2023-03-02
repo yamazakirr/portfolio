@@ -11,11 +11,11 @@ import com.portfolio.util.DBConnector;
 
 public class ChangeUserNameCompleteDAO {
 
-	//	■フィールド
-	private DBConnector dbConnector = new DBConnector();
-	private Connection connection = dbConnector.getConnection();
 	private String nowDate;
 	private String password;
+
+	private PreparedStatement preparedStatement;
+	private Connection connection;
 
 	RegistAccountCompleteDAO dao = new RegistAccountCompleteDAO();
 
@@ -28,8 +28,10 @@ public class ChangeUserNameCompleteDAO {
 	}
 
 	public String changeUserNameInfo(String userId, String userName,String password, String changeUserName)throws SQLException{
-
 		String result = "";
+		DBConnector dbConnector = new DBConnector();
+		connection = dbConnector.getConnection();
+
 		String sql = "UPDATE login_user_transaction"
 					+ " SET user_name =?, update_time=?"
 					+ " WHERE user_id=? AND user_name=? AND password=?";
@@ -38,7 +40,7 @@ public class ChangeUserNameCompleteDAO {
 		this.password = dao.passwordHash(password);
 
 		try{
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, changeUserName);
 			preparedStatement.setString(2, nowDate);
 			preparedStatement.setString(3, userId);
@@ -57,6 +59,11 @@ public class ChangeUserNameCompleteDAO {
 			e.printStackTrace();
 		}finally{
 			if(connection != null){
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}else{
+					;
+				}
 				connection.close();
 			}else if(connection == null){
 				result = "networkError";

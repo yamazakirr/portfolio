@@ -11,18 +11,21 @@ public class ScheduleEditCompleteDAO {
 //	■フィールド
 	private String result;
 
-	private DBConnector dbConnector = new DBConnector();
-	private Connection connection = dbConnector.getConnection();
+	private PreparedStatement preparedStatement;
+	private Connection connection;
 
 	public String scheduleEdit(int userId, int id, String schedule, String memo, String startDate, String endDate,
 								int allDayFlg, String startTime, String endTime)throws SQLException{
+
+		DBConnector dbConnector = new DBConnector();
+		connection = dbConnector.getConnection();
 
 		String sql = "UPDATE my_calendar"
 					+ " SET schedule=?, memo=?, start_date=?, end_date=?, all_day_flg=?, start_time=?, end_time=?"
 					+ " WHERE user_id=? AND id=?";
 
 		try{
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, schedule);
 			preparedStatement.setString(2, memo);
 			preparedStatement.setString(3, startDate);
@@ -45,6 +48,11 @@ public class ScheduleEditCompleteDAO {
 			e.printStackTrace();
 		}finally{
 			if(connection != null){
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}else{
+					;
+				}
 				connection.close();
 			}else if(connection == null){
 				result = "networkError";

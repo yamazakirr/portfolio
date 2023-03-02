@@ -10,17 +10,20 @@ public class ScheduleAddCompleteDAO {
 
 	private String result;
 
-	private DBConnector dbConnector = new DBConnector();
-	private Connection connection = dbConnector.getConnection();
+	private PreparedStatement preparedStatement;
+	private Connection connection;
 
 	public String scheduleAdd(int userId, String schedule, String memo, String startDate, String endDate,
 								int allDayFlg, String startTime, String endTime)throws SQLException{
+
+		DBConnector dbConnector = new DBConnector();
+		connection = dbConnector.getConnection();
 
 		String sql = "INSERT INTO my_calendar(user_id, schedule, memo, start_date, end_date, all_day_flg, start_time, end_time, calendar_delete_flg)"
 					+ " VALUE(?,?,?,?,?,?,?,?,?)";
 
 		try{
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, userId);
 			preparedStatement.setString(2, schedule);
 			preparedStatement.setString(3, memo);
@@ -39,6 +42,11 @@ public class ScheduleAddCompleteDAO {
 			e.printStackTrace();
 		}finally{
 			if(connection != null){
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}else{
+					;
+				}
 				connection.close();
 			}else if(connection == null){
 				result = "networkError";

@@ -10,18 +10,21 @@ import com.portfolio.util.DBConnector;
 public class RegistAccountConfirmDAO {
 	String result = "error";
 
-	private DBConnector dbConnector = new DBConnector();
-	private Connection connection = dbConnector.getConnection();
+	private ResultSet resultSet;
+	private PreparedStatement preparedStatement;
+	private Connection connection;
 
 	public String checkMailDatebase(String mail) throws SQLException{
 
+		DBConnector dbConnector = new DBConnector();
+		connection = dbConnector.getConnection();
 
 		String sql = "SELECT mail"
 				+ " FROM login_user_transaction"
 				+ " WHERE mail=? AND delete_flg=?";
 
 		try{
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, mail);
 			preparedStatement.setString(2, "0");
 			ResultSet resutlSet = preparedStatement.executeQuery();
@@ -38,6 +41,16 @@ public class RegistAccountConfirmDAO {
 			e.printStackTrace();
 		}finally{
 			if(connection != null){
+				if(resultSet != null){
+					resultSet.close();
+				}else{
+					;
+				}
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}else{
+					;
+				}
 				connection.close();
 			}else if(connection == null){
 				result = "networkError";

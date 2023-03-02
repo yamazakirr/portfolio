@@ -11,17 +11,20 @@ public class ScheduleDeleteCompleteDAO {
 //	■フィールド
 	private String result;
 
-	private DBConnector dbConnector = new DBConnector();
-	private Connection connection = dbConnector.getConnection();
+	private PreparedStatement preparedStatement;
+	private Connection connection;
 
 	public String scheduleDeleteInfo(int id, int userId)throws SQLException{
+
+		DBConnector dbConnector = new DBConnector();
+		connection = dbConnector.getConnection();
 
 		String sql ="UPDATE my_calendar"
 					+ " SET calendar_delete_flg = 1"
 					+ " WHERE id = ? AND user_id = ?";
 
 		try{
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
 			preparedStatement.setInt(2, userId);
 
@@ -36,6 +39,11 @@ public class ScheduleDeleteCompleteDAO {
 			e.printStackTrace();
 		}finally{
 			if(connection != null){
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}else{
+					;
+				}
 				connection.close();
 			}else if(connection == null){
 				result = "networkError";

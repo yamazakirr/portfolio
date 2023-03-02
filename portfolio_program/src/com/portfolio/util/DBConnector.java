@@ -11,7 +11,7 @@ public class DBConnector {
 	private  String user = "root";
 	private  String password = "root";
 
-	public static Connection connection;
+	private Connection connection;
 	public static int i = 1;
 
 	public Connection getConnection(){

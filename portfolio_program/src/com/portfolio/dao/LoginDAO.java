@@ -9,13 +9,13 @@ import com.portfolio.util.DBConnector;
 
 public class LoginDAO {
 
-	Connection con;
-
 	private String loginErrorMessage = "";
 	private int userId ;
 	private String userName = "";
+
 	private ResultSet resultSet;
 	private PreparedStatement preparedStatement;
+	private Connection connection;
 
 	private String sql = "SELECT user_id,user_name, mail, password"
 						+ " FROM login_user_transaction"
@@ -25,20 +25,14 @@ public class LoginDAO {
 
 	public String getLoginResult(String mail, String password)throws SQLException{
 		String result = "";
+		DBConnector dbConnector = new DBConnector();
+		connection = dbConnector.getConnection();
 
 //		■パスワードのハッシュ化
 		password = registAccountCompleteDAO.passwordHash(password);
 
 		try{
-			if(DBConnector.connection == null){
-				System.out.println("DBConnector.connectionがnull");
-				DBConnector dbConnector = new DBConnector();
-				dbConnector.getConnection();
-			}else{
-				System.out.println("LoginDAO.java  DBConnector.connectionがnullではない");
-			}
-
-			preparedStatement = DBConnector.connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, mail);
 			preparedStatement.setString(2, password);
 			preparedStatement.setString(3, "0");
@@ -55,7 +49,7 @@ public class LoginDAO {
 				result = "error";
 			}
 		}finally{
-			if(DBConnector.connection != null){
+			if(connection != null){
 				if(resultSet != null){
 					resultSet.close();
 				}else{
@@ -63,14 +57,11 @@ public class LoginDAO {
 				}
 				if(preparedStatement != null){
 					preparedStatement.close();
+				}else{
+					;
 				}
-
-				DBConnector.connection.close();
-				DBConnector.connection = null;
-
-				System.out.println();
-				System.out.println("LoginDAO.javaにてconnectionをclose()");
-			}else if(DBConnector.connection == null){
+				connection.close();
+			}else if(connection == null){
 				System.out.println("LoginDAO.javaにてconnectionがNull");
 				result = "networkError";
 				return result;

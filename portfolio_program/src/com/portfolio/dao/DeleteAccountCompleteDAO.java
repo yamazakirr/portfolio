@@ -11,9 +11,9 @@ import com.portfolio.util.DBConnector;
 public class DeleteAccountCompleteDAO {
 
 //	■フィールド
-	private DBConnector dbConnector = new DBConnector();
-	private Connection connection = dbConnector.getConnection();
 	private String nowDate;
+	private PreparedStatement preparedStatement;
+	private Connection connection;
 
 //	■コンストラクタ
 	public DeleteAccountCompleteDAO(){
@@ -24,15 +24,16 @@ public class DeleteAccountCompleteDAO {
 	}
 
 	public String deleteUserInfo(String userId, String userName)throws SQLException{
-
 		String result = "";
+		DBConnector dbConnector = new DBConnector();
+		connection = dbConnector.getConnection();
 
 		String sql = "UPDATE login_user_transaction "
 					+ " SET delete_flg = 1, update_time = ?"
 					+ " WHERE user_id=? AND user_name=?";
 
 		try{
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, nowDate);
 			preparedStatement.setString(2, userId);
 			preparedStatement.setString(3, userName);
@@ -50,6 +51,11 @@ public class DeleteAccountCompleteDAO {
 			e.printStackTrace();
 		}finally{
 			if(connection != null){
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}else{
+					;
+				}
 				connection.close();
 			}else if(connection == null){
 				result = "networkError";

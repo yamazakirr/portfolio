@@ -9,25 +9,29 @@ import com.portfolio.util.DBConnector;
 
 public class AccountDAO {
 
-	private DBConnector dbConnector = new DBConnector();
-	private Connection connection = dbConnector.getConnection();
+	private ResultSet resultSet;
+	private PreparedStatement preparedStatement;
+	private Connection connection;
+
 	private String userName;
 	private String mail;
 
 
 	public String getUserInfo(String userId, String userName)throws SQLException{
 		String result = "";
+		DBConnector dbConnector = new DBConnector();
+		connection = dbConnector.getConnection();
 
 		String sql = "SELECT user_name, mail"
 				   + " FROM login_user_transaction"
 				   + " WHERE user_id=? AND user_name=?";
 
 		try{
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, userId);
 			preparedStatement.setString(2, userName);
 
-			ResultSet resultSet = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 			if(resultSet.next()){
 				result = "success";
 				this.userName = resultSet.getString("user_name");
@@ -41,6 +45,16 @@ public class AccountDAO {
 			e.printStackTrace();
 		}finally{
 			if(connection != null){
+				if(resultSet != null){
+					resultSet.close();
+				}else{
+					;
+				}
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}else{
+					;
+				}
 				connection.close();
 			}else if(connection == null){
 				result = "networkError";

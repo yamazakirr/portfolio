@@ -68,7 +68,7 @@
 				<table>
 					<tr>
 						<td>
-							<s:form action="calendar.jsp">
+							<s:form action="CalendarAction">
 								<s:submit value="カレンダー画面に戻る"/>
 							</s:form>
 						</td>

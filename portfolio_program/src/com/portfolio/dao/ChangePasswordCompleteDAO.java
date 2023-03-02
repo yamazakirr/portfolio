@@ -15,8 +15,8 @@ public class ChangePasswordCompleteDAO {
 	private String password;
 	private String changePassword;
 
-	private DBConnector dbConnector = new DBConnector();
-	private Connection connection = dbConnector.getConnection();
+	private PreparedStatement preparedStatement;
+	private Connection connection;
 
 	RegistAccountCompleteDAO dao = new RegistAccountCompleteDAO();
 
@@ -30,15 +30,19 @@ public class ChangePasswordCompleteDAO {
 
 	public String changePasswordInfo(String userId, String userName, String password, String changePassword)throws SQLException{
 		String result = "";
+		DBConnector dbConnector = new DBConnector();
+		connection = dbConnector.getConnection();
+
 		String sql = "UPDATE login_user_transaction"
 					+ " SET password=?, update_time=?"
 					+ " WHERE user_id=? AND user_name=? AND password=?";
+
 //		■パスワードのハッシュ化
 		this.password = dao.passwordHash(password);
 		this.changePassword = dao.passwordHash(changePassword);
 
 		try{
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, this.changePassword);
 			preparedStatement.setString(2, nowDate);
 			preparedStatement.setString(3, userId);
@@ -57,6 +61,11 @@ public class ChangePasswordCompleteDAO {
 			e.printStackTrace();
 		}finally{
 			if(connection != null){
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}else{
+					;
+				}
 				connection.close();
 			}else if(connection == null){
 				result = "networkError";

@@ -12,8 +12,9 @@ import com.portfolio.util.DBConnector;
 
 public class RegistAccountCompleteDAO {
 
-	private DBConnector dbConnector = new DBConnector();
-	private Connection connection = dbConnector.getConnection();
+	private PreparedStatement preparedStatement;
+	private Connection connection;
+
 	private String nowDate;
 
 //	■コンストラクタ
@@ -26,16 +27,17 @@ public class RegistAccountCompleteDAO {
 
 	public String createUser(String userName, String mail, String password) throws SQLException{
 		String result = "error";
+		DBConnector dbConnector = new DBConnector();
+		connection = dbConnector.getConnection();
 
 //		■パスワードのハッシュ化処理
 		password = passwordHash(password);
-
 
 		String sql = "INSERT INTO login_user_transaction(user_name, mail, password, delete_flg, registered_time, update_time)"
 				+ " VALUE(?,?,?,?,?,?)";
 
 		try{
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, userName);
 			preparedStatement.setString(2, mail);
 			preparedStatement.setString(3, password);
@@ -51,6 +53,11 @@ public class RegistAccountCompleteDAO {
 			e.printStackTrace();
 		}finally{
 			if(connection != null){
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}else{
+					;
+				}
 				connection.close();
 			}else if(connection == null){
 				result = "networkError";

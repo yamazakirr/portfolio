@@ -588,14 +588,5 @@
 		</table>
 	</div>
 
-予定追加画面
-
-year :<s:property value="year"/>
-month :<s:property value="month"/>
-date : <s:property value="date"/>
-
-userId :<s:property value="#session.userId"/>
-userName :<s:property value="#session.userName"/>
-
 </body>
 </html>

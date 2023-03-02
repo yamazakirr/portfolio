@@ -14,8 +14,9 @@ public class ChangeMailCompleteDAO {
 	private String nowDate;
 	private String password;
 
-	private DBConnector dbConnector = new DBConnector();
-	private Connection connection = dbConnector.getConnection();
+	private int resultSet;
+	private PreparedStatement preparedStatement;
+	private Connection connection;
 
 	RegistAccountCompleteDAO dao = new RegistAccountCompleteDAO();
 
@@ -29,6 +30,9 @@ public class ChangeMailCompleteDAO {
 
 	public String changeMailInfo(String userId, String userName, String changeMail, String password)throws SQLException{
 		String result = "";
+		DBConnector dbConnector = new DBConnector();
+		connection = dbConnector.getConnection();
+
 		String sql = "UPDATE login_user_transaction"
 					+ " SET mail=?, update_time=?"
 					+ " WHERE user_id=? AND user_name=? AND password=?";
@@ -37,14 +41,14 @@ public class ChangeMailCompleteDAO {
 		this.password = dao.passwordHash(password);
 
 		try{
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, changeMail);
 			preparedStatement.setString(2, nowDate);
 			preparedStatement.setString(3, userId);
 			preparedStatement.setString(4, userName);
 			preparedStatement.setString(5, this.password);
 
-			int resultSet = preparedStatement.executeUpdate();
+			resultSet = preparedStatement.executeUpdate();
 			if(resultSet == 0){
 				result = "error";
 			}else{
@@ -55,6 +59,11 @@ public class ChangeMailCompleteDAO {
 			e.printStackTrace();
 		}finally{
 			if(connection != null){
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}else{
+					;
+				}
 				connection.close();
 			}else if(connection == null){
 				result = "networkError";
