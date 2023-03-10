@@ -8,14 +8,18 @@
   <filter>
     <filter-name>struts2</filter-name>
     <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
-  </filter>
 
+    <!-- 追加 -->
+    <init-param>
+		<param-name>actionPackages</param-name>
+		<param-value>com.portfolio.action</param-value>
+	</init-param>
+	<!-- /追加 -->
+  </filter>
 
   <filter-mapping>
     <filter-name>struts2</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-
-
 
 </web-app>
