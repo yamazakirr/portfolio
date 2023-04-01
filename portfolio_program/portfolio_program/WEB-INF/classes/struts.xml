@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+
+<struts>
+<!--
+ <constant name="struts.devMode" value="true"/>
+ -->
+	<constant name="struts.ui.theme" value="simple"/>
+	<package name="com.portfolio.action" extends="struts-default">
+
+<!-- アカウント登録登録操作 -->
+	<action name="RegistAccountAction" class="com.portfolio.action.RegistAccountAction" method="execute">
+	<result name="success">registAccount.jsp</result>
+	</action>
+
+	<action name="RegistAccountConfirmAction" class="com.portfolio.action.RegistAccountConfirmAction" method="execute">
+	<result name="success">registAccountConfirm.jsp</result>
+	<result name="error">registAccount.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	</action>
+
+	<action name="RegistAccountCompleteAction" class="com.portfolio.action.RegistAccountCompleteAction" method="execute">
+	<result name="success">registAccountComplete.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	<result name="registerdAccountError">registeredAccountError.jsp</result>
+	</action>
+
+<!-- ログイン操作 -->
+	<action name="LoginAction" class="com.portfolio.action.LoginAction" method="execute">
+	<result name="success">calendar.jsp</result>
+	<result name="error">login.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	</action>
+
+<!-- ログアウト操作 -->
+	<action name="LogoutAction" class="com.portfolio.action.LogoutAction" method="execute">
+	<result name="success">logout.jsp</result>
+	</action>
+
+<!-- アカウント画面の表示操作 -->
+	<action name="AccountAction" class="com.portfolio.action.AccountAction" method="execute">
+	<result name="success">account.jsp</result>
+	<result name="accountError">login.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	</action>
+
+<!-- アカウント削除操作 -->
+	<action name="DeleteAccountAction" class="com.portfolio.action.DeleteAccountAction" method="execute">
+	<result name="success">deleteAccount.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+	<action name="DeleteAccountCompleteAction" class="com.portfolio.action.DeleteAccountCompleteAction" method="execute">
+	<result name="success">deleteAccountComplete.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+<!-- ニックネーム変更操作 -->
+	<action name="ChangeUserNameAction" class="com.portfolio.action.ChangeUserNameAction" method="execute">
+	<result name="success">changeUserName.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+	<action name="ChangeUserNameCompleteAction" class="com.portfolio.action.ChangeUserNameCompleteAction" method="execute">
+	<result name="success">changeUserNameComplete.jsp</result>
+	<result name="error">changeUserName.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+<!-- メールアドレス変更操作 -->
+	<action name="ChangeMailAction" class="com.portfolio.action.ChangeMailAction" method="execute">
+	<result name="success">changeMail.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+	<action name="ChangeMailCompleteAction" class="com.portfolio.action.ChangeMailCompleteAction" method="execute">
+	<result name="success">changeMailComplete.jsp</result>
+	<result name="error">changeMail.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+<!-- パスワード変更操作 -->
+	<action name="ChangePasswordAction" class="com.portfolio.action.ChangePasswordAction" method="execute">
+	<result name="success">changePassword.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+	<action name="ChangePasswordCompleteAction" class="com.portfolio.action.ChangePasswordCompleteAction" method="execute">
+	<result name="success">changePasswordComplete.jsp</result>
+	<result name="error">changePassword.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+<!-- カレンダー操作 -->
+	<action name="CalendarAction" class="com.portfolio.action.CalendarAction" method="execute">
+	<result name="success">calendar.jsp</result>
+	<result name="accountError">login.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	</action>
+
+<!-- カレンダー、予定の表示操作 -->
+	<action name="ScheduleGetAction" class="com.portfolio.action.ScheduleGetAction" method="execute">
+	<result name="success">calendar.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	</action>
+
+<!-- 予定追加操作 -->
+	<action name="ScheduleAddAction" class="com.portfolio.action.ScheduleAddAction" method="execute">
+	<result name="success">scheduleAdd.jsp</result>
+	<result name="accountError">login.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	</action>
+
+	<action name="ScheduleAddCompleteAction" class="com.portfolio.action.ScheduleAddCompleteAction" method="execute">
+	<result name="success">calendar.jsp</result>
+	<result name="error">scheduleAdd.jsp</result>
+	<result name="accountError">login.jsp</result>
+	<result name="networkError">networkError.jsp</result>
+	</action>
+
+<!-- 予定確認操作 -->
+	<action name="ScheduleConfirmAction" class="com.portfolio.action.ScheduleConfirmAction" method="execute">
+	<result name="success">scheduleConfirm.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+<!-- 予定削除操作 -->
+	<action name="ScheduleDeleteAction" class="com.portfolio.action.ScheduleDeleteAction" method="execute">
+	<result name="success">scheduleDelete.jsp</result>
+	<result name="accountError">login.jsp</result>
+	</action>
+
+	<action name="ScheduleDeleteCompleteAction" class="com.portfolio.action.ScheduleDeleteCompleteAction" method="execute">
+		<result name="success">scheduleDeleteComplete.jsp</result>
+		<result name="accountError">login.jsp</result>
+		<result name="networkError">networkError.jsp</result>
+	</action>
+
+<!-- 予定編集操作 -->
+	<action name="ScheduleEditAction" class="com.portfolio.action.ScheduleEditAction" method="execute">
+		<result name="success">scheduleEdit.jsp</result>
+		<result name="accountError">login.jsp</result>
+		<result name="networkError">networkError.jsp</result>
+	</action>
+
+	<action name="ScheduleEditCompleteAction" class="com.portfolio.action.ScheduleEditCompleteAction" method="execute">
+		<result name="success">calendar.jsp</result>
+		<result name="error">scheduleEdit.jsp</result>
+		<result name="accountError">login.jsp</result>
+		<result name="networkError">networkError.jsp</result>
+	</action>
+
+
+
+
+
+
+	</package>
+</struts>

@@ -1,0 +1,119 @@
+@CHARSET "UTF-8";
+
+body{
+  margin:0;
+}
+
+/* ヘッダー */
+
+#header{
+  width:100%;
+  height:50px;
+  line-height:50px;
+  border-bottom:solid 1px black;
+  color:white;
+  background-color: orange;
+}
+#page_title{
+  float:left;
+  margin-left:20px;
+}
+#select{
+  float:right;
+  margin-right:20px;
+}
+#select ul{
+  margin-top:0;
+}
+
+#select li{
+  float:left;
+  list-style:none;
+  margin-right:20px;
+}
+
+/* メイン */
+#main{
+	width:90%;
+	text-align:center;
+	margin: 0 auto;
+	margin-top: 40px;
+}
+#main_month{
+	margin-top: 40px;
+}
+
+.dateText{
+	width: 10%;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+#main_calendar{
+	margin-top: 30px;
+}
+#main_calendar table{
+	table-layout: fixed;
+	width: 100%;
+}
+#main_calendar td{
+	width: 15%;
+	height: 40px;
+}
+#scheduleGetAction{
+	text-align: center;
+}
+.CalendarDate{
+	width: 90%;
+	height: 30px;
+	border: none;
+	font-size: 20px;
+	background-color: white;
+	margin-left: 5%;
+}
+
+.scheduleAddButton{
+	margin: 30 0;
+	width: 150px;
+	height: 60px;
+	font-size: 25px;
+	background-color: orange;
+	border-radius: 10px;
+}
+
+/* スケジュール表示部分 */
+#main_schedule{
+	margin-top: 40px;
+}
+#date{
+	text-align: left;
+}
+
+table#table_schedule {
+	border-collapse: collapse;
+	border-spacing: 1px solid;
+	table-layout: fixed;
+	width: 100%;
+	height: 100px;
+}
+table#table_schedule td{
+	border: 1px solid;
+}
+table#table_schedule td:nth-of-type(1){
+	width: 120px;
+}
+table#table_schedule td:nth-of-type(2){
+	text-align:left;
+}
+table#table_schedule td:nth-of-type(3),
+table#table_schedule td:nth-of-type(4){
+	width:60px;
+	border: none;
+}
+.scheduleButton{
+	width: 90%;
+	font-size: 25px;
+
+}
+
+
