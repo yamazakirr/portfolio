@@ -31,6 +31,7 @@ public class LoginDAO {
 //		■パスワードのハッシュ化
 		password = registAccountCompleteDAO.passwordHash(password);
 
+
 		try{
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, mail);

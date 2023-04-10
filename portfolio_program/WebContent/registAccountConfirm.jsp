@@ -63,17 +63,21 @@
 						</s:form>
 					</td>
 					<td>
-						<s:form action="RegistAccountCompleteAction">
-							<div class="btn_pattern1" id="regist_btn">
-								<s:submit class="btn" value="登録する"/>
+						<s:form action="RegistAccountCompleteAction" id="form">
+							<div class="btn_pattern1">
+								<s:submit  class="btn" id="regist_btn" value="登録する"/>
 								<input type="hidden" name="userName" value="<s:property value='userName'/>"/>
 								<input type="hidden" name="mail" value="<s:property value='mail'/>"/>
-								<input type="hidden" name="password" value="<s:property value='password'/>"/>
+								<input type="hidden" name="password" value="<s:property value='password'/>"/><br>
+								aa
 
 								<script>
 									let regist_btn = document.getElementById('regist_btn');
+									let form = document.getElementById('form');
+
 									regist_btn.addEventListener('click', function(){
 										regist_btn.disabled = true;
+										form.submit();
 
 										window.setTimeout(function(){
 											regist_btn.disabled = false;

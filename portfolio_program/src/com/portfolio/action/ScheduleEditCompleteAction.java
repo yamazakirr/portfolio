@@ -90,8 +90,8 @@ public class ScheduleEditCompleteAction extends ActionSupport implements Session
 					this.endTime = endTime.format(DateTimeFormatter.ofPattern(timeFormat));
 				}else if(allDayFlg == 1){
 //					終日フラグが「1」の場合
-					this.startTime = "0";
-					this.endTime = "0";
+					this.startTime = "00:00:00";
+					this.endTime = "00:00:00";
 				}
 
 				try{

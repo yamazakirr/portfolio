@@ -20,7 +20,10 @@ public class ScheduleAddCompleteDAO {
 		connection = dbConnector.getConnection();
 
 		String sql = "INSERT INTO my_calendar(user_id, schedule, memo, start_date, end_date, all_day_flg, start_time, end_time, calendar_delete_flg)"
-					+ " VALUE(?,?,?,?,?,?,?,?,?)";
+					+ " VALUES(?,?,?,?,?,?,?,?,?)";
+
+		System.out.println("allDayFlg :"+allDayFlg);
+
 
 		try{
 			preparedStatement = connection.prepareStatement(sql);
@@ -32,13 +35,13 @@ public class ScheduleAddCompleteDAO {
 			preparedStatement.setInt(6, allDayFlg);
 			preparedStatement.setString(7, startTime);
 			preparedStatement.setString(8, endTime);
-			preparedStatement.setInt(9, 0);
+			preparedStatement.setString(9, "0");
 
 			preparedStatement.execute();
 
 			result = "success";
 
-		}catch(SQLException e){
+		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			if(connection != null){

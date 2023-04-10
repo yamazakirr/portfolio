@@ -1,15 +1,28 @@
 package com.portfolio.util;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 
 public class DBConnector {
 
-	private  String driverName = "com.mysql.jdbc.Driver";
-	private  String url = "jdbc:mysql://localhost:8889/portfolio?autoReconnect=true&useSSL=false";
-	private  String user = "root";
-	private  String password = "root";
+//	private  String driverName = "com.mysql.jdbc.Driver";
+//	private  String url = "jdbc:mysql://localhost:8889/portfolio?autoReconnect=true&useSSL=false";
+//	private  String user = "root";
+//	private  String password = "root";
+
+	private  String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+//	private  String url = "jdbc:sqlserver://samplejava.database.windows.net:1433;"
+//						+ "database=samplejava;"
+//						+ "user=samplejava@samplejava;"
+//						+ "password=shinko8sueki@;"
+//						+ "encrypt=true;"
+//						+ "trustServerCertificate=false;"
+//						+ "hostNameInCertificate=*.database.windows.net;"
+//						+ "loginTimeout=30;";
+//	private  String user = "samplejava@samplejava";
+//	private  String password = "shinko8sueki@";
 
 	private Connection connection;
 	public static int i = 1;
@@ -31,17 +44,19 @@ public class DBConnector {
 			i++;
 			System.out.println("実行クラス :"+sb.toString());
 
-			System.out.println();
-			System.out.println("connectionの値 :"+connection);
-			System.out.println("driverName :"+driverName);
-			System.out.println("url        :"+url);
-			System.out.println("user       :"+user);
-			System.out.println("password   :"+password);
-
 			Class.forName(driverName);
-			System.out.println("Class.forName(driverName);実行済み");
-			connection = (Connection)DriverManager.getConnection(url,user,password);
-			System.out.println("con        :"+connection);
+//			System.out.println("Class.forName(driverName);実行済み");
+//			connection = (Connection)DriverManager.getConnection(url,user,password);
+//			System.out.println("con        :"+connection);
+
+//			■サーバー用
+			SQLServerDataSource ds = new SQLServerDataSource();
+			ds.setUser("samplejava");
+			ds.setPassword("shinko8sueki@");
+			ds.setServerName("samplejava.database.windows.net");
+			ds.setPortNumber(1433);
+			ds.setDatabaseName("samplejava");
+			connection = ds.getConnection();
 
 			System.out.println();
 

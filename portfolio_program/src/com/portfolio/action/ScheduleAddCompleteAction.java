@@ -1,6 +1,5 @@
 package com.portfolio.action;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -63,12 +62,15 @@ public class ScheduleAddCompleteAction extends ActionSupport implements SessionA
 //		■ログイン認証
 		if(session.containsKey("userName") && session.containsKey("userId")){
 
+
 //			スケジュールの空白判定
 			if(schedule.equals("")){
+
 //				「予定」欄が空白
 				scheduleErrorMessage = "予定が未入力です。";
 				result = "error";
 			}else{
+
 				String dateFormat = "yyyy-MM-dd";
 				String timeFormat = "HH:mm";
 
@@ -89,13 +91,15 @@ public class ScheduleAddCompleteAction extends ActionSupport implements SessionA
 
 				}else if(allDayFlg == 1){
 //					終日フラグが「1」の場合
-					this.startTime = "0";
-					this.endTime = "0";
+					this.startTime = "00:00:00";
+					this.endTime = "00:00:00";
 				}
 
 				try{
 //					■予定追加処理
 					result = dao.scheduleAdd(userId, schedule, memo, this.startDate, this.endDate, allDayFlg, this.startTime, this.endTime);
+
+					System.out.println("ScheduleAddCompleteAction.javaのresult :"+result);
 
 //					■予定追加エラー判定処理
 					if(result.equals("networkError")){
@@ -106,8 +110,9 @@ public class ScheduleAddCompleteAction extends ActionSupport implements SessionA
 //						■選択した日付のスケジュール取得処理
 						scheduleListDTO = scheduleGetDAO.getScheduleList(year, month, date, userId);
 					}
-				}catch(SQLException e){
+				}catch(Exception e){
 					e.printStackTrace();
+					return result;
 				}
 				result = "success";
 			}

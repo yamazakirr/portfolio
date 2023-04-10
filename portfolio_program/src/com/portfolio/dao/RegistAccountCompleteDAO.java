@@ -1,5 +1,6 @@
 package com.portfolio.dao;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -18,23 +19,29 @@ public class RegistAccountCompleteDAO {
 	private String nowDate;
 
 //	■コンストラクタ
-	public RegistAccountCompleteDAO(){
-//		■現在時刻の取得
-		Date date = new Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		this.nowDate = simpleDateFormat.format(date);
-	}
+//	public RegistAccountCompleteDAO(){
+////		■現在時刻の取得
+//		Date date = new Date();
+//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//		this.nowDate = simpleDateFormat.format(date);
+//
+//		System.out.println("現在の時刻 :"+nowDate);
+//	}
 
 	public String createUser(String userName, String mail, String password) throws SQLException{
 		String result = "error";
 		DBConnector dbConnector = new DBConnector();
 		connection = dbConnector.getConnection();
 
+		Date date = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		this.nowDate = simpleDateFormat.format(date);
+
 //		■パスワードのハッシュ化処理
 		password = passwordHash(password);
 
 		String sql = "INSERT INTO login_user_transaction(user_name, mail, password, delete_flg, registered_time, update_time)"
-				+ " VALUE(?,?,?,?,?,?)";
+				+ " VALUES(?,?,?,?,?,?)";
 
 		try{
 			preparedStatement = connection.prepareStatement(sql);
@@ -73,7 +80,7 @@ public class RegistAccountCompleteDAO {
 		try{
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
 			byte[] b = digest.digest(password.getBytes());
-			str = new String(b);
+			str = String.format("%040x", new BigInteger(1,b));
 		}catch(NoSuchAlgorithmException e){
 			e.printStackTrace();
 			System.out.println("ハッシュ化に失敗しました。");

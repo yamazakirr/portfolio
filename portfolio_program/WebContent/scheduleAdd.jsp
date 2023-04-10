@@ -544,6 +544,8 @@
 
 								allDayFlgOutput.value = "0";
 							}
+
+							console.log("allDayFlg :" + allDayFlgOutput.value);
 						}
 					</script>
 
