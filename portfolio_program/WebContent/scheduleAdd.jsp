@@ -60,7 +60,7 @@
 						</div>
 					</td>
 					<td>
-						<s:form action="ScheduleAddCompleteAction">
+						<s:form action="ScheduleAddCompleteAction" id="form">
 							<input type="hidden" name="id" value="<s:property value='id'/>">
 							<input type="hidden" name="schedule" id="scheduleOutput" value="<s:property value='schedule'/>">
 							<input type="hidden" name="memo" id="memoOutput" value="<s:property value='memo'/>">
@@ -87,7 +87,22 @@
 							<input type="hidden" value="<s:property value='#session.userId'/>" name="userId">
 							<input type="hidden" value="<s:property value='#session.userName'/>" name="userName">
 
-							<input type="submit" class="button" value="追加"/>
+							<input type="submit" id="regist_btn" class="button" value="追加"/>
+
+							<script>
+								let regist_btn = document.getElementById('regist_btn');
+								let form = document.getElementById('form');
+
+								regist_btn.addEventListener('click', function(){
+									regist_btn.disabled = true;
+									form.submit();
+
+									window.setTimeout(function(){
+										regist_btn.disabled = false;
+									},5000);
+								});
+							</script>
+
 						</s:form>
 					</td>
 				</tr>

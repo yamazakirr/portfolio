@@ -69,7 +69,6 @@
 								<input type="hidden" name="userName" value="<s:property value='userName'/>"/>
 								<input type="hidden" name="mail" value="<s:property value='mail'/>"/>
 								<input type="hidden" name="password" value="<s:property value='password'/>"/><br>
-								aa
 
 								<script>
 									let regist_btn = document.getElementById('regist_btn');
@@ -81,7 +80,7 @@
 
 										window.setTimeout(function(){
 											regist_btn.disabled = false;
-										},1500);
+										},5000);
 									});
 
 								</script>
